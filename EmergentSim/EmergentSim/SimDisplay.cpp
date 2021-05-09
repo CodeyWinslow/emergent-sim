@@ -37,6 +37,7 @@ bool SimDisplay::Update()
 {
 	SDL_RenderClear(m_renderer);
 
+	DrawGrid();
 	DrawEntities();
 
 	SDL_Event event;
@@ -90,4 +91,25 @@ void SimDisplay::DrawEntity(const Entity* entity, float scale)
 		m_logger.SDL_LogError(std::cout, "Failed to render rect");
 	SDL_SetRenderDrawColor(m_renderer, prevCol.r, prevCol.g, prevCol.b, prevCol.a);
 	//SDL_FillRect(m_screenSurface, &rect, SDL_MapRGB(m_screenSurface->format, entity->color.r, entity->color.g, entity->color.b));
+}
+
+void SimDisplay::DrawGrid() {
+
+	int column_lines = m_sandbox.GetWidth() + 1;
+	int row_lines = m_sandbox.GetHeight() + 1;
+	int gridSquare = m_defaultWidthToPixels * m_gridWidthToPixels;
+
+	SDL_Color prevCol;
+	SDL_GetRenderDrawColor(m_renderer, &prevCol.r, &prevCol.g, &prevCol.b, &prevCol.a);	
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+	
+	for(int ii = 0; ii < column_lines; ii++) {
+		SDL_RenderDrawLine(m_renderer, ii*gridSquare, 0, ii*gridSquare, m_sandbox.GetHeight()*gridSquare);
+	}
+
+	for(int ii = 0; ii < row_lines; ii++) {
+		SDL_RenderDrawLine(m_renderer, 0, ii*gridSquare, m_sandbox.GetWidth()*gridSquare, ii*gridSquare);
+	}
+
+	SDL_SetRenderDrawColor(m_renderer, prevCol.r, prevCol.g, prevCol.b, prevCol.a);
 }

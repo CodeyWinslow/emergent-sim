@@ -12,8 +12,8 @@ class Sandbox {
 public:
 	Sandbox()
 	{
-		width = 4;
-		height = 4;
+		width = 100;
+		height = 100;
 		garbage = new Entity * *[height];
 
 		int x =0 , y = 0;
@@ -73,5 +73,7 @@ private:
 
 	void DrawEntities();
 	void DrawEntity(const Entity* entity, float scale = 0.75f);
+
+	void DrawGrid();
 };
 
