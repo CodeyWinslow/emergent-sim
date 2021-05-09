@@ -1,8 +1,8 @@
 //#include "SDL.h"
+#include "SimDisplay.h"
+#include "Sandbox.h"
 #include <stdio.h>
 #include <iostream>
-#include "SimDisplay.h"
-#include "InputManager.h"
 using std::cout;
 using std::cin;
 
@@ -12,8 +12,8 @@ const int SCREEN_HEIGHT = 480;
 
 int main(int argc, char ** argv)
 {
-    Sandbox sb;
-    SimDisplay display(sb,"Fugma", 1080, 720);
+    Sandbox sb(100,100);
+    SimDisplay display(sb,"Fugma", 800, 600);
     /*for (int ii = 0; ii < 480; ++ii)
     {
         display.Update();

@@ -151,21 +151,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PauseButton.cpp" />
+    <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="IEventObserver.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="PauseButton.h" />
+    <ClInclude Include="Entity.h" />
+    <ClInclude Include="Sandbox.h" />
     <ClInclude Include="SDL_Exception.h" />
     <ClInclude Include="SDL_Logger.h" />
     <ClInclude Include="SimDisplay.h" />
+    <ClInclude Include="Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
