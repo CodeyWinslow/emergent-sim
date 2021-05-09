@@ -1,6 +1,7 @@
+#include <ctime>
 #include "Sandbox.h"
-//#include "Wall.h"
-//#include "Resource.h"
+#include "Wall.h"
+#include "Resource.h"
 
 Sandbox::Sandbox(int width, int height) : m_width(width), m_height(height), m_sandbox(width)
 {
@@ -22,6 +23,8 @@ void Sandbox::SetupSandbox()
         min_wall_percent = MIN_WALL_PERCENT / totalPercent;
     }
 
+    srand(time(0));
+
     int cells = m_width * m_height;
     int max_walls = cells * max_wall_percent;
     int min_walls = cells * min_wall_percent;
@@ -38,7 +41,7 @@ void Sandbox::SetupSandbox()
         if (m_sandbox[randomX][randomY] == nullptr)
         {
             Transform transform(randomX, randomY, randomDir);
-            //Wall newWall(transform);
+            m_sandbox[randomX][randomY] = new Wall(transform);
         }
         else
         {
@@ -55,7 +58,7 @@ void Sandbox::SetupSandbox()
         if (m_sandbox[randomX][randomY] == nullptr)
         {
             Transform transform(randomX, randomY, randomDir);
-            //Resource newResource(transform);
+            m_sandbox[randomX][randomY] = new Resource(transform);
         }
         else
         {
@@ -80,4 +83,12 @@ Sandbox::~Sandbox()
 {
 	m_width = 0;
 	m_height = 0;
+    for (vector<Entity*>& row : m_sandbox)
+    {
+        for (Entity*& ent : row)
+        {
+            delete ent;
+            ent = nullptr;
+        }
+    }
 }

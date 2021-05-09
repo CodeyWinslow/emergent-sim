@@ -1,4 +1,4 @@
 #include "Wall.h"
 
-Wall::Wall(Transform transform) : m_transform(transform)
+Wall::Wall(Transform transform) : Entity(transform)
 {}
