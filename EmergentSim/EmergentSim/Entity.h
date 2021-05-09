@@ -15,8 +15,8 @@ public:
 	Entity(Transform transform) : m_transform(transform) {};
 	inline virtual Entity_Type GetType() = 0;
 	virtual Transform GetTransform() { return m_transform; }
-private:
 
-	Sprite* m_sprite = nullptr;
 	Transform m_transform;
+private:
+	Sprite* m_sprite = nullptr;
 };
