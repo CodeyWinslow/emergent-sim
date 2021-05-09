@@ -43,6 +43,12 @@ bool SimDisplay::Update()
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
 		switch (event.type) {
+			case SDL_MOUSEWHEEL:
+				if (event.wheel.y > 0)
+					ScrollZoomIn();
+				else
+					ScrollZoomOut();
+				break;
 			case SDL_WINDOWEVENT_CLOSE:
 				event.type = SDL_QUIT;
 				SDL_PushEvent(&event);
@@ -112,4 +118,16 @@ void SimDisplay::DrawGrid() {
 	}
 
 	SDL_SetRenderDrawColor(m_renderer, prevCol.r, prevCol.g, prevCol.b, prevCol.a);
+}
+
+void SimDisplay::ScrollZoomOut()
+{
+	m_gridWidthToPixels -= 0.1f;
+	if (m_gridWidthToPixels < 0.1f) m_gridWidthToPixels = 0.1f;
+}
+
+void SimDisplay::ScrollZoomIn()
+{
+	m_gridWidthToPixels += 0.1f;
+	if (m_gridWidthToPixels > 8.0f) m_gridWidthToPixels = 8.0f;
 }
