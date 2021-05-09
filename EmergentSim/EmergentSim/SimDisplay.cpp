@@ -1,10 +1,10 @@
-#include <string>
 #include "SimDisplay.h"
 #include "SDL_Exception.h"
 
-SimDisplay::SimDisplay(SimContainer& sim, std::string windowTitle, int windowWidth, int windowHeight) : m_sim(sim), m_window(nullptr), m_screenSurface(nullptr)
+SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidth, int windowHeight) : m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
+	{
 		throw SDL_Exception("Failed to initialize");
 	}
 
@@ -18,27 +18,33 @@ SimDisplay::SimDisplay(SimContainer& sim, std::string windowTitle, int windowWid
 
 	SDL_FillRect(m_screenSurface, NULL, SDL_MapRGB(m_screenSurface->format, 0xFF, 0xFF, 0xFF));
 
-	//Update the surface
 	SDL_UpdateWindowSurface(m_window);
 }
 
 SimDisplay::~SimDisplay()
 {
+	SDL_DestroyWindow(m_window);
 	SDL_Quit();
 }
 
 bool SimDisplay::Update()
 {
-	int sandboxSize = m_sim.GetSandboxSize();
-	int sandboxWidth = m_sim.GetSandboxWidth();
-	Entity * sandbox = m_sim.GetSandbox();
-
-	DrawEntities(sandbox, sandboxSize, sandboxWidth);
+	DrawEntities();
+	SDL_Delay(1000 / 60);
+	return true;
 }
 
-void SimDisplay::DrawEntities(Entity* sandbox, int length, int width)
+void SimDisplay::DrawEntities()
 {
-	m_sim.VisitEntities(SimDisplay::DrawEntity);
+	int height = m_sandbox.GetHeight();
+	int width = m_sandbox.GetWidth();
+	for (int x = 0; x < width; ++x)
+	{
+		for (int y = 0; y < height; ++y)
+		{
+			DrawEntity(m_sandbox[x][y]);
+		}
+	}
 }
 
 void SimDisplay::DrawEntity(Entity* entity)
