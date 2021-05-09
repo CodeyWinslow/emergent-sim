@@ -21,7 +21,8 @@ SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidt
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
 
-	SDL_FillRect(m_screenSurface, NULL, SDL_MapRGB(m_screenSurface->format, 0xFF, 0xFF, 0xFF));
+	//UNSAFE FOR LINUX ??
+	//SDL_FillRect(m_screenSurface, NULL, SDL_MapRGB(m_screenSurface->format, 0xFF, 0xFF, 0xFF));
 
 	SDL_UpdateWindowSurface(m_window);
 }
@@ -40,16 +41,11 @@ bool SimDisplay::Update()
 
 	SDL_Event event;
 	while (SDL_PollEvent(&event)) {
-		/* handle your event here */
-		switch (event.type)
-		{
+		switch (event.type) {
 			case SDL_WINDOWEVENT_CLOSE:
-			{
 				event.type = SDL_QUIT;
 				SDL_PushEvent(&event);
 				break;
-			}
-
 			case SDL_QUIT:
 				return false;
 				break;
