@@ -8,7 +8,7 @@ Sandbox::Sandbox(int width, int height) : m_width(width), m_height(height), m_sa
     {
         row.resize(height);
     }
-    SetupSandbox();
+	SetupSandbox();
 }
 
 void Sandbox::SetupSandbox()
@@ -78,6 +78,6 @@ void Sandbox::PlaceAgent(int x, int y)
 
 Sandbox::~Sandbox()
 {
-    m_width = 0;
-    m_height = 0;
+	m_width = 0;
+	m_height = 0;
 }
