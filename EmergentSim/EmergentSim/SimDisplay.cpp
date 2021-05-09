@@ -1,17 +1,22 @@
 #include <string>
 #include "SimDisplay.h"
 #include "SDL_Exception.h"
+#include "SDL_Logger.h"
 
 SimDisplay::SimDisplay(SimContainer& sim, std::string windowTitle, int windowWidth, int windowHeight) : m_sim(sim), m_window(nullptr), m_screenSurface(nullptr)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		throw SDL_Exception("Failed to initialize");
+		const std::string msg = "Failed to initialize";
+		m_logger.SDL_LogError(std::cout, msg);
+		throw SDL_Exception(msg);
 	}
 
 	m_window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
 	if (m_window == nullptr)
 	{
-		throw SDL_Exception("Window could not be created! SDL_Error: " + std::string(SDL_GetError()));
+		const std::string msg = "Window could not be created!";
+		m_logger.SDL_LogError(std::cout, msg);
+		throw SDL_Exception(msg + std::string(SDL_GetError()));
 	}
 
 	m_screenSurface = SDL_GetWindowSurface(m_window);

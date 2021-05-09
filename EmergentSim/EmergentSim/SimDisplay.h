@@ -17,6 +17,8 @@ private:
 	SDL_Window* m_window;
 	SDL_Surface* m_screenSurface;
 
+	SDL_Logger m_logger;
+
 	float m_gridWidthToPixels = 1.0f;
 	const int m_defaultWidthToPixels = 20;
 
