@@ -4,10 +4,10 @@ class Transform
 public:
 	enum Direction
 	{
-		UP,
-		DOWN,
-		LEFT,
-		RIGHT
+		UP = 0,
+		DOWN = 1,
+		LEFT = 2,
+		RIGHT = 3
 	};
 
 	Transform(int x, int y, Direction dir);
