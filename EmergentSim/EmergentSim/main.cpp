@@ -13,10 +13,13 @@ int main(int argc, char ** argv)
 {
     Sandbox sb;
     SimDisplay display(sb,"Baby's First SDL", 800, 600);
-    for (int ii = 0; ii < 120; ++ii)
+    /*for (int ii = 0; ii < 480; ++ii)
     {
         display.Update();
-    }
+    }*/
+
+    while (display.Update());
+
     ////The window we'll be rendering to
     //SDL_Window* window = NULL;
 

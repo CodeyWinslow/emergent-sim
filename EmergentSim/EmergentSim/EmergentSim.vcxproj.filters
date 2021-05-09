@@ -30,13 +30,19 @@
     <ClCompile Include="SimDisplay.cpp">
       <Filter>Graphics\Source files</Filter>
     </ClCompile>
+    <ClCompile Include="SDL_Logger.cpp">
+      <Filter>Graphics\Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimDisplay.h">
       <Filter>Graphics\Header files</Filter>
     </ClInclude>
     <ClInclude Include="SDL_Exception.h">
-      <Filter>Header Files</Filter>
+      <Filter>Graphics\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Logger.h">
+      <Filter>Graphics\Header files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

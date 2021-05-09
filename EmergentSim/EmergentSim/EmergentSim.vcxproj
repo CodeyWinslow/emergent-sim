@@ -152,10 +152,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SDL_Exception.h" />
+    <ClInclude Include="SDL_Logger.h" />
     <ClInclude Include="SimDisplay.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

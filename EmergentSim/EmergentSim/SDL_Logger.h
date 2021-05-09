@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <string>
+#include "SDL.h"
+
 class SDL_Logger {
 private:
 public:

@@ -1,13 +1,55 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include "SDL_Logger.h"
 
-class Entity {};
+struct Entity
+{
+	int x, y;
+	SDL_Color color;
+};
 class Sandbox {
 public:
-	int GetWidth() { return 0; }
-	int GetHeight() { return 0; }
-	Entity** operator[] (int index) { return nullptr; }
+	Sandbox()
+	{
+		width = 4;
+		height = 4;
+		garbage = new Entity * *[height];
+
+		int x =0 , y = 0;
+		for (int ii = 0; ii < height; ++ii,++y)
+		{
+			garbage[ii] = new Entity * [width];
+			for (int ent = 0; ent < width; ++ent, ++x)
+			{
+				garbage[ii][ent] = new Entity{ x,y,{255,0,0} };
+			}
+
+			x = 0;
+		}
+	}
+
+	~Sandbox()
+	{
+		for (int ii = 0; ii < height; ++ii)
+		{
+			for (int jj = 0; jj < width; ++jj)
+			{
+				delete garbage[ii][jj];
+			}
+			delete[] garbage[ii];
+		}
+		delete[] garbage;
+	}
+
+	int GetWidth() { return width; }
+	int GetHeight() { return height; }
+	Entity** operator[] (int index) { return garbage[index]; }
+
+private:
+	Entity*** garbage;
+	int width;
+	int height;
 };
 
 class SimDisplay
@@ -22,6 +64,7 @@ private:
 
 	SDL_Window* m_window;
 	SDL_Surface* m_screenSurface;
+	SDL_Renderer* m_renderer;
 
 	SDL_Logger m_logger;
 
@@ -29,6 +72,6 @@ private:
 	const int m_defaultWidthToPixels = 20;
 
 	void DrawEntities();
-	void DrawEntity(Entity* entity);
+	void DrawEntity(const Entity* entity, float scale = 0.75f);
 };
 
