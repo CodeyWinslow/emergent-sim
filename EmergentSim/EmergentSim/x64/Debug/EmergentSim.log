@@ -1,6 +1,1 @@
-﻿  SimDisplay.cpp
-E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\SimDisplay.cpp(82,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\SimDisplay.cpp(84,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-  Generating Code...
-  EmergentSim.vcxproj -> E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\x64\Debug\EmergentSim.exe
+﻿  EmergentSim.vcxproj -> C:\Users\gress\Source\Repos\emergent-sim\EmergentSim\x64\Debug\EmergentSim.exe
