@@ -151,7 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Action.cpp" />
+    <ClCompile Include="Agent.cpp" />
+    <ClCompile Include="AgentController.cpp" />
+    <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Event.cpp" />
+    <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Reaction.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Action.h" />
+    <ClInclude Include="Agent.h" />
+    <ClInclude Include="AgentController.h" />
+    <ClInclude Include="Behavior.h" />
+    <ClInclude Include="Event.h" />
+    <ClInclude Include="EventInfo.h" />
+    <ClInclude Include="Reaction.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
