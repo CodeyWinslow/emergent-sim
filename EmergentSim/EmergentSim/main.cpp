@@ -1,5 +1,6 @@
 //#include "SDL.h"
 #include "SimDisplay.h"
+#include "Sandbox.h"
 #include <stdio.h>
 #include <iostream>
 using std::cout;
@@ -11,7 +12,7 @@ const int SCREEN_HEIGHT = 480;
 
 int main(int argc, char ** argv)
 {
-    Sandbox sb;
+    Sandbox sb(100,100);
     SimDisplay display(sb,"Fugma", 800, 600);
     /*for (int ii = 0; ii < 480; ++ii)
     {

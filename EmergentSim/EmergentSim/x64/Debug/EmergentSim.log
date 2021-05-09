@@ -1,1 +1,12 @@
-﻿  EmergentSim.vcxproj -> C:\Users\gress\Source\Repos\emergent-sim\EmergentSim\x64\Debug\EmergentSim.exe
+﻿  main.cpp
+E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\Sandbox.h(8,35): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\Sandbox.h(9,39): warning C4305: 'initializing': truncation from 'double' to 'float'
+  SimDisplay.cpp
+E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\Sandbox.h(8,35): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\Sandbox.h(9,39): warning C4305: 'initializing': truncation from 'double' to 'float'
+E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\SimDisplay.cpp(79,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\SimDisplay.cpp(81,9): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\EmergentSim\SimDisplay.cpp(100,17): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Transform.cpp
+  Generating Code...
+  EmergentSim.vcxproj -> E:\Docs\Documents\EmergentSim\emergent-sim\EmergentSim\x64\Debug\EmergentSim.exe

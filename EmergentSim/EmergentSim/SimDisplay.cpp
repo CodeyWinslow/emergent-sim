@@ -66,12 +66,12 @@ void SimDisplay::DrawEntities()
 	{
 		for (int y = 0; y < height; ++y)
 		{
-			DrawEntity(m_sandbox[x][y]);
+			DrawEntity(m_sandbox.GetEntity(x,y));
 		}
 	}
 }
 
-void SimDisplay::DrawEntity(const Entity* entity, float scale)
+void SimDisplay::DrawEntity(Entity* entity, float scale)
 {
 	if (entity == nullptr)
 		return;
@@ -82,7 +82,7 @@ void SimDisplay::DrawEntity(const Entity* entity, float scale)
 
 	int offset = (gridSquare - wh) / 2;
 
-	SDL_Rect rect = { entity->x*gridSquare + offset, entity->y * gridSquare + offset, wh, wh};
+	SDL_Rect rect = { entity->GetTransform().m_x*gridSquare + offset, entity->GetTransform().m_y * gridSquare + offset, wh, wh};
 
 	SDL_Color prevCol;
 	SDL_GetRenderDrawColor(m_renderer, &prevCol.r, &prevCol.g, &prevCol.b, &prevCol.a);
