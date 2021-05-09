@@ -152,18 +152,22 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Resource.h" />
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="SDL_Exception.h" />
     <ClInclude Include="SDL_Logger.h" />
     <ClInclude Include="SimDisplay.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -89,7 +89,13 @@ void SimDisplay::DrawEntity(Entity* entity, float scale)
 
 	SDL_Color prevCol;
 	SDL_GetRenderDrawColor(m_renderer, &prevCol.r, &prevCol.g, &prevCol.b, &prevCol.a);
-	SDL_SetRenderDrawColor(m_renderer, 255, 165, 0, 255);
+	if (entity->GetType() == Entity_Type::WALL)
+		SDL_SetRenderDrawColor(m_renderer, 8, 148, 255, 255);
+	else if (entity->GetType() == Entity_Type::RESOURCE)
+		SDL_SetRenderDrawColor(m_renderer, 10, 201, 16, 255);
+	else
+		SDL_SetRenderDrawColor(m_renderer, 255, 165, 0, 255);
+
 	if (SDL_RenderFillRect(m_renderer, &rect) != 0)
 		m_logger.SDL_LogError(std::cout, "Failed to render rect");
 	SDL_SetRenderDrawColor(m_renderer, prevCol.r, prevCol.g, prevCol.b, prevCol.a);
