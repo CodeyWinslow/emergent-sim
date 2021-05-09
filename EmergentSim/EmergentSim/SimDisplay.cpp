@@ -1,6 +1,5 @@
 #include "SimDisplay.h"
 #include "SDL_Exception.h"
-#include "SDL_Logger.h"
 
 SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidth, int windowHeight) : m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr)
 {

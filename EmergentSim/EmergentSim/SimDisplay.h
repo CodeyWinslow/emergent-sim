@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <string>
+#include "SDL_Logger.h"
 
 class Entity {};
 class Sandbox {
