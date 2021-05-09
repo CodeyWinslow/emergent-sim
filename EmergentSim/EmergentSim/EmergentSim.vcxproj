@@ -152,6 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="SimDisplay.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SDL_Exception.h" />
+    <ClInclude Include="SimDisplay.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,10 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Graphics">
+      <UniqueIdentifier>{5cf1630e-130e-4821-8fca-c6ad2927bed6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Header files">
+      <UniqueIdentifier>{27fca441-98b2-483c-909d-31a24888728b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Graphics\Source files">
+      <UniqueIdentifier>{8d14e278-e742-4875-a5f8-61cb9732b190}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SimDisplay.cpp">
+      <Filter>Graphics\Source files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SimDisplay.h">
+      <Filter>Graphics\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDL_Exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
