@@ -12,7 +12,7 @@ const int SCREEN_HEIGHT = 480;
 int main(int argc, char ** argv)
 {
     Sandbox sb;
-    SimDisplay display(sb,"Fugma", 800, 600);
+    SimDisplay display(sb,"Fugma", 1080, 720);
     /*for (int ii = 0; ii < 480; ++ii)
     {
         display.Update();

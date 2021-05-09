@@ -12,8 +12,8 @@ class Sandbox {
 public:
 	Sandbox()
 	{
-		width = 100;
-		height = 100;
+		width = 80;
+		height = 80;
 		garbage = new Entity * *[height];
 
 		int x =0 , y = 0;
@@ -69,10 +69,12 @@ private:
 	SDL_Logger m_logger;
 
 	float m_gridWidthToPixels = 1.0f;
-	const int m_defaultWidthToPixels = 20;
+	const int m_defaultWidthToPixels = 40;
 
 	void DrawEntities();
 	void DrawEntity(const Entity* entity, float scale = 0.75f);
+	void ScrollZoomOut();
+	void ScrollZoomIn();
 
 	void DrawGrid();
 };
