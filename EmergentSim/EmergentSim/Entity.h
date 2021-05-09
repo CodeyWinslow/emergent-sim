@@ -1,18 +1,22 @@
 #pragma once
+#include "Transform.h"
 class Sprite;
+
 enum Entity_Type 
 { 
-	Agent, 
-	Resource, 
-	Wall 
+	AGENT = 0, 
+	RESOURCE = 1, 
+	WALL = 2
 };
 
 class Entity 
 {
 public:
-	virtual Entity_Type GetType() = 0;
+	Entity(Transform transform) : m_transform(transform) {};
+	inline virtual Entity_Type GetType() = 0;
+	virtual Transform GetTransform() { return m_transform; }
 private:
-	int m_x = 0;
-	int m_y = 0;
+
 	Sprite* m_sprite = nullptr;
+	Transform m_transform;
 };
