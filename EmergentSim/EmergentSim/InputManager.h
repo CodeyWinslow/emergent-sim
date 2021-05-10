@@ -18,7 +18,8 @@ private:
 enum class InputEvent {
 	BUTTON_DOWN,
 	BUTTON_UP,
-	SCROLL
+	SCROLL,
+	MOUSE_MOVE
 };
 
 typedef void(*ButtonClickListener)(SDL_MouseButtonEvent&);

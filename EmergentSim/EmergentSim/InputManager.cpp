@@ -42,6 +42,9 @@ bool InputManager::Update()
 			case SDL_MOUSEWHEEL:
 				NotifySubscribers(InputEvent::SCROLL, e);
 				break;
+			case SDL_MOUSEMOTION:
+				NotifySubscribers(InputEvent::MOUSE_MOVE, e);
+				break;
 			case SDL_WINDOWEVENT_CLOSE:
 				e.type = SDL_QUIT;
 				SDL_PushEvent(&e);

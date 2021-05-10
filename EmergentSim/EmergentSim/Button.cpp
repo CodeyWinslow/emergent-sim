@@ -8,7 +8,6 @@ Button::Button(SDL_Rect bounds, SDL_Color backColor) : m_buttonPressed(false), m
 
 Button::~Button()
 {
-
 	InputManager::GetInstance().UnsubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	InputManager::GetInstance().UnsubscribeEvent(InputEvent::BUTTON_UP, this);
 }
@@ -22,6 +21,12 @@ void Button::Render(SDL_Renderer* renderer)
 {
 	SDL_SetRenderDrawColor(renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
 	SDL_RenderFillRect(renderer, &m_buttonBounds);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 20);
+	SDL_RenderDrawLine(renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y);
+	SDL_RenderDrawLine(renderer, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
+	SDL_RenderDrawLine(renderer, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
+	SDL_RenderDrawLine(renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h);
 }
 
 void Button::HandleButtonDown(SDL_MouseButtonEvent& e)
