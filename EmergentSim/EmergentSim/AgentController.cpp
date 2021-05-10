@@ -2,6 +2,7 @@
 #include "Agent.h"
 #include "GameController.h"
 #include "TouchingResourceEvent.h"
+#include "ResourceNearEvent.h"
 
 using namespace Agents;
 
@@ -9,7 +10,8 @@ AgentController::AgentController() noexcept
 {
 	m_events =
 	{
-		EventPtr{ new TouchingResourceEvent{} }
+		EventPtr{ new TouchingResourceEvent{} },
+		EventPtr{ new ResourceNearEvent{} }
 	};
 }
 

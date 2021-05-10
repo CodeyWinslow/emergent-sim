@@ -2,6 +2,7 @@
 #include "Reaction.h"
 #include "IdleReaction.h"
 #include "ConsumeResourceReaction.h"
+#include "ResourceNearReaction.h"
 #include "Event.h"
 
 using namespace Agents;
@@ -12,7 +13,8 @@ Agent::Agent(Transform transform) noexcept
 	// set up default reactions
 	m_reactions =
 	{
-		ReactionPtr{ new ConsumeResourceReaction{} }
+		ReactionPtr{ new ConsumeResourceReaction{} },
+		ReactionPtr{ new ResourceNearReaction{} }
 	};
 }
 

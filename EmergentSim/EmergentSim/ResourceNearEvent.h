@@ -2,16 +2,14 @@
 
 #include "Event.h"
 
-class Entity;
-
 namespace Agents
 {
-	class TouchingResourceEvent : public Event
+	class ResourceNearEvent : public Event
 	{
 	public:
-		TouchingResourceEvent() noexcept;
+		ResourceNearEvent() noexcept;
 		virtual vector<EventInfo> Poll(Entity* me, vector<Entity*> entities) override;
 	private:
-
+		
 	};
 }

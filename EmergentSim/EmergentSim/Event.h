@@ -1,6 +1,9 @@
 #pragma once
 #include <memory>
+#include <vector>
 #include "EventInfo.h"
+
+using std::vector;
 
 namespace Agents
 {

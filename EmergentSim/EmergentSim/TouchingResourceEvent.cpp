@@ -10,7 +10,7 @@ TouchingResourceEvent::TouchingResourceEvent() noexcept
 
 }
 
-vector<EventInfo> Agents::TouchingResourceEvent::Poll(Entity* me, vector<Entity*> entities)
+vector<EventInfo> TouchingResourceEvent::Poll(Entity* me, vector<Entity*> entities)
 {
 	vector<EventInfo> events{};
 
