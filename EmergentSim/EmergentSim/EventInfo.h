@@ -1,7 +1,6 @@
 #pragma once
 #include <vector>
 #include "Entity.h"
-#include "Event.h"
 
 using std::vector;
 
@@ -9,7 +8,10 @@ namespace Agents
 {
 	struct EventInfo final
 	{
-		Event* event;
+		inline EventInfo(unsigned int id, Entity* entity)
+			: id(id), entity(entity) {}
+
+		unsigned int id;
 		Entity* entity;
 	};
 }
