@@ -21,6 +21,7 @@ public:
 
 	bool RandomlyPlaceEntity(Entity* ent);
 	bool PlaceEntity(Entity* ent, int x, int y);
+	bool MoveEntity(Entity* ent, Transform destination);
 private:
 	void SetupSandbox();
 

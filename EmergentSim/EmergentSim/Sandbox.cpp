@@ -88,6 +88,19 @@ bool Sandbox::PlaceEntity(Entity* ent, int x, int y)
     return true;
 }
 
+bool Sandbox::MoveEntity(Entity* ent, Transform destination)
+{
+    if (destination.m_x < 0 ||
+        destination.m_x >= m_width ||
+        destination.m_y < 0 ||
+        destination.m_y >= m_height)
+        return false;
+
+    m_sandbox[ent->m_transform.m_x][ent->m_transform.m_y] = nullptr;
+    ent->m_transform = destination;
+    m_sandbox[destination.m_x][destination.m_y] = ent;
+}
+
 Sandbox::~Sandbox()
 {
 	m_width = 0;

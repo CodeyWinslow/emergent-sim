@@ -1,12 +1,4 @@
 #include "GameController.h"
-//#include "SDL.h"
-//#include "SimDisplay.h"
-//#include "Sandbox.h"
-//#include <iostream>
-
-//#include "AgentController.h"
-
-//using namespace Agents;
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1080;
@@ -20,9 +12,9 @@ int main(int argc, char ** argv)
         SCREEN_HEIGHT
     };
 
-    const int numAgents = 5;
-    const int sandboxWidth = 20;
-    const int sandboxHeight = 20;
+    const int numAgents = 50;
+    const int sandboxWidth = 200;
+    const int sandboxHeight = 200;
 
     GameController game(numAgents, sandboxWidth, sandboxHeight, windowSettings);
     game.Start();
