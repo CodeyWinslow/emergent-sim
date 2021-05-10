@@ -1,11 +1,14 @@
 #include "Agent.h"
+#include "Reaction.h"
+#include "IdleReaction.h"
 
 using namespace Agents;
 
 Agent::Agent(Transform transform) noexcept
-	: Entity(transform)
+	: Entity(transform), m_idle{ new IdleReaction{} }
 {
-
+	// set up default reactions
+	
 }
 
 ReactionPtr Agent::GetReaction(Event* event)
@@ -20,13 +23,20 @@ ReactionPtr Agent::GetReaction(Event* event)
 void Agent::ProcessEvents(vector<EventInfo> events)
 {
 	ReactionPtr reaction;
-
-	for (EventInfo& event : events)
+	if (events.size() > 0)
 	{
-		reaction = GetReaction(event.event);
-		if (reaction == nullptr)
-			continue;
+		for (EventInfo& event : events)
+		{
+			reaction = GetReaction(event.event);
+			if (reaction == nullptr)
+				continue;
 
-		reaction->React(this, event.entity);
+			reaction->React(this, event.entity);
+		}
+	}
+	else
+	{
+		// perform the idle action
+		m_idle->React(this, nullptr);
 	}
 }

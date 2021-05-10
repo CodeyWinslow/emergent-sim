@@ -160,14 +160,17 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameController.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IdleReaction.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PauseButton.cpp" />
+    <ClCompile Include="MoveForwardAction.cpp" />
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="TurnAction.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -180,6 +183,8 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventInfo.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="IdleReaction.h" />
+    <ClInclude Include="MoveForwardAction.h" />
     <ClInclude Include="Reaction.h" />
     <ClInclude Include="IEventObserver.h" />
     <ClInclude Include="InputManager.h" />
@@ -191,6 +196,7 @@
     <ClInclude Include="SDL_Logger.h" />
     <ClInclude Include="SimDisplay.h" />
     <ClInclude Include="Transform.h" />
+    <ClInclude Include="TurnAction.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

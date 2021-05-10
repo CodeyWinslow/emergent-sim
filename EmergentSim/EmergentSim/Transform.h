@@ -11,7 +11,8 @@ public:
 	};
 
 	Transform(int x, int y, Direction dir);
-	void Forward(int count);
+	void Forward(int numCells);
+	void Turn(int numTimes);
 
 	int m_x = 0;
 	int m_y = 0;

@@ -12,7 +12,8 @@ namespace Agents
 	class Reaction
 	{
 	public:
-		inline Reaction(vector<Behavior> behaviors)
+		inline Reaction() noexcept {}
+		inline Reaction(vector<Behavior> behaviors) noexcept
 			: m_behaviors{ behaviors } {}
 
 		//**********************************************
@@ -20,7 +21,7 @@ namespace Agents
 		//**********************************************
 		virtual void React(Entity* me, Entity* other);
 	protected:
-		vector<Behavior> m_behaviors;
+		vector<Behavior> m_behaviors{};
 	};
 
 	using ReactionPtr = std::shared_ptr<Reaction>;
