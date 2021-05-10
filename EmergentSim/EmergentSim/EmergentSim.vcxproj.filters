@@ -45,6 +45,15 @@
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PauseButton.cpp">
+      <Filter>Graphics\Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Graphics\Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Graphics\Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimDisplay.h">
@@ -70,6 +79,18 @@
     </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IEventObserver.h">
+      <Filter>Graphics\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Graphics\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="PauseButton.h">
+      <Filter>Graphics\Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Graphics\Header files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
