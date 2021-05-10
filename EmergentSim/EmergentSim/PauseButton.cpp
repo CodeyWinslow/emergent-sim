@@ -9,16 +9,16 @@ PauseButton::PauseButton(SDL_Rect bounds, SDL_Color playColor, SDL_Color pauseCo
 
 void PauseButton::OnButtonClicked()
 {
-	GameController* game = GameController::GetInstance();
+	GameController& game = GameController::GetInstance();
 
-	if (!game->IsPlaying())
+	if (!game.IsPlaying())
 	{
-		game->Resume();
+		game.Resume();
 		SetBackColor(m_playColor);
 	}
 	else
 	{
-		game->Pause();
+		game.Pause();
 		SetBackColor(m_pauseColor);
 	}
 }

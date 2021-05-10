@@ -156,6 +156,7 @@
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AgentController.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="AgentController.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Action.h" />
     <ClInclude Include="Event.h" />

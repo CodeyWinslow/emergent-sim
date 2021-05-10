@@ -8,10 +8,10 @@ using namespace Agents;
 class GameController
 {
 public:
-	GameController(int numberAgents, int sandboxWidth, int sandboxHeight, SimDisplaySettings windowSettings);
+	GameController(int numberAgents, int agentDelay, int sandboxWidth, int sandboxHeight, SimDisplaySettings windowSettings);
 	~GameController();
 
-	static GameController* GetInstance();
+	static GameController& GetInstance();
 
 	void Start();
 	void Pause();
@@ -26,6 +26,7 @@ private:
 	bool m_playing;
 	Sandbox m_sandbox;
 	AgentController m_agentController;
+	int m_agentDelay;
 	SimDisplay* m_display;
 
 	void InitializeAgents(int numberAgents);

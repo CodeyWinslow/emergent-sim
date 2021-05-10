@@ -5,7 +5,7 @@ using namespace Agents;
 
 bool MoveForwardAction::_Execute(Entity* entity)
 {
-	Sandbox* sandbox = GameController::GetInstance()->GetSandbox();
+	Sandbox* sandbox = GameController::GetInstance().GetSandbox();
 
 	Transform destination = entity->GetTransform();
 	destination.Forward(m_numCells);
