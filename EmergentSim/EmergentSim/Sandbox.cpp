@@ -23,11 +23,11 @@ void Sandbox::SetupSandbox()
         min_wall_percent = MIN_WALL_PERCENT / totalPercent;
     }
 
-    srand(time(0));
+    srand((unsigned int)time(NULL));
 
     int cells = m_width * m_height;
-    int max_walls = cells * max_wall_percent;
-    int min_walls = cells * min_wall_percent;
+    int max_walls = (int)(cells * max_wall_percent);
+    int min_walls = (int)(cells * min_wall_percent);
     int num_walls = (rand() % max_walls) + min_walls;
     int num_resources = rand() % (cells - num_walls);
 

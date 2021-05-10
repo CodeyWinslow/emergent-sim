@@ -2,7 +2,7 @@
 #include "Transform.h"
 class Sprite;
 
-enum Entity_Type 
+enum EntityType 
 { 
 	AGENT = 0, 
 	RESOURCE = 1, 
@@ -13,7 +13,7 @@ class Entity
 {
 public:
 	Entity(Transform transform) : m_transform(transform) {};
-	inline virtual Entity_Type GetType() = 0;
+	inline virtual EntityType GetType() = 0;
 	virtual Transform GetTransform() { return m_transform; }
 
 	Transform m_transform;
