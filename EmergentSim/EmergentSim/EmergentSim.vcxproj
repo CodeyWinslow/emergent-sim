@@ -156,6 +156,8 @@
     <ClCompile Include="Agent.cpp" />
     <ClCompile Include="AgentController.cpp" />
     <ClCompile Include="Behavior.cpp" />
+    <ClCompile Include="ConsumeResourceAction.cpp" />
+    <ClCompile Include="ConsumeResourceReaction.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="Button.cpp" />
@@ -171,6 +173,7 @@
     <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
+    <ClCompile Include="TouchingResourceEvent.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TurnAction.cpp" />
     <ClCompile Include="Wall.cpp" />
@@ -180,10 +183,13 @@
     <ClInclude Include="AgentController.h" />
     <ClInclude Include="Behavior.h" />
     <ClInclude Include="Button.h" />
+    <ClInclude Include="ConsumeResourceAction.h" />
+    <ClInclude Include="ConsumeResourceReaction.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Action.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="EventCodes.h" />
     <ClInclude Include="EventInfo.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="IdleReaction.h" />
@@ -199,6 +205,7 @@
     <ClInclude Include="SDL_Exception.h" />
     <ClInclude Include="SDL_Logger.h" />
     <ClInclude Include="SimDisplay.h" />
+    <ClInclude Include="TouchingResourceEvent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TurnAction.h" />
     <ClInclude Include="Wall.h" />

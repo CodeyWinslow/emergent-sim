@@ -1,6 +1,8 @@
 #include "Agent.h"
 #include "Reaction.h"
 #include "IdleReaction.h"
+#include "ConsumeResourceReaction.h"
+#include "Event.h"
 
 using namespace Agents;
 
@@ -8,12 +10,14 @@ Agent::Agent(Transform transform) noexcept
 	: Entity(transform), m_idle{ new IdleReaction{} }
 {
 	// set up default reactions
-	
+	m_reactions =
+	{
+		ReactionPtr{ new ConsumeResourceReaction{} }
+	};
 }
 
-ReactionPtr Agent::GetReaction(Event* event)
+ReactionPtr Agent::GetReaction(int eventId)
 {
-	unsigned int eventId = event->GetId();
 	if (eventId >= m_reactions.size())
 		return ReactionPtr{ nullptr };
 
@@ -27,7 +31,7 @@ void Agent::ProcessEvents(vector<EventInfo> events)
 	{
 		for (EventInfo& event : events)
 		{
-			reaction = GetReaction(event.event);
+			reaction = GetReaction(event.id);
 			if (reaction == nullptr)
 				continue;
 

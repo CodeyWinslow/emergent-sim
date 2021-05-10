@@ -4,6 +4,7 @@
 #include "Behavior.h"
 #include "EventInfo.h"
 #include "Entity.h"
+#include "Event.h"
 #include "Reaction.h"
 
 using std::vector;
@@ -22,7 +23,7 @@ namespace Agents
 			return EntityType::AGENT;
 		}
 	protected:
-		ReactionPtr GetReaction(Event* event);
+		ReactionPtr GetReaction(int eventId);
 
 		vector<ReactionPtr> m_reactions{};
 		ReactionPtr m_idle{};

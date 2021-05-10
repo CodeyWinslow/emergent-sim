@@ -208,13 +208,19 @@ bool Sandbox::RemoveEntity(Entity* ent)
 {
     if (ent == nullptr) return false;
 
-    Entity*& entity = At(ent->GetTransform());
-    entity = nullptr;
+    Transform transform = ent->GetTransform();
+    Entity* entity = At(transform);
+    m_sandbox[transform.x][transform.y] = nullptr;
+
     return true;
 }
 
-Entity*& Sandbox::At(Transform transform)
+Entity* Sandbox::At(Transform transform)
 {
+    if (transform.x >= m_width || transform.x < 0
+        || transform.y >= m_height || transform.y < 0) 
+        return nullptr;
+
     return m_sandbox[transform.x][transform.y];
 }
 

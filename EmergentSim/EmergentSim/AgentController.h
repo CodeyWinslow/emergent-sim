@@ -19,7 +19,7 @@ namespace Agents
 		Agent* CreateNewAgent();
 	private:
 		vector<AgentPtr> m_agents{};
-		vector<Event*> m_events;
+		vector<EventPtr> m_events{};
 	};
 
 	template<typename AgentType>

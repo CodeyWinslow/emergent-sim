@@ -23,7 +23,7 @@ public:
 	bool PlaceEntity(Entity* ent, int x, int y);
 	bool MoveEntity(Entity* ent, Transform destination);
 	bool RemoveEntity(Entity* ent);
-	Entity*& At(Transform transform);
+	Entity* At(Transform transform);
 	vector<Entity*> GetEntitiesInView(Entity* ent, unsigned int distance);
 private:
 	void SetupSandbox();
