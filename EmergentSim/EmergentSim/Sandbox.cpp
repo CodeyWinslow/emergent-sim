@@ -47,7 +47,7 @@ void Sandbox::SetupSandbox()
             else if (perlinVal <= resourceLimit)
             {
                 perlinVal = (rand() % 10) / 10.0;
-                if (perlinVal <= resourceLimit - wallLimit)
+                //if (perlinVal <= resourceLimit - wallLimit)
                 {
                     Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
                     Transform transform(x, y, randomDir);
@@ -155,15 +155,15 @@ vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
     }
 
     // ensure we don't go out of bounds
-    minX = Clamp(minX, 0, m_width);
-    maxX = Clamp(maxX, 0, m_width);
-    minY = Clamp(minY, 0, m_height);
-    maxY = Clamp(maxY, 0, m_height);
+    minX = Clamp(minX, 0, m_width-1);
+    maxX = Clamp(maxX, 0, m_width-1);
+    minY = Clamp(minY, 0, m_height-1);
+    maxY = Clamp(maxY, 0, m_height-1);
 
     Entity* entity{};
-    for (int x{ minX }; x < maxX; ++x)
+    for (int x{ minX }; x <= maxX; ++x)
     {
-        for (int y{ minY }; y < maxY; ++y)
+        for (int y{ minY }; y <= maxY; ++y)
         {
             entity = m_sandbox[x][y];
             if (entity != nullptr)

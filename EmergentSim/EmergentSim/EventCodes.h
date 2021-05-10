@@ -3,4 +3,5 @@
 enum Events
 {
 	TouchingResource,
+	NearResource,
 };

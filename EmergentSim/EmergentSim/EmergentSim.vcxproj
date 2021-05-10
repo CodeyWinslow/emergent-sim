@@ -170,6 +170,8 @@
     <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="Resource.cpp" />
+    <ClCompile Include="ResourceNearEvent.cpp" />
+    <ClCompile Include="ResourceNearReaction.cpp" />
     <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
@@ -200,6 +202,8 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="PauseButton.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ResourceNearEvent.h" />
+    <ClInclude Include="ResourceNearReaction.h" />
     <ClInclude Include="runtime_assert.h" />
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="SDL_Exception.h" />

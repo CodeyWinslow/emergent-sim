@@ -20,7 +20,7 @@ int main(int argc, char ** argv)
     const int sandboxWidth = 200;
     const int sandboxHeight = 200;
 
-    GameController game(numAgents, 15, sandboxWidth, sandboxHeight, windowSettings);
+    GameController game(numAgents, 1, sandboxWidth, sandboxHeight, windowSettings);
     game.Start();
 
 	return 0;
