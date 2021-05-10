@@ -1,7 +1,8 @@
 #include "SimDisplay.h"
 #include "SDL_Exception.h"
 
-SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidth, int windowHeight) : m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr)
+SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidth, int windowHeight) : 
+	m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr), m_pauseButton({windowWidth-105, windowHeight-45, 100,40})
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		const std::string msg = "Failed to initialize";
@@ -25,43 +26,39 @@ SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidt
 	//SDL_FillRect(m_screenSurface, NULL, SDL_MapRGB(m_screenSurface->format, 0xFF, 0xFF, 0xFF));
 
 	SDL_UpdateWindowSurface(m_window);
+	InputManager::GetInstance().SubscribeEvent(InputEvent::SCROLL, this);
 }
 
 SimDisplay::~SimDisplay()
 {
+	InputManager::GetInstance().UnsubscribeEvent(InputEvent::SCROLL, this);
 	SDL_DestroyWindow(m_window);
 	SDL_Quit();
 }
 
 bool SimDisplay::Update()
 {
+	SDL_SetRenderDrawColor(m_renderer, 255, 255, 255, 255);
 	SDL_RenderClear(m_renderer);
+
+	if (!InputManager::GetInstance().Update())
+		return false;
 
 	DrawGrid();
 	DrawEntities();
 
-	SDL_Event event;
-	while (SDL_PollEvent(&event)) {
-		switch (event.type) {
-			case SDL_MOUSEWHEEL:
-				if (event.wheel.y > 0)
-					ScrollZoomIn();
-				else
-					ScrollZoomOut();
-				break;
-			case SDL_WINDOWEVENT_CLOSE:
-				event.type = SDL_QUIT;
-				SDL_PushEvent(&event);
-				break;
-			case SDL_QUIT:
-				return false;
-				break;
-		}
-	}
+	DrawUI();
 
 	SDL_RenderPresent(m_renderer);
 	SDL_Delay(1000 / 60);
 	return true;
+}
+
+void SimDisplay::Handle(SDL_Event& e)
+{
+	//handle multiple events with switch
+	SDL_MouseWheelEvent* wh = &e.wheel;
+	HandleScroll(*wh);
 }
 
 void SimDisplay::DrawEntities()
@@ -118,6 +115,19 @@ void SimDisplay::DrawGrid() {
 	}
 
 	SDL_SetRenderDrawColor(m_renderer, prevCol.r, prevCol.g, prevCol.b, prevCol.a);
+}
+
+void SimDisplay::DrawUI()
+{
+	m_pauseButton.Render(m_renderer);
+}
+
+void SimDisplay::HandleScroll(SDL_MouseWheelEvent& e)
+{
+	if (e.y > 0)
+		ScrollZoomIn();
+	else
+		ScrollZoomOut();
 }
 
 void SimDisplay::ScrollZoomOut()

@@ -1,7 +1,8 @@
 //#include "SDL.h"
-#include "SimDisplay.h"
 #include <stdio.h>
 #include <iostream>
+#include "SimDisplay.h"
+#include "InputManager.h"
 using std::cout;
 using std::cin;
 

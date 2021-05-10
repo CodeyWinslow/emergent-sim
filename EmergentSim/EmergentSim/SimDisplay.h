@@ -2,6 +2,8 @@
 #include <SDL.h>
 #include <string>
 #include "SDL_Logger.h"
+#include "IEventObserver.h"
+#include "PauseButton.h"
 
 struct Entity
 {
@@ -52,12 +54,13 @@ private:
 	int height;
 };
 
-class SimDisplay
+class SimDisplay : public IEventObserver
 {
 public:
 	SimDisplay(Sandbox& sim, std::string windowTitle, int windowWidth, int windowHeight);
 	~SimDisplay();
 	bool Update();
+	void Handle(SDL_Event& e);
 
 private:
 	Sandbox& m_sandbox;
@@ -66,6 +69,8 @@ private:
 	SDL_Surface* m_screenSurface;
 	SDL_Renderer* m_renderer;
 
+	PauseButton m_pauseButton;
+
 	SDL_Logger m_logger;
 
 	float m_gridWidthToPixels = 1.0f;
@@ -73,9 +78,11 @@ private:
 
 	void DrawEntities();
 	void DrawEntity(const Entity* entity, float scale = 0.75f);
+	void DrawGrid();
+	void DrawUI();
+	void HandleScroll(SDL_MouseWheelEvent& e);
 	void ScrollZoomOut();
 	void ScrollZoomIn();
 
-	void DrawGrid();
 };
 
