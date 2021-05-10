@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include <vector>
+#include <stdlib.h>
 using std::vector;
 
 //Temp variables to be put in game controller
