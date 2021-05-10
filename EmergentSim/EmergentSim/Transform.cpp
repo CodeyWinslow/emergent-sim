@@ -22,3 +22,10 @@ void Transform::Forward(int count)
 		break;
 	}
 }
+
+void Transform::Turn(int numTimes)
+{
+	int dir = m_dir;
+	dir += numTimes;
+	m_dir = static_cast<Direction>(dir % 4);
+}

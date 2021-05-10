@@ -14,7 +14,7 @@ namespace Agents
 	class Agent : public Entity
 	{
 	public:
-		Agent(Transform transform) noexcept;
+		Agent(Transform transform = Transform{ 0, 0, Transform::Direction::DOWN }) noexcept;
 		virtual void ProcessEvents(vector<EventInfo> events);
 
 		inline virtual EntityType GetType()
@@ -25,6 +25,7 @@ namespace Agents
 		ReactionPtr GetReaction(Event* event);
 
 		vector<ReactionPtr> m_reactions{};
+		ReactionPtr m_idle{};
 	};
 
 	// type alias for smart pointer

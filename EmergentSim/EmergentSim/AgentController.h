@@ -22,8 +22,7 @@ namespace Agents
 	template<typename AgentType>
 	inline Agent* AgentController::CreateNewAgent()
 	{
-		Transform transform{0,0, Transform::Direction::DOWN};
-		Agent* agent = new AgentType(transform);
+		Agent* agent = new AgentType();
 		m_agents.push_back(AgentPtr{ agent });
 		return agent;
 	}

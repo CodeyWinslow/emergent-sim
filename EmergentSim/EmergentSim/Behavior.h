@@ -10,6 +10,7 @@ namespace Agents
 	{
 	public:
 		inline Behavior() noexcept {}
+		inline Behavior(vector<ActionPtr> actions) noexcept : m_actions{ actions } {}
 		inline ~Behavior() noexcept { m_actions.clear(); }
 
 		//****************************************
@@ -23,7 +24,8 @@ namespace Agents
 		}
 	protected:
 		//****************************************
-		// me is guaranteed not to be nullptr
+		// me is guaranteed not to be nullptr,
+		// other may be nullptr
 		//****************************************
 		virtual bool _Execute(Entity* me, Entity* other);
 
