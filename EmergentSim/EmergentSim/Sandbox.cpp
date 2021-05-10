@@ -3,12 +3,18 @@
 #include "Wall.h"
 #include "Resource.h"
 
+#include<string>
+using std::string;
+
 Sandbox::Sandbox(int width, int height) : m_width(width), m_height(height), m_sandbox(width)
 {
     for (vector<Entity*>& row : m_sandbox)
     {
         row.resize(height);
     }
+
+    srand((unsigned int)time(NULL));
+
 	SetupSandbox();
 }
 
@@ -23,8 +29,6 @@ void Sandbox::SetupSandbox()
         min_wall_percent = MIN_WALL_PERCENT / totalPercent;
     }
 
-    srand((unsigned int)time(NULL));
-
     int cells = m_width * m_height;
     int max_walls = (int)(cells * max_wall_percent);
     int min_walls = (int)(cells * min_wall_percent);
@@ -37,16 +41,10 @@ void Sandbox::SetupSandbox()
         int randomX = rand() % m_height;
         int randomY = rand() % m_width;
         Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
-
-        if (m_sandbox[randomX][randomY] == nullptr)
-        {
-            Transform transform(randomX, randomY, randomDir);
-            m_sandbox[randomX][randomY] = new Wall(transform);
-        }
-        else
-        {
-            --i;
-        }
+        Transform transform(randomX, randomY, randomDir);
+        Wall* ent = new Wall(transform);
+        if (!RandomlyPlaceEntity(ent))
+            throw string("Failed to place entity. Not enough space");
     }
 
     for (int i = 0; i < num_resources; ++i)
@@ -54,29 +52,40 @@ void Sandbox::SetupSandbox()
         int randomX = rand() % m_height;
         int randomY = rand() % m_width;
         Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
-
-        if (m_sandbox[randomX][randomY] == nullptr)
-        {
-            Transform transform(randomX, randomY, randomDir);
-            m_sandbox[randomX][randomY] = new Resource(transform);
-        }
-        else
-        {
-            --i;
-        }
+        Transform transform(randomX, randomY, randomDir);
+        Resource* ent = new Resource(transform);
+        if (!RandomlyPlaceEntity(ent))
+            throw string("Failed to place entity. Not enough space");
     }
 }
 
-void Sandbox::RandomlyPlaceAgent()
+bool Sandbox::RandomlyPlaceEntity(Entity* ent)
 {
-    for (int i = 0; i < m_width * m_height; ++i)
+    if (m_entityCount == m_width * m_height)
+        return false;
+
+    while (true)
     {
-
+        int x = rand() % m_width;
+        int y = rand() % m_height;
+        if (m_sandbox[x][y] == nullptr)
+        {
+            return PlaceEntity(ent, x, y);
+        }
     }
 }
 
-void Sandbox::PlaceAgent(int x, int y)
+bool Sandbox::PlaceEntity(Entity* ent, int x, int y)
 {
+    if (m_sandbox[x][y] != nullptr)
+        return false;
+
+    ent->m_transform.m_x = x;
+    ent->m_transform.m_y = y;
+    m_sandbox[x][y] = ent;
+    ++m_entityCount;
+
+    return true;
 }
 
 Sandbox::~Sandbox()
@@ -87,7 +96,7 @@ Sandbox::~Sandbox()
     {
         for (Entity*& ent : row)
         {
-            delete ent;
+            //delete ent;
             ent = nullptr;
         }
     }

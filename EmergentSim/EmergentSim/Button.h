@@ -7,12 +7,15 @@ public:
 	Button(SDL_Rect bounds, SDL_Color backColor);
 	~Button();
 	
-	void HandleButtonDown(SDL_MouseButtonEvent& e);
-	void HandleButtonUp(SDL_MouseButtonEvent& e);
+	void SetBackColor(SDL_Color color);
 
 	void Render(SDL_Renderer* renderer);
 
+	void HandleButtonDown(SDL_MouseButtonEvent& e);
+	void HandleButtonUp(SDL_MouseButtonEvent& e);
 	void Handle(SDL_Event& e);
+
+protected:
 	virtual void OnButtonClicked() = 0;
 
 private:

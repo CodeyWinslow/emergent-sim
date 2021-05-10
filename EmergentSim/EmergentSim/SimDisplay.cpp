@@ -1,8 +1,8 @@
 #include "SimDisplay.h"
 #include "SDL_Exception.h"
 
-SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidth, int windowHeight) : 
-	m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr), m_pauseButton({windowWidth-105, windowHeight-45, 100,40})
+SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) : 
+	m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		const std::string msg = "Failed to initialize";
@@ -10,7 +10,7 @@ SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidt
 		throw SDL_Exception(msg);
 	}
 
-	m_window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, windowWidth, windowHeight, SDL_WINDOW_SHOWN);
+	m_window = SDL_CreateWindow(settings.windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, settings.windowWidth, settings.windowHeight, SDL_WINDOW_SHOWN);
 	if (m_window == nullptr)
 	{
 		const std::string msg = "Window could not be created!";
@@ -27,10 +27,12 @@ SimDisplay::SimDisplay(Sandbox& sandbox, std::string windowTitle, int windowWidt
 
 	SDL_UpdateWindowSurface(m_window);
 	InputManager::GetInstance().SubscribeEvent(InputEvent::SCROLL, this);
+	m_pauseButton = new PauseButton({ settings.windowWidth - 105, settings.windowHeight - 45, 100,40});
 }
 
 SimDisplay::~SimDisplay()
 {
+	delete m_pauseButton;
 	InputManager::GetInstance().UnsubscribeEvent(InputEvent::SCROLL, this);
 	SDL_DestroyWindow(m_window);
 	SDL_Quit();
@@ -85,10 +87,9 @@ void SimDisplay::DrawEntity(Entity* entity, float scale)
 
 	int offset = (gridSquare - wh) / 2;
 
-	SDL_Rect rect = { entity->GetTransform().m_x*gridSquare + offset, entity->GetTransform().m_y * gridSquare + offset, wh, wh};
+	SDL_Rect rect = { entity->GetTransform().m_x*gridSquare + offset,
+		entity->GetTransform().m_y * gridSquare + offset, wh, wh};
 
-	SDL_Color prevCol;
-	SDL_GetRenderDrawColor(m_renderer, &prevCol.r, &prevCol.g, &prevCol.b, &prevCol.a);
 	if (entity->GetType() == EntityType::WALL)
 		SDL_SetRenderDrawColor(m_renderer, 8, 148, 255, 255);
 	else if (entity->GetType() == EntityType::RESOURCE)
@@ -98,8 +99,6 @@ void SimDisplay::DrawEntity(Entity* entity, float scale)
 
 	if (SDL_RenderFillRect(m_renderer, &rect) != 0)
 		m_logger.SDL_LogError(std::cout, "Failed to render rect");
-	SDL_SetRenderDrawColor(m_renderer, prevCol.r, prevCol.g, prevCol.b, prevCol.a);
-	//SDL_FillRect(m_screenSurface, &rect, SDL_MapRGB(m_screenSurface->format, entity->color.r, entity->color.g, entity->color.b));
 }
 
 void SimDisplay::DrawGrid() {
@@ -108,8 +107,6 @@ void SimDisplay::DrawGrid() {
 	int row_lines = m_sandbox.GetHeight() + 1;
 	int gridSquare = m_defaultWidthToPixels * m_gridWidthToPixels;
 
-	SDL_Color prevCol;
-	SDL_GetRenderDrawColor(m_renderer, &prevCol.r, &prevCol.g, &prevCol.b, &prevCol.a);	
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
 	
 	for(int ii = 0; ii < column_lines; ii++) {
@@ -120,12 +117,11 @@ void SimDisplay::DrawGrid() {
 		SDL_RenderDrawLine(m_renderer, 0, ii*gridSquare, m_sandbox.GetWidth()*gridSquare, ii*gridSquare);
 	}
 
-	SDL_SetRenderDrawColor(m_renderer, prevCol.r, prevCol.g, prevCol.b, prevCol.a);
 }
 
 void SimDisplay::DrawUI()
 {
-	m_pauseButton.Render(m_renderer);
+	m_pauseButton->Render(m_renderer);
 }
 
 void SimDisplay::HandleScroll(SDL_MouseWheelEvent& e)

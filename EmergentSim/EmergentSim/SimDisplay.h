@@ -5,12 +5,18 @@
 #include "Sandbox.h"
 #include "IEventObserver.h"
 #include "PauseButton.h"
+#include <string>
 
+struct SimDisplaySettings {
+	std::string windowTitle;
+	int windowWidth;
+	int windowHeight;
+};
 
 class SimDisplay : public IEventObserver
 {
 public:
-	SimDisplay(Sandbox& sim, std::string windowTitle, int windowWidth, int windowHeight);
+	SimDisplay(SimDisplaySettings settings, Sandbox& sim);
 	~SimDisplay();
 	bool Update();
 	void Handle(SDL_Event& e);
@@ -22,7 +28,7 @@ private:
 	SDL_Surface* m_screenSurface;
 	SDL_Renderer* m_renderer;
 
-	PauseButton m_pauseButton;
+	PauseButton* m_pauseButton;
 
 	SDL_Logger m_logger;
 

@@ -158,6 +158,7 @@
     <ClCompile Include="Behavior.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="GameController.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PauseButton.cpp" />
@@ -178,6 +179,7 @@
     <ClInclude Include="Action.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventInfo.h" />
+    <ClInclude Include="GameController.h" />
     <ClInclude Include="Reaction.h" />
     <ClInclude Include="IEventObserver.h" />
     <ClInclude Include="InputManager.h" />

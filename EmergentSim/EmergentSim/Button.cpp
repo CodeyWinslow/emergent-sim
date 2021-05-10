@@ -2,20 +2,26 @@
 
 Button::Button(SDL_Rect bounds, SDL_Color backColor) : m_buttonPressed(false), m_buttonBounds(bounds), m_backColor(backColor)
 {
-	/*InputManager::GetInstance().SubscribeButtonDown(m_buttonDownHandler);
-	InputManager::GetInstance().SubscribeButtonUp(m_buttonUpHandler);*/
-
 	InputManager::GetInstance().SubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	InputManager::GetInstance().SubscribeEvent(InputEvent::BUTTON_UP, this);
 }
 
 Button::~Button()
 {
-	/*InputManager::GetInstance().UnsubscribeButtonDown(m_buttonDownHandler);
-	InputManager::GetInstance().UnsubscribeButtonUp(m_buttonUpHandler);*/
 
 	InputManager::GetInstance().UnsubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	InputManager::GetInstance().UnsubscribeEvent(InputEvent::BUTTON_UP, this);
+}
+
+void Button::SetBackColor(SDL_Color color)
+{
+	m_backColor = color;
+}
+
+void Button::Render(SDL_Renderer* renderer)
+{
+	SDL_SetRenderDrawColor(renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
+	SDL_RenderFillRect(renderer, &m_buttonBounds);
 }
 
 void Button::HandleButtonDown(SDL_MouseButtonEvent& e)
@@ -50,12 +56,6 @@ void Button::HandleButtonUp(SDL_MouseButtonEvent& e)
 			m_buttonPressed = false;
 		}
 	}
-}
-
-void Button::Render(SDL_Renderer* renderer)
-{
-	SDL_SetRenderDrawColor(renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
-	SDL_RenderFillRect(renderer, &m_buttonBounds);
 }
 
 void Button::Handle(SDL_Event& e)
