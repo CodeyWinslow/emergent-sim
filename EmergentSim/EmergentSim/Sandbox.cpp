@@ -2,6 +2,7 @@
 #include "Sandbox.h"
 #include "Wall.h"
 #include "Resource.h"
+#include "Perlin.h"
 
 #include<string>
 using std::string;
@@ -20,7 +21,45 @@ Sandbox::Sandbox(int width, int height) : m_width(width), m_height(height), m_sa
 
 void Sandbox::SetupSandbox()
 {
-    float max_wall_percent = MAX_WALL_PERCENT;
+    float wallLimit = MAX_WALL_PERCENT;
+    float resourceLimit = wallLimit + MAX_RESOURCE_PERCENT;
+
+    PerlinNoise perlin(time(NULL));
+
+    for (int x = 0; x < m_width; ++x)
+    {
+        for (int y = 0; y < m_height; ++y)
+        {
+            //float perlinVal = perlin.noise((float)x / m_width, (float)y / m_height, 0) - 0.5f;
+            float perlinVal = (perlin.noise((float)x / m_width * 20, (float)y / m_height * 20, 0) - 0.5f) * 2;
+            //float perlinVal = perlin.noise(x*50, y*50, 0);
+
+            if (perlinVal <= wallLimit)
+            {
+                Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
+                Transform transform(x, y, randomDir);
+                Wall* ent = new Wall(transform);
+                if (!PlaceEntity(ent, x, y))
+                    throw string("Failed to place entity. Not enough space");
+            }
+            else if (perlinVal <= resourceLimit)
+            {
+                perlinVal = (rand() % 10) / 10.0;
+                if (perlinVal <= resourceLimit - wallLimit)
+                {
+                    Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
+                    Transform transform(x, y, randomDir);
+                    Resource* ent = new Resource(transform);
+                    if (!PlaceEntity(ent, x, y))
+                        throw string("Failed to place entity. Not enough space");
+                }
+            }
+        }
+    }
+
+    return;
+
+    /*float max_wall_percent = MAX_WALL_PERCENT;
     float min_wall_percent = MIN_WALL_PERCENT;
     float totalPercent = MAX_RESOURCE_PERCENT + MAX_WALL_PERCENT;
     if (totalPercent > 1)
@@ -39,11 +78,16 @@ void Sandbox::SetupSandbox()
     {
         int randomX = rand() % m_height;
         int randomY = rand() % m_width;
-        Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
-        Transform transform(randomX, randomY, randomDir);
-        Wall* ent = new Wall(transform);
-        if (!RandomlyPlaceEntity(ent))
-            throw string("Failed to place entity. Not enough space");
+        if (Perlin::compute(randomX, randomY) < 0.5f)
+        {
+            Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
+            Transform transform(randomX, randomY, randomDir);
+            Wall* ent = new Wall(transform);
+            if (!RandomlyPlaceEntity(ent))
+                throw string("Failed to place entity. Not enough space");
+        }
+        else
+            --i;
     }
 
     for (int i = 0; i < num_resources; ++i)
@@ -55,7 +99,7 @@ void Sandbox::SetupSandbox()
         Resource* ent = new Resource(transform);
         if (!RandomlyPlaceEntity(ent))
             throw string("Failed to place entity. Not enough space");
-    }
+    }*/
 }
 
 bool Sandbox::RandomlyPlaceEntity(Entity* ent)

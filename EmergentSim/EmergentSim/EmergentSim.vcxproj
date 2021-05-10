@@ -165,6 +165,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PauseButton.cpp" />
     <ClCompile Include="MoveForwardAction.cpp" />
+    <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Reaction.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="Sandbox.cpp" />
@@ -187,6 +188,7 @@
     <ClInclude Include="GameController.h" />
     <ClInclude Include="IdleReaction.h" />
     <ClInclude Include="MoveForwardAction.h" />
+    <ClInclude Include="Perlin.h" />
     <ClInclude Include="Reaction.h" />
     <ClInclude Include="IEventObserver.h" />
     <ClInclude Include="InputManager.h" />
