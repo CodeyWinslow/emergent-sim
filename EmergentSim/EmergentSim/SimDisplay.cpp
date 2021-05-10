@@ -89,9 +89,9 @@ void SimDisplay::DrawEntity(Entity* entity, float scale)
 
 	SDL_Color prevCol;
 	SDL_GetRenderDrawColor(m_renderer, &prevCol.r, &prevCol.g, &prevCol.b, &prevCol.a);
-	if (entity->GetType() == Entity_Type::WALL)
+	if (entity->GetType() == EntityType::WALL)
 		SDL_SetRenderDrawColor(m_renderer, 8, 148, 255, 255);
-	else if (entity->GetType() == Entity_Type::RESOURCE)
+	else if (entity->GetType() == EntityType::RESOURCE)
 		SDL_SetRenderDrawColor(m_renderer, 10, 201, 16, 255);
 	else
 		SDL_SetRenderDrawColor(m_renderer, 255, 165, 0, 255);

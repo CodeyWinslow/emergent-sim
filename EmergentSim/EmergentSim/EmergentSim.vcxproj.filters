@@ -22,6 +22,33 @@
     <Filter Include="Graphics\Source files">
       <UniqueIdentifier>{8d14e278-e742-4875-a5f8-61cb9732b190}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Agent">
+      <UniqueIdentifier>{b5fbef9e-3e4e-44b1-b95e-2e33172870fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agent\Events">
+      <UniqueIdentifier>{c835fe56-81ca-4308-a614-bac7f6201ffd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agent\Behaviors">
+      <UniqueIdentifier>{2596f06a-723a-4572-af2a-df7920431d53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Agent\Behaviors\Actions">
+      <UniqueIdentifier>{7e5771aa-5450-4e73-bc5f-25680036f19f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agent">
+      <UniqueIdentifier>{7ef3ec9f-05fd-44cb-9a8f-0382f633905d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agent\Behaviors">
+      <UniqueIdentifier>{74a571d4-c668-460d-baf8-f9425ee2f773}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agent\Behaviors\Actions">
+      <UniqueIdentifier>{4b3928b4-b0da-4f53-bced-0e569e4d1dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Agent\Events">
+      <UniqueIdentifier>{5176a91d-ef55-4435-869f-a035a9ee1d68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Utility">
+      <UniqueIdentifier>{dae02f8f-9bcf-48b0-aea6-374778ee8566}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -44,6 +71,21 @@
     </ClCompile>
     <ClCompile Include="Wall.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Agent.cpp">
+      <Filter>Source Files\Agent</Filter>
+    </ClCompile>
+    <ClCompile Include="Behavior.cpp">
+      <Filter>Source Files\Agent\Behaviors</Filter>
+    </ClCompile>
+    <ClCompile Include="AgentController.cpp">
+      <Filter>Source Files\Agent</Filter>
+    </ClCompile>
+    <ClCompile Include="EventInfo.cpp">
+      <Filter>Source Files\Agent\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="Reaction.cpp">
+      <Filter>Source Files\Agent\Behaviors</Filter>
     </ClCompile>
     <ClCompile Include="PauseButton.cpp">
       <Filter>Graphics\Source files</Filter>
@@ -79,6 +121,30 @@
     </ClInclude>
     <ClInclude Include="Wall.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Agent.h">
+      <Filter>Header Files\Agent</Filter>
+    </ClInclude>
+    <ClInclude Include="runtime_assert.h">
+      <Filter>Header Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Action.h">
+      <Filter>Header Files\Agent\Behaviors\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Behavior.h">
+      <Filter>Header Files\Agent\Behaviors</Filter>
+    </ClInclude>
+    <ClInclude Include="AgentController.h">
+      <Filter>Header Files\Agent</Filter>
+    </ClInclude>
+    <ClInclude Include="EventInfo.h">
+      <Filter>Header Files\Agent\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\Agent\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Reaction.h">
+      <Filter>Header Files\Agent\Behaviors</Filter>
     </ClInclude>
     <ClInclude Include="IEventObserver.h">
       <Filter>Graphics\Header files</Filter>

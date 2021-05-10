@@ -3,6 +3,11 @@
 #include "Sandbox.h"
 #include <stdio.h>
 #include <iostream>
+
+#include "AgentController.h"
+
+using namespace Agents;
+
 using std::cout;
 using std::cin;
 
@@ -12,6 +17,11 @@ const int SCREEN_HEIGHT = 480;
 
 int main(int argc, char ** argv)
 {
+    AgentController agentController{};
+
+    for (int i{ 0 }; i < 100; ++i)
+        agentController.CreateNewAgent();
+
     Sandbox sb(100,100);
     SimDisplay display(sb,"Fugma", 800, 600);
     /*for (int ii = 0; ii < 480; ++ii)
