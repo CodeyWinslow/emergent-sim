@@ -21,8 +21,10 @@ Sandbox::Sandbox(int width, int height) : m_width(width), m_height(height), m_sa
 
 void Sandbox::SetupSandbox()
 {
-    float wallLimit = MAX_WALL_PERCENT;
-    float resourceLimit = wallLimit + MAX_RESOURCE_PERCENT;
+    const float wallBegin = MIN_WALL_PERCENT;
+    const float wallLimit = MAX_WALL_PERCENT;
+    const float resourceBegin = MIN_RESOURCE_PERCENT + wallBegin;
+    const float resourceLimit = MAX_RESOURCE_PERCENT + wallLimit;
 
     PerlinNoise perlin(time(NULL));
 
@@ -34,7 +36,7 @@ void Sandbox::SetupSandbox()
             float perlinVal = (perlin.noise((float)x / m_width * 20, (float)y / m_height * 20, 0) - 0.5f) * 2;
             //float perlinVal = perlin.noise(x*50, y*50, 0);
 
-            if (perlinVal <= wallLimit)
+            if (perlinVal >= wallBegin && perlinVal <= wallLimit)
             {
                 Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
                 Transform transform(x, y, randomDir);
