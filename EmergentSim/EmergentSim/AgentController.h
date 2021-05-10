@@ -14,15 +14,17 @@ namespace Agents
 		inline AgentController() {}
 		void UpdateAgents();
 		template<typename AgentType = Agent>
-		void CreateNewAgent();
+		Agent* CreateNewAgent();
 	private:
 		vector<AgentPtr> m_agents{};
 	};
 
 	template<typename AgentType>
-	inline void AgentController::CreateNewAgent()
+	inline Agent* AgentController::CreateNewAgent()
 	{
 		Transform transform{0,0, Transform::Direction::DOWN};
-		m_agents.push_back(AgentPtr{ new AgentType(transform) });
+		Agent* agent = new AgentType(transform);
+		m_agents.push_back(AgentPtr{ agent });
+		return agent;
 	}
 }
