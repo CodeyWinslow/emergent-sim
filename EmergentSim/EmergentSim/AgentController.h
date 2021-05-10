@@ -8,15 +8,18 @@ using std::shared_ptr;
 
 namespace Agents
 {
+	class Event;
+
 	class AgentController final
 	{
 	public:
-		inline AgentController() {}
+		AgentController() noexcept;
 		void UpdateAgents();
 		template<typename AgentType = Agent>
 		Agent* CreateNewAgent();
 	private:
 		vector<AgentPtr> m_agents{};
+		vector<Event*> m_events;
 	};
 
 	template<typename AgentType>

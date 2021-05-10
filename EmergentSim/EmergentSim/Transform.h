@@ -14,7 +14,7 @@ public:
 	void Forward(int numCells);
 	void Turn(int numTimes);
 
-	int m_x = 0;
-	int m_y = 0;
-	Direction m_dir;
+	int x = 0;
+	int y = 0;
+	Direction direction;
 };

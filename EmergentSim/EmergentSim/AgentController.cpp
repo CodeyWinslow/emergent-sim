@@ -3,6 +3,11 @@
 
 using namespace Agents;
 
+AgentController::AgentController() noexcept
+{
+
+}
+
 void AgentController::UpdateAgents()
 {
 	for (AgentPtr& agent : m_agents)

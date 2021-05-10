@@ -81,14 +81,14 @@ void SimDisplay::DrawEntity(Entity* entity, float scale)
 	if (entity == nullptr)
 		return;
 
-	int gridSquare = m_defaultWidthToPixels * m_gridWidthToPixels;
+	int gridSquare = (int)(m_defaultWidthToPixels * m_gridWidthToPixels);
 
-	int wh = gridSquare * scale;
+	int wh = (int)(gridSquare * scale);
 
 	int offset = (gridSquare - wh) / 2;
 
-	SDL_Rect rect = { entity->GetTransform().m_x*gridSquare + offset,
-		entity->GetTransform().m_y * gridSquare + offset, wh, wh};
+	SDL_Rect rect = { entity->GetTransform().x*gridSquare + offset,
+		entity->GetTransform().y * gridSquare + offset, wh, wh};
 
 	if (entity->GetType() == EntityType::WALL)
 		SDL_SetRenderDrawColor(m_renderer, 8, 148, 255, 255);
@@ -105,7 +105,7 @@ void SimDisplay::DrawGrid() {
 
 	int column_lines = m_sandbox.GetWidth() + 1;
 	int row_lines = m_sandbox.GetHeight() + 1;
-	int gridSquare = m_defaultWidthToPixels * m_gridWidthToPixels;
+	int gridSquare = (int)(m_defaultWidthToPixels * m_gridWidthToPixels);
 
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
 	

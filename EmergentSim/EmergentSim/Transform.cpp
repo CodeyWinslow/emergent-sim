@@ -1,31 +1,31 @@
 #include "Transform.h"
 
-Transform::Transform(int x, int y, Direction dir) : m_x(x), m_y(y), m_dir(dir)
+Transform::Transform(int x, int y, Direction dir) : x(x), y(y), direction(dir)
 {
 }
 
 void Transform::Forward(int count)
 {
-	switch (m_dir)
+	switch (direction)
 	{
 	case Direction::UP:
-		m_y += count;
+		y += count;
 		break;
 	case Direction::DOWN:
-		m_y -= count;
+		y -= count;
 		break;
 	case Direction::RIGHT:
-		m_x += count;
+		x += count;
 		break;
 	case Direction::LEFT:
-		m_x -= count;
+		x -= count;
 		break;
 	}
 }
 
 void Transform::Turn(int numTimes)
 {
-	int dir = m_dir;
+	int dir = direction;
 	dir += numTimes;
-	m_dir = static_cast<Direction>(dir % 4);
+	direction = static_cast<Direction>(dir % 4);
 }

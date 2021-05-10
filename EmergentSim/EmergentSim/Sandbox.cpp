@@ -35,7 +35,6 @@ void Sandbox::SetupSandbox()
     int num_walls = (rand() % max_walls) + min_walls;
     int num_resources = rand() % (cells - num_walls);
 
-
     for (int i = 0; i < num_walls; ++i)
     {
         int randomX = rand() % m_height;
@@ -75,13 +74,67 @@ bool Sandbox::RandomlyPlaceEntity(Entity* ent)
     }
 }
 
+static int Clamp(int val, int min, int max)
+{
+    if (val < min) return min;
+    if (val > max) return max;
+    return val;
+}
+
+vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
+{
+    vector<Entity*> entities{};
+    int _distance = (int)distance;
+
+    Transform transform = ent->GetTransform();
+    int minX{ transform.x - _distance };
+    int maxX{ transform.x + _distance };
+    int minY{ transform.y - _distance };
+    int maxY{ transform.y + _distance };
+
+    switch (transform.direction)
+    {
+    case Transform::Direction::UP:
+        maxY = transform.y;
+        break;
+    case Transform::Direction::DOWN:
+        minY = transform.y;
+        break;
+    case Transform::Direction::LEFT:
+        maxX = transform.x;
+        break;
+    case Transform::Direction::RIGHT:
+        minX = transform.x;
+        break;
+    }
+
+    // ensure we don't go out of bounds
+    minX = Clamp(minX, 0, m_width);
+    maxX = Clamp(maxX, 0, m_width);
+    minY = Clamp(minY, 0, m_height);
+    maxY = Clamp(maxY, 0, m_height);
+
+    Entity* entity{};
+    for (int x{ minX }; x < maxX; ++x)
+    {
+        for (int y{ minY }; y < maxY; ++y)
+        {
+            entity = m_sandbox[x][y];
+            if (entity != nullptr)
+                entities.push_back(entity);
+        }
+    }
+
+    return entities;
+}
+
 bool Sandbox::PlaceEntity(Entity* ent, int x, int y)
 {
     if (m_sandbox[x][y] != nullptr)
         return false;
 
-    ent->m_transform.m_x = x;
-    ent->m_transform.m_y = y;
+    ent->m_transform.x = x;
+    ent->m_transform.y = y;
     m_sandbox[x][y] = ent;
     ++m_entityCount;
 
@@ -90,15 +143,35 @@ bool Sandbox::PlaceEntity(Entity* ent, int x, int y)
 
 bool Sandbox::MoveEntity(Entity* ent, Transform destination)
 {
-    if (destination.m_x < 0 ||
-        destination.m_x >= m_width ||
-        destination.m_y < 0 ||
-        destination.m_y >= m_height)
+    if (destination.x < 0 ||
+        destination.x >= m_width ||
+        destination.y < 0 ||
+        destination.y >= m_height)
         return false;
+    
+    Entity* e = m_sandbox[destination.x][destination.y];
+    // if there is something in that space already don't move it there
+    if (e != nullptr && e != ent) return false;
 
-    m_sandbox[ent->m_transform.m_x][ent->m_transform.m_y] = nullptr;
+    m_sandbox[ent->m_transform.x][ent->m_transform.y] = nullptr;
     ent->m_transform = destination;
-    m_sandbox[destination.m_x][destination.m_y] = ent;
+    m_sandbox[destination.x][destination.y] = ent;
+
+    return true;
+}
+
+bool Sandbox::RemoveEntity(Entity* ent)
+{
+    if (ent == nullptr) return false;
+
+    Entity*& entity = At(ent->GetTransform());
+    entity = nullptr;
+    return true;
+}
+
+Entity*& Sandbox::At(Transform transform)
+{
+    return m_sandbox[transform.x][transform.y];
 }
 
 Sandbox::~Sandbox()
