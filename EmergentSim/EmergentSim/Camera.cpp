@@ -46,13 +46,22 @@ void Camera::Handle(SDL_Event& e)
 SDL_Rect Camera::WorldToCamera(Transform worldTransform, int width, int height)
 {
 	SDL_Rect rend = {};
-	rend.h = height * m_pixelsPerUnit * m_zoomMultiplier;
-	rend.w = width * m_pixelsPerUnit * m_zoomMultiplier;
+	rend.h = height * m_pixelsPerUnit *m_zoomMultiplier;
+	rend.w = width * m_pixelsPerUnit *m_zoomMultiplier;
 
 	rend.x = worldTransform.x * (m_pixelsPerUnit * m_zoomMultiplier) - m_position.x;
 	rend.y = worldTransform.y * (m_pixelsPerUnit * m_zoomMultiplier) - m_position.y;
 
 	return rend;
+}
+
+Transform Camera::CameraToWorld(SDL_Rect pixelPos)
+{
+	Transform pos(0,0,Transform::Direction::UP);
+	pos.x = (pixelPos.x + m_position.x) / (m_pixelsPerUnit * m_zoomMultiplier);
+	pos.y = (pixelPos.y + m_position.y) / (m_pixelsPerUnit * m_zoomMultiplier);
+
+	return pos;
 }
 
 void Camera::MiddleButtonDown()
@@ -83,17 +92,30 @@ void Camera::MouseMoved(SDL_MouseMotionEvent& e)
 
 void Camera::ScrollZoom(SDL_MouseWheelEvent& e)
 {
-	const float scrollAmount = 0.05f;
+	const float scrollAmount = 0.02f;
+	const int pixelDiff = 5;
+
+	SDL_GetMouseState(&m_lastMousePosition.x, &m_lastMousePosition.y);
+	Transform mouseWorldPos = CameraToWorld(SDL_Rect{ m_lastMousePosition.x, m_lastMousePosition.y });
+	mouseWorldPos.x += 1;
+	mouseWorldPos.y += 1;
 	if (e.y > 0)
 	{
-		m_zoomMultiplier += scrollAmount;
+		m_zoomMultiplier += m_zoomMultiplier * pixelDiff * scrollAmount;
 		if (m_zoomMultiplier > m_maxZoomMultiplier)
 			m_zoomMultiplier = m_maxZoomMultiplier;
+		
 	}
 	else
 	{
-		m_zoomMultiplier -= scrollAmount;
+		m_zoomMultiplier -= m_zoomMultiplier * pixelDiff * scrollAmount;
 		if (m_zoomMultiplier < m_minZoomMultiplier)
 			m_zoomMultiplier = m_minZoomMultiplier;
 	}
+
+	SDL_Rect after = WorldToCamera(mouseWorldPos);
+	int offsetX = after.x - m_lastMousePosition.x;
+	int offsetY = after.y - m_lastMousePosition.y;
+	m_position.x += offsetX;
+	m_position.y += offsetY;
 }
