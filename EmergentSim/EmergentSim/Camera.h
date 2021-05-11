@@ -6,7 +6,7 @@
 class Camera : public IEventObserver
 {
 public:
-	Camera(int pixelsPerUnit = 40, float minZoomMultiplier = 0.15f, float maxZoomMultiplier = 8.0f);
+	Camera(int pixelsPerUnit = 40, float minZoomMultiplier = 0.05f, float maxZoomMultiplier = 8.0f);
 	~Camera();
 
 	void Handle(SDL_Event& e);
