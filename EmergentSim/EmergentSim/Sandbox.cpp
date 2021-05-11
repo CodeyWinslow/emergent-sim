@@ -120,11 +120,68 @@ bool Sandbox::RandomlyPlaceEntity(Entity* ent)
     }
 }
 
-static int Clamp(int val, int min, int max)
+template<typename T, typename Q, typename Z>
+static T Clamp(T val, Q min, Z max)
 {
     if (val < min) return min;
     if (val > max) return max;
     return val;
+}
+
+static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
+{
+    if (me == them) return false;
+
+    Transform my = me->GetTransform();
+    Transform their = them->GetTransform();
+
+    int xDiff = abs(their.x - my.x);
+    int yDiff = abs(their.y - my.y);
+
+    if (xDiff == 0)
+    {
+        int yStep = ((double)their.y - my.y) / (double)yDiff;
+        int x = my.x;
+        int y = my.y + yStep;
+
+        while (sandbox->GetEntity(x, y) && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
+        {
+            if (sandbox->GetEntity(x, y) == them) return true;
+            y += yStep;
+        }
+    }
+    else if (yDiff == 0)
+    {
+        int xStep = ((double)their.x - my.x) / (double)xDiff;
+        int x = my.x + xStep;
+        int y = my.y;
+
+        while (sandbox->GetEntity(x, y) && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
+        {
+            if (sandbox->GetEntity(x, y) == them) return true;
+            x += xStep;
+        }
+    }
+    else
+    {
+        double xStep = ((double)their.x - my.x) / (double)xDiff;
+        double yStep = ((double)their.y - my.y) / (double)xDiff;
+
+        double x = my.x + xStep;
+        double y = my.y + yStep;
+        x = Clamp(x, 0, sandbox->GetWidth() - 1);
+        y = Clamp(y, 0, sandbox->GetHeight() - 1);
+
+        while (sandbox->GetEntity(x, y) && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
+        {
+            if (sandbox->GetEntity(x, y) == them) return true;
+            x += xStep;
+            y += yStep;
+            x = Clamp(x, 0, sandbox->GetWidth() - 1);
+            y = Clamp(y, 0, sandbox->GetHeight() - 1);
+        }
+    }
+    return false;
 }
 
 vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
@@ -166,7 +223,7 @@ vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
         for (int y{ minY }; y <= maxY; ++y)
         {
             entity = m_sandbox[x][y];
-            if (entity != nullptr)
+            if (entity != nullptr && entity->GetType() != EntityType::WALL && HasLineOfSight(ent, entity, this))
                 entities.push_back(entity);
         }
     }
