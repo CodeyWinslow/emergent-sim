@@ -40,9 +40,9 @@ private:
 
 	SDL_Logger m_logger;
 	
-	//Transform m_camOffset;
 	float m_gridWidthToPixels = 1.0f;
 	const int m_defaultWidthToPixels = 40;
+	const int m_minGridPixelSize = 10;
 
 	void SetColor(SDL_Color);
 	void DrawEntities();

@@ -54,7 +54,7 @@ bool SimDisplay::Update()
 	if (!InputManager::GetInstance().Update())
 		return false;
 
-	DrawGrid();
+	//DrawGrid();
 	DrawEntities();
 
 	DrawUI();
@@ -109,28 +109,84 @@ void SimDisplay::DrawEntity(Entity* entity, float scale)
 	screenPos.w = screenPos.h = scaledWidth;
 	if (SDL_RenderFillRect(m_renderer, &screenPos) != 0)
 		m_logger.SDL_LogError(std::cout, "Failed to render rect");
+
+	if (entity->GetType() == EntityType::AGENT)
+	{
+		SDL_Rect forwardRect;
+		switch (entity->m_transform.direction)
+		{
+		case Transform::Direction::UP:
+			forwardRect.w = screenPos.w / 2;
+			if (forwardRect.w < 4)
+				forwardRect.w = 4;
+			forwardRect.h = screenPos.h / 4;
+			if (forwardRect.h < 2)
+				forwardRect.h = 2;
+			forwardRect.x = screenPos.x + ((screenPos.w - forwardRect.w) / 2);
+			forwardRect.y = screenPos.y + 1;
+			break;
+		case Transform::Direction::RIGHT:
+			forwardRect.h = screenPos.h / 2;
+			if (forwardRect.h < 4)
+				forwardRect.h = 4;
+			forwardRect.w = screenPos.w / 4;
+			if (forwardRect.w < 2)
+				forwardRect.w = 2;
+			forwardRect.y = screenPos.y + ((screenPos.h - forwardRect.h) / 2);
+			forwardRect.x = screenPos.x + screenPos.w - forwardRect.w - 1;
+			break;
+		case Transform::Direction::DOWN:
+			forwardRect.w = screenPos.w / 2;
+			if (forwardRect.w < 4)
+				forwardRect.w = 4;
+			forwardRect.h = screenPos.h / 4;
+			if (forwardRect.h < 2)
+				forwardRect.h = 2;
+			forwardRect.x = screenPos.x + ((screenPos.w - forwardRect.w) / 2);
+			forwardRect.y = screenPos.y + screenPos.h - forwardRect.h - 1;
+			break;
+		case Transform::Direction::LEFT:
+			forwardRect.h = screenPos.h / 2;
+			if (forwardRect.h < 4)
+				forwardRect.h = 4;
+			forwardRect.w = screenPos.w / 4;
+			if (forwardRect.w < 2)
+				forwardRect.w = 2;
+			forwardRect.y = screenPos.y + ((screenPos.h - forwardRect.h) / 2);
+			forwardRect.x = screenPos.x + 1;
+			break;
+		}
+		SetColor({0, 0, 0, 255});
+		SDL_RenderFillRect(m_renderer, &forwardRect);
+	}
 }
 
 void SimDisplay::DrawGrid() {
 
+	Transform line(0, 0, Transform::Direction::UP);
+	SDL_Rect linePos;
+
+	//don't render if too small
+	if (m_cam.WorldToCamera(line).w < m_minGridPixelSize)
+		return;
+
+	SetColor({ 0,0,0,255 });
+	
 	int column_lines = m_sandbox.GetWidth() + 1;
 	int row_lines = m_sandbox.GetHeight() + 1;
-	int gridSquare = (int)(m_defaultWidthToPixels * m_gridWidthToPixels);
 
-	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-	
 	for(int ii = 0; ii < column_lines; ii++) {
-		Transform col(ii, 0, Transform::Direction::UP);
-		SDL_Rect screenPos = m_cam.WorldToCamera(col, 1, m_sandbox.GetHeight());
-		SDL_RenderDrawLine(m_renderer, screenPos.x, screenPos.y, screenPos.x, screenPos.y + screenPos.h);
-		//SDL_RenderDrawLine(m_renderer, ii*gridSquare, 0, ii*gridSquare, m_sandbox.GetHeight()*gridSquare);
+		line.x = ii;
+		linePos = m_cam.WorldToCamera(line, 1, m_sandbox.GetHeight());
+		SDL_RenderDrawLine(m_renderer, linePos.x, linePos.y, linePos.x, linePos.y + linePos.h);
 	}
 
+	line.x = 0;
+
 	for(int ii = 0; ii < row_lines; ii++) {
-		Transform col(0,ii, Transform::Direction::UP);
-		SDL_Rect screenPos = m_cam.WorldToCamera(col, m_sandbox.GetWidth(), 1);
-		SDL_RenderDrawLine(m_renderer, screenPos.x, screenPos.y, screenPos.x+screenPos.w, screenPos.y);
-		//SDL_RenderDrawLine(m_renderer, 0, ii*gridSquare, m_sandbox.GetWidth()*gridSquare, ii*gridSquare);
+		line.y = ii;
+		linePos = m_cam.WorldToCamera(line, m_sandbox.GetWidth(), 1);
+		SDL_RenderDrawLine(m_renderer, linePos.x, linePos.y, linePos.x+ linePos.w, linePos.y);
 	}
 
 }
