@@ -16,9 +16,9 @@ int main(int argc, char ** argv)
         {13, 137, 214, 255}
     };
 
-    const int numAgents = 50;
-    const int sandboxWidth = 200;
-    const int sandboxHeight = 200;
+    const int numAgents = 100;
+    const int sandboxWidth = 100;
+    const int sandboxHeight = 100;
 
     GameController game(numAgents, 5, sandboxWidth, sandboxHeight, windowSettings);
     game.Start();

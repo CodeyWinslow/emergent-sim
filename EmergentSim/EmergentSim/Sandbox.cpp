@@ -32,9 +32,11 @@ void Sandbox::SetupSandbox()
     {
         for (int y = 0; y < m_height; ++y)
         {
+            /* graveyard of mysterious noise */
             //float perlinVal = perlin.noise((float)x / m_width, (float)y / m_height, 0) - 0.5f;
-            float perlinVal = (perlin.noise((float)x / m_width * 20, (float)y / m_height * 20, 0) - 0.5f) * 2;
+            //float perlinVal = ((perlin.noise(((float)x / m_width) * 20, ((float)y / m_height) * 20, 0)) - 0.5f) * 2;
             //float perlinVal = perlin.noise(x*50, y*50, 0);
+            float perlinVal = (perlin.noise((float)x / 10.0, (float)y / 10.0, 0) - 0.5) * 2;
 
             if (perlinVal >= wallBegin && perlinVal <= wallLimit)
             {
