@@ -177,8 +177,16 @@ static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
             if (sandbox->GetEntity(x, y) == them) return true;
             x += xStep;
             y += yStep;
-            x = Clamp(x, 0, sandbox->GetWidth() - 1);
-            y = Clamp(y, 0, sandbox->GetHeight() - 1);
+
+            if (xStep > 0)
+                x = Clamp(x, 0, their.x);
+            else
+                x = Clamp(x, their.x, sandbox->GetWidth() - 1);
+
+            if (yStep > 0)
+                y = Clamp(y, 0, their.y);
+            else
+                y = Clamp(y, their.y, sandbox->GetHeight() - 1);
         }
     }
     return false;
