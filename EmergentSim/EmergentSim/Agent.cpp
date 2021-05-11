@@ -7,8 +7,8 @@
 
 using namespace Agents;
 
-Agent::Agent(Transform transform) noexcept
-	: Entity(transform), m_idle{ new IdleReaction{} }
+Agent::Agent(Transform transform, SDL_Color color) noexcept
+	: Entity(transform, color), m_idle{ new IdleReaction{} }
 {
 	// set up default reactions
 	m_reactions =

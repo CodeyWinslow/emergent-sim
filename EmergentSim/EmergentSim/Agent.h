@@ -15,7 +15,7 @@ namespace Agents
 	class Agent : public Entity
 	{
 	public:
-		Agent(Transform transform = Transform{ 0, 0, Transform::Direction::DOWN }) noexcept;
+		Agent(Transform transform = Transform{ 0, 0, Transform::Direction::DOWN }, SDL_Color color = { 214, 115, 13, 255 }) noexcept;
 		virtual void ProcessEvents(vector<EventInfo> events);
 
 		inline virtual EntityType GetType()

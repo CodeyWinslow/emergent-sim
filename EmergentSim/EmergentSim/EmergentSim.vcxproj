@@ -174,6 +174,7 @@
     <ClCompile Include="ResourceNearReaction.cpp" />
     <ClCompile Include="Sandbox.cpp" />
     <ClCompile Include="SDL_Logger.cpp" />
+    <ClCompile Include="ShrinkShader.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
     <ClCompile Include="TouchingResourceEvent.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="EventInfo.h" />
     <ClInclude Include="GameController.h" />
     <ClInclude Include="IdleReaction.h" />
+    <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MoveForwardAction.h" />
     <ClInclude Include="Perlin.h" />
     <ClInclude Include="Reaction.h" />
@@ -208,6 +210,8 @@
     <ClInclude Include="Sandbox.h" />
     <ClInclude Include="SDL_Exception.h" />
     <ClInclude Include="SDL_Logger.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShrinkShader.h" />
     <ClInclude Include="SimDisplay.h" />
     <ClInclude Include="TouchingResourceEvent.h" />
     <ClInclude Include="Transform.h" />

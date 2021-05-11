@@ -19,7 +19,8 @@ enum class InputEvent {
 	BUTTON_DOWN,
 	BUTTON_UP,
 	SCROLL,
-	MOUSE_MOVE
+	MOUSE_MOVE,
+	QUIT
 };
 
 typedef void(*ButtonClickListener)(SDL_MouseButtonEvent&);
@@ -31,7 +32,7 @@ public:
 	
 	~InputManager();
 
-	bool Update();
+	void Update();
 
 	void SubscribeEvent(InputEvent eventType, IEventObserver* subscriber);
 	void UnsubscribeEvent(InputEvent eventType, IEventObserver* subscriber);

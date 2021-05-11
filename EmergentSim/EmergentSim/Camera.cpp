@@ -1,10 +1,12 @@
 #include "Camera.h"
 #include "InputManager.h"
 
-Camera::Camera(int pixelsPerUnit, float minZoomMultiplier, float maxZoomMultiplier) :
-	m_pixelsPerUnit(pixelsPerUnit), m_position(0,0,Transform::Direction::UP),
+Camera::Camera(SDL_Renderer* renderer, int width, int height, int pixelsPerUnit, float minZoomMultiplier, float maxZoomMultiplier) :
+	m_renderer(renderer), m_width(width), m_height(height),
+	m_pixelsPerUnit(pixelsPerUnit), m_position(0, 0, Transform::Direction::UP),
 	m_minZoomMultiplier(minZoomMultiplier), m_maxZoomMultiplier(maxZoomMultiplier),
-	m_lastMousePosition(0,0,Transform::Direction::UP)
+	m_lastMousePosition(0, 0, Transform::Direction::UP),
+	m_shaders(0)
 {
 	InputManager& input = InputManager::GetInstance();
 	input.SubscribeEvent(InputEvent::BUTTON_DOWN, this);
@@ -18,6 +20,26 @@ Camera::~Camera()
 	input.UnsubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	input.UnsubscribeEvent(InputEvent::BUTTON_UP, this);
 	input.UnsubscribeEvent(InputEvent::SCROLL, this);
+}
+
+void Camera::Draw(Transform obj, SDL_Color color, int width, int height)
+{
+	SDL_Rect screenPos = WorldToCamera(obj);
+	Draw(screenPos, color);
+}
+
+void Camera::Draw(SDL_Rect obj, SDL_Color color)
+{
+	if (IsCullable(obj))
+		return;
+
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+
+	for (Shader* shader : m_shaders)
+	{
+		obj = shader->Compute(obj);
+	}
+	SDL_RenderFillRect(m_renderer, &obj);
 }
 
 void Camera::Handle(SDL_Event& e)
@@ -60,6 +82,56 @@ Transform Camera::CameraToWorld(SDL_Rect pixelPos)
 	pos.y = (pixelPos.y + m_position.y) / (m_pixelsPerUnit * m_zoomMultiplier);
 
 	return pos;
+}
+
+void Camera::ApplyShader(Shader* shader)
+{
+	m_shaders.push_back(shader);
+}
+
+void Camera::RemoveShader(Shader* shader)
+{
+	for (auto iter = m_shaders.begin(); iter != m_shaders.end(); iter++)
+	{
+		if ((*iter) == shader)
+		{
+			iter = m_shaders.erase(iter);
+			return;
+		}
+	}
+}
+
+Transform Camera::GetMinBounds()
+{
+	Transform min = CameraToWorld({ 0,0 });
+	min.x--;
+	min.y--;
+	return min;
+}
+
+Transform Camera::GetMaxBounds()
+{
+	Transform max = CameraToWorld({ m_width, m_height });
+	max.x++;
+	max.y++;
+	return max;
+}
+
+bool Camera::IsCullable(SDL_Rect obj)
+{
+	if (obj.x + obj.w < 0)
+		return true;
+
+	if (obj.x > m_width)
+		return true;
+
+	if (obj.y + obj.h < 0)
+		return true;
+
+	if (obj.y > m_height)
+		return true;
+
+	return false;
 }
 
 void Camera::MiddleButtonDown()

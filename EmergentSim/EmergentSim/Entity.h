@@ -1,5 +1,6 @@
 #pragma once
 #include "Transform.h"
+#include "IRenderable.h"
 class Sprite;
 
 enum EntityType 
@@ -9,14 +10,18 @@ enum EntityType
 	WALL = 2
 };
 
-class Entity 
+class Entity : public IRenderable
 {
 public:
-	Entity(Transform transform) : m_transform(transform) {};
+	Entity(Transform transform, SDL_Color color) : m_transform(transform), m_color(color) {};
 	inline virtual EntityType GetType() = 0;
-	virtual Transform GetTransform() { return m_transform; }
+	inline virtual Transform GetTransform() { return m_transform; }
+
+	inline virtual void Draw(Camera* camera) { camera->Draw(m_transform, m_color); }
 
 	Transform m_transform;
+protected:
+	SDL_Color m_color;
 private:
 	Sprite* m_sprite = nullptr;
 };

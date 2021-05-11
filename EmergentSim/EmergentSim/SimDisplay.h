@@ -6,6 +6,7 @@
 #include "IEventObserver.h"
 #include "PauseButton.h"
 #include "Camera.h"
+#include "ShrinkShader.h"
 #include <string>
 
 struct SimDisplaySettings {
@@ -13,9 +14,6 @@ struct SimDisplaySettings {
 	int windowWidth;
 	int windowHeight;
 	SDL_Color backgroundColor;
-	SDL_Color agentColor;
-	SDL_Color resourceColor;
-	SDL_Color wallColor;
 };
 
 class SimDisplay : public IEventObserver
@@ -27,7 +25,10 @@ public:
 	void Handle(SDL_Event& e);
 
 private:
+	bool m_quit = false;
 	SimDisplaySettings m_settings;
+
+	Shader* m_entityShader;
 	Camera m_cam;
 
 	Sandbox& m_sandbox;
@@ -44,14 +45,13 @@ private:
 	const int m_defaultWidthToPixels = 40;
 	const int m_minGridPixelSize = 10;
 
+	void SubscribeToInput();
+	void UnsubscribeToInput();
 	void SetColor(SDL_Color);
 	void DrawEntities();
-	void DrawEntity(Entity* entity, float scale = 0.75f);
+	//void DrawEntity(Entity* entity, float scale = 0.75f);
 	void DrawGrid();
 	void DrawUI();
-	void HandleScroll(SDL_MouseWheelEvent& e);
-	void ScrollZoomOut();
-	void ScrollZoomIn();
 
 };
 

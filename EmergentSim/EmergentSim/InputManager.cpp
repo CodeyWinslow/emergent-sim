@@ -26,7 +26,7 @@ InputManager::InputManager()
 InputManager::~InputManager()
 {}
 
-bool InputManager::Update()
+void InputManager::Update()
 {
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
@@ -46,16 +46,11 @@ bool InputManager::Update()
 				NotifySubscribers(InputEvent::MOUSE_MOVE, e);
 				break;
 			case SDL_WINDOWEVENT_CLOSE:
-				e.type = SDL_QUIT;
-				SDL_PushEvent(&e);
-				break;
 			case SDL_QUIT:
-				return false;
+				NotifySubscribers(InputEvent::QUIT, e);
 				break;
 		}
 	}
-
-	return true;
 }
 
 void InputManager::SubscribeEvent(InputEvent eventType, IEventObserver* subscriber)
