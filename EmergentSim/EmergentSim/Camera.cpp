@@ -9,7 +9,6 @@ Camera::Camera(int pixelsPerUnit, float minZoomMultiplier, float maxZoomMultipli
 	InputManager& input = InputManager::GetInstance();
 	input.SubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	input.SubscribeEvent(InputEvent::BUTTON_UP, this);
-	input.SubscribeEvent(InputEvent::MOUSE_MOVE, this);
 	input.SubscribeEvent(InputEvent::SCROLL, this);
 }
 
@@ -18,7 +17,6 @@ Camera::~Camera()
 	InputManager& input = InputManager::GetInstance();
 	input.UnsubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	input.UnsubscribeEvent(InputEvent::BUTTON_UP, this);
-	input.UnsubscribeEvent(InputEvent::MOUSE_MOVE, this);
 	input.UnsubscribeEvent(InputEvent::SCROLL, this);
 }
 
@@ -67,12 +65,14 @@ Transform Camera::CameraToWorld(SDL_Rect pixelPos)
 void Camera::MiddleButtonDown()
 {
 	m_mousePressed = true;
+	InputManager::GetInstance().SubscribeEvent(InputEvent::MOUSE_MOVE, this);
 	SDL_GetMouseState(&m_lastMousePosition.x, &m_lastMousePosition.y);
 }
 
 void Camera::MiddleButtonUp()
 {
 	m_mousePressed = false;
+	InputManager::GetInstance().UnsubscribeEvent(InputEvent::MOUSE_MOVE, this);
 }
 
 void Camera::MouseMoved(SDL_MouseMotionEvent& e)
