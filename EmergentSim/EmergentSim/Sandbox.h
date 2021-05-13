@@ -6,9 +6,9 @@ using std::vector;
 
 //Temp variables to be put in game controller
 float const MIN_WALL_PERCENT = 0.02;
-float const MAX_WALL_PERCENT = .15f;
-float const MIN_RESOURCE_PERCENT = .02f;
-float const MAX_RESOURCE_PERCENT = .1f;
+float const MAX_WALL_PERCENT = 0.15f;
+float const MIN_RESOURCE_PERCENT = 0.5f;
+float const MAX_RESOURCE_PERCENT = 0.8f;
 
 class Sandbox
 {

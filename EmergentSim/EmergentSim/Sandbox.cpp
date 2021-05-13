@@ -23,10 +23,11 @@ void Sandbox::SetupSandbox()
 {
     const float wallBegin = MIN_WALL_PERCENT;
     const float wallLimit = MAX_WALL_PERCENT;
-    const float resourceBegin = MIN_RESOURCE_PERCENT + wallBegin;
-    const float resourceLimit = MAX_RESOURCE_PERCENT + wallLimit;
+    const float resourceBegin = MIN_RESOURCE_PERCENT;
+    const float resourceLimit = MAX_RESOURCE_PERCENT;
 
     PerlinNoise perlin(time(NULL));
+    const float perlinFrequency = 10.0;
 
     for (int x = 0; x < m_width; ++x)
     {
@@ -36,7 +37,7 @@ void Sandbox::SetupSandbox()
             //float perlinVal = perlin.noise((float)x / m_width, (float)y / m_height, 0) - 0.5f;
             //float perlinVal = ((perlin.noise(((float)x / m_width) * 20, ((float)y / m_height) * 20, 0)) - 0.5f) * 2;
             //float perlinVal = perlin.noise(x*50, y*50, 0);
-            float perlinVal = (perlin.noise((float)x / 10.0, (float)y / 10.0, 0) - 0.5) * 2;
+            float perlinVal = (perlin.noise((float)x / perlinFrequency, (float)y / perlinFrequency, 0) - 0.5) * 2;
 
             if (perlinVal >= wallBegin && perlinVal <= wallLimit)
             {
@@ -46,10 +47,10 @@ void Sandbox::SetupSandbox()
                 if (!PlaceEntity(ent, x, y))
                     throw string("Failed to place entity. Not enough space");
             }
-            else if (perlinVal <= resourceLimit)
+            else if (perlinVal >= resourceBegin && perlinVal <= resourceLimit)
             {
-                perlinVal = (rand() % 10) / 10.0;
-                //if (perlinVal <= resourceLimit - wallLimit)
+                perlinVal = (rand() % 100) / 100.0;
+                if (perlinVal <= resourceLimit - resourceBegin)
                 {
                     Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
                     Transform transform(x, y, randomDir);

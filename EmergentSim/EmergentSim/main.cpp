@@ -13,7 +13,7 @@ int main(int argc, char ** argv)
         {200, 192, 181, 255}
     };
 
-    const int numAgents = 100;
+    const int numAgents = 400;
     const int sandboxWidth = 200;
     const int sandboxHeight = 200;
 
