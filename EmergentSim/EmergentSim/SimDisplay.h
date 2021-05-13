@@ -13,8 +13,8 @@
 #include "IEventObserver.h"
 
 //UI
-#include "PauseButton.h"
-#include "ResetButton.h"
+#include "UICanvas.h"
+
 #include <string>
 #pragma endregion
 
@@ -53,14 +53,10 @@ namespace EmergentGraphics
 
 		//SDL rendering
 		SDL_Window* m_window;
-		SDL_Surface* m_screenSurface;
 		SDL_Renderer* m_renderer;
 
 		//UI
-		Button* m_pauseButton;
-		Button* m_resetButton;
-		//PauseButton* m_pauseButton;
-		//ResetButton* m_resetButton;
+		UICanvas* m_ui;
 
 		//Tools
 		SDL_Logger m_logger;
@@ -70,7 +66,6 @@ namespace EmergentGraphics
 		void UnsubscribeToInput();
 		void SetColor(SDL_Color);
 		void DrawEntities();
-		//void DrawEntity(Entity* entity, float scale = 0.75f);
 		void DrawGrid();
 		void DrawUI();
 

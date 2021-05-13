@@ -165,6 +165,7 @@
     <ClCompile Include="ConsumeResourceAction.cpp" />
     <ClCompile Include="ConsumeResourceReaction.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="DefaultSimDisplay.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -187,6 +188,8 @@
     <ClCompile Include="TouchingResourceEvent.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TurnAction.cpp" />
+    <ClCompile Include="UICanvas.cpp" />
+    <ClCompile Include="UIComponent.cpp" />
     <ClCompile Include="Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -197,6 +200,7 @@
     <ClInclude Include="ConsumeResourceAction.h" />
     <ClInclude Include="ConsumeResourceReaction.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="DefaultSimDisplay.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Action.h" />
     <ClInclude Include="Event.h" />
@@ -227,6 +231,8 @@
     <ClInclude Include="TouchingResourceEvent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TurnAction.h" />
+    <ClInclude Include="UICanvas.h" />
+    <ClInclude Include="UIComponent.h" />
     <ClInclude Include="Wall.h" />
   </ItemGroup>
   <ItemGroup>

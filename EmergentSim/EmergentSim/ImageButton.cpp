@@ -24,5 +24,5 @@ void ImageButton::Render()
 
 	Button::Render();
 
-	SDL_RenderCopy(m_renderer, m_imageTexture, nullptr, &m_buttonBounds);
+	SDL_RenderCopy(m_renderer, m_imageTexture, nullptr, &m_bounds);
 }

@@ -1,11 +1,13 @@
 #include "SimDisplay.h"
 #include "SDL_Exception.h"
 #include "SDL_image.h"
+#include "DefaultSimDisplay.h"
+#include "InputManager.h"
 
 using namespace EmergentGraphics;
 
 SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
-	m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr),
+	m_sandbox(sandbox), m_window(nullptr),
 	m_cam(nullptr, settings.windowWidth, settings.windowHeight)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0 || IMG_Init(IMG_INIT_PNG) == 0) {
@@ -26,22 +28,16 @@ SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 		throw SDL_Exception(msg + std::string(SDL_GetError()));
 	}
 
-	m_screenSurface = SDL_GetWindowSurface(m_window);
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 	m_cam.SetRenderer(m_renderer);
 	m_entityShader = new ShrinkShader(0.8f);
 	m_cam.ApplyShader(m_entityShader);
+
 	SetColor(settings.backgroundColor);
 
 	SDL_UpdateWindowSurface(m_window);
 
-	m_pauseButton = new PauseButton(m_renderer,
-		{settings.windowWidth - 160,
-		settings.windowHeight - 60,
-		150,50
-		});
-
-	m_resetButton = new ResetButton(m_renderer, { settings.windowWidth - 58, 10, 48, 48 });
+	m_ui = new DefaultSimDisplay(m_renderer, { 0,0,settings.windowWidth, settings.windowHeight });
 
 	SubscribeToInput();
 }
@@ -49,8 +45,8 @@ SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 SimDisplay::~SimDisplay()
 {
 	UnsubscribeToInput();
-	delete m_pauseButton;
-	delete m_resetButton;
+
+	delete m_ui;
 
 	m_cam.RemoveShader(m_entityShader);
 
@@ -123,82 +119,9 @@ void SimDisplay::DrawEntities()
 		{
 			Entity* entity = m_sandbox.GetEntity(x, y);
 			if (entity) entity->Draw(&m_cam);
-			//DrawEntity(m_sandbox.GetEntity(x,y));
 		}
 	}
 }
-
-//void SimDisplay::DrawEntity(Entity* entity, float scale)
-//{
-//	if (entity == nullptr)
-//		return;
-//
-//	if (entity->GetType() == EntityType::WALL)
-//		SetColor(m_settings.wallColor);
-//	else if (entity->GetType() == EntityType::RESOURCE)
-//		SetColor(m_settings.resourceColor);
-//	else if (entity->GetType() == EntityType::AGENT)
-//		SetColor(m_settings.agentColor);
-//
-//	SDL_Rect screenPos = m_cam.WorldToCamera(entity->GetTransform());
-//	int scaledWidth = screenPos.w * scale;
-//	int offset = (screenPos.w - scaledWidth) / 2;
-//	screenPos.x += offset;
-//	screenPos.y += offset;
-//	screenPos.w = screenPos.h = scaledWidth;
-//	if (SDL_RenderFillRect(m_renderer, &screenPos) != 0)
-//		m_logger.SDL_LogError(std::cout, "Failed to render rect");
-//
-//	if (entity->GetType() == EntityType::AGENT)
-//	{
-//		SDL_Rect forwardRect;
-//		switch (entity->m_transform.direction)
-//		{
-//		case Transform::Direction::UP:
-//			forwardRect.w = screenPos.w / 2;
-//			if (forwardRect.w < 4)
-//				forwardRect.w = 4;
-//			forwardRect.h = screenPos.h / 4;
-//			if (forwardRect.h < 2)
-//				forwardRect.h = 2;
-//			forwardRect.x = screenPos.x + ((screenPos.w - forwardRect.w) / 2);
-//			forwardRect.y = screenPos.y + 1;
-//			break;
-//		case Transform::Direction::RIGHT:
-//			forwardRect.h = screenPos.h / 2;
-//			if (forwardRect.h < 4)
-//				forwardRect.h = 4;
-//			forwardRect.w = screenPos.w / 4;
-//			if (forwardRect.w < 2)
-//				forwardRect.w = 2;
-//			forwardRect.y = screenPos.y + ((screenPos.h - forwardRect.h) / 2);
-//			forwardRect.x = screenPos.x + screenPos.w - forwardRect.w - 1;
-//			break;
-//		case Transform::Direction::DOWN:
-//			forwardRect.w = screenPos.w / 2;
-//			if (forwardRect.w < 4)
-//				forwardRect.w = 4;
-//			forwardRect.h = screenPos.h / 4;
-//			if (forwardRect.h < 2)
-//				forwardRect.h = 2;
-//			forwardRect.x = screenPos.x + ((screenPos.w - forwardRect.w) / 2);
-//			forwardRect.y = screenPos.y + screenPos.h - forwardRect.h - 1;
-//			break;
-//		case Transform::Direction::LEFT:
-//			forwardRect.h = screenPos.h / 2;
-//			if (forwardRect.h < 4)
-//				forwardRect.h = 4;
-//			forwardRect.w = screenPos.w / 4;
-//			if (forwardRect.w < 2)
-//				forwardRect.w = 2;
-//			forwardRect.y = screenPos.y + ((screenPos.h - forwardRect.h) / 2);
-//			forwardRect.x = screenPos.x + 1;
-//			break;
-//		}
-//		SetColor({0, 0, 0, 255});
-//		SDL_RenderFillRect(m_renderer, &forwardRect);
-//	}
-//}
 
 void SimDisplay::DrawGrid() {
 
@@ -232,6 +155,5 @@ void SimDisplay::DrawGrid() {
 
 void SimDisplay::DrawUI()
 {
-	m_pauseButton->Render();
-	m_resetButton->Render();
+	m_ui->Render();
 }

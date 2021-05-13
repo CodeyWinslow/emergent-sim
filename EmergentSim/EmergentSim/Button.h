@@ -1,10 +1,11 @@
 #pragma once
 #include "InputManager.h"
+#include "UIComponent.h"
 #include "IRenderable.h"
 
 namespace EmergentGraphics
 {
-	class Button : public IEventObserver
+	class Button : public UIComponent, public IEventObserver
 	{
 	public:
 		Button(SDL_Renderer* renderer, SDL_Rect bounds, SDL_Color backColor);
@@ -19,8 +20,6 @@ namespace EmergentGraphics
 		void Handle(SDL_Event& e);
 
 	protected:
-		SDL_Renderer* m_renderer;
-		SDL_Rect m_buttonBounds;
 		SDL_Color m_backColor;
 		virtual void OnButtonClicked() = 0;
 

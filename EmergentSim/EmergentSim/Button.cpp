@@ -3,8 +3,8 @@
 using namespace EmergentGraphics;
 
 Button::Button(SDL_Renderer* renderer, SDL_Rect bounds, SDL_Color backColor) :
-	m_renderer(renderer), m_buttonPressed(false),
-	m_buttonBounds(bounds), m_backColor(backColor)
+	UIComponent::UIComponent(renderer, bounds),
+	m_buttonPressed(false), m_backColor(backColor)
 {
 	InputManager::GetInstance().SubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	InputManager::GetInstance().SubscribeEvent(InputEvent::BUTTON_UP, this);
@@ -27,13 +27,13 @@ void Button::Render()
 		return;
 
 	SDL_SetRenderDrawColor(m_renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
-	SDL_RenderFillRect(m_renderer, &m_buttonBounds);
+	SDL_RenderFillRect(m_renderer, &m_bounds);
 
 	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 20);
-	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y);
-	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
-	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
-	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h);
+	SDL_RenderDrawLine(m_renderer, m_bounds.x, m_bounds.y, m_bounds.x + m_bounds.w, m_bounds.y);
+	SDL_RenderDrawLine(m_renderer, m_bounds.x + m_bounds.w, m_bounds.y, m_bounds.x + m_bounds.w, m_bounds.y + m_bounds.h);
+	SDL_RenderDrawLine(m_renderer, m_bounds.x, m_bounds.y + m_bounds.h, m_bounds.x + m_bounds.w, m_bounds.y + m_bounds.h);
+	SDL_RenderDrawLine(m_renderer, m_bounds.x, m_bounds.y, m_bounds.x, m_bounds.y + m_bounds.h);
 }
 
 void Button::HandleButtonDown(SDL_MouseButtonEvent& e)
@@ -42,7 +42,7 @@ void Button::HandleButtonDown(SDL_MouseButtonEvent& e)
 	{
 		SDL_Point clickPoint{ e.x, e.y };
 
-		if (SDL_PointInRect(&clickPoint, &m_buttonBounds))
+		if (SDL_PointInRect(&clickPoint, &m_bounds))
 		{
 			m_buttonPressed = true;
 		}
@@ -55,7 +55,7 @@ void Button::HandleButtonUp(SDL_MouseButtonEvent& e)
 	{
 		SDL_Point clickPoint{ e.x, e.y };
 
-		if (SDL_PointInRect(&clickPoint, &m_buttonBounds))
+		if (SDL_PointInRect(&clickPoint, &m_bounds))
 		{
 			if (m_buttonPressed)
 			{
