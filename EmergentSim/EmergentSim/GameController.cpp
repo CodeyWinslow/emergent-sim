@@ -1,7 +1,8 @@
 #include "GameController.h"
 
 GameController::GameController(int numberAgents, int agentDelay, int sandboxWidth, int sandboxHeight, SimDisplaySettings windowSettings) :
-	m_sandbox(sandboxWidth, sandboxHeight), m_agentController(), m_playing(true), m_agentDelay(agentDelay)
+	m_sandbox(sandboxWidth, sandboxHeight), m_agentController(),
+	m_playing(true), m_numAgents(numberAgents), m_agentDelay(agentDelay)
 {
 	m_instance = this;
 	InitializeAgents(numberAgents);
@@ -49,6 +50,15 @@ void GameController::Pause()
 void GameController::Resume()
 {
 	m_playing = true;
+}
+
+void GameController::Restart()
+{
+	int sbWidth = m_sandbox.GetWidth();
+	int sbHeight = m_sandbox.GetHeight();
+	m_sandbox = Sandbox(sbWidth, sbHeight);
+	m_agentController = AgentController();
+	InitializeAgents(m_numAgents);
 }
 
 void GameController::InitializeAgents(int numberAgents)

@@ -1,5 +1,6 @@
 #include "SimDisplay.h"
 #include "SDL_Exception.h"
+#include "SDL_image.h"
 
 SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 	m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr),
@@ -7,6 +8,15 @@ SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
 		const std::string msg = "Failed to initialize";
+		m_logger.SDL_LogError(std::cout, msg);
+		throw SDL_Exception(msg);
+	}
+
+	int initted = IMG_Init(IMG_INIT_PNG);
+	if (initted == 0)
+	{
+		const std::string extras = std::string(SDL_GetError());
+		const std::string msg = "Failed to initialize: " + extras;
 		m_logger.SDL_LogError(std::cout, msg);
 		throw SDL_Exception(msg);
 	}
@@ -29,11 +39,13 @@ SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 
 	SDL_UpdateWindowSurface(m_window);
 
-	m_pauseButton = new PauseButton({
-		settings.windowWidth - 160,
+	m_pauseButton = new PauseButton(m_renderer,
+		{settings.windowWidth - 160,
 		settings.windowHeight - 60,
 		150,50
 		});
+
+	m_resetButton = new ResetButton(m_renderer, { settings.windowWidth - 60, 10, 50,50 });
 
 	SubscribeToInput();
 }
@@ -42,10 +54,12 @@ SimDisplay::~SimDisplay()
 {
 	UnsubscribeToInput();
 	delete m_pauseButton;
+	delete m_resetButton;
 
 	m_cam.RemoveShader(m_entityShader);
 
 	SDL_DestroyWindow(m_window);
+	IMG_Quit();
 	SDL_Quit();
 }
 
@@ -63,6 +77,7 @@ bool SimDisplay::Update()
 
 	DrawUI();
 
+	SDL_UpdateWindowSurface(m_window);
 	SDL_RenderPresent(m_renderer);
 	SDL_Delay(1000 / 60);
 
@@ -221,5 +236,6 @@ void SimDisplay::DrawGrid() {
 
 void SimDisplay::DrawUI()
 {
-	m_pauseButton->Render(m_renderer);
+	m_pauseButton->Render();
+	m_resetButton->Render();
 }

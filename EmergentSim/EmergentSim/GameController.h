@@ -16,6 +16,7 @@ public:
 	void Start();
 	void Pause();
 	void Resume();
+	void Restart();
 
 	inline Sandbox* GetSandbox() { return &m_sandbox; }
 
@@ -26,6 +27,7 @@ private:
 	bool m_playing;
 	Sandbox m_sandbox;
 	AgentController m_agentController;
+	int m_numAgents;
 	int m_agentDelay;
 	SimDisplay* m_display;
 

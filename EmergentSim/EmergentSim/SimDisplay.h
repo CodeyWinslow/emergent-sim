@@ -1,13 +1,22 @@
 #pragma once
+#pragma region includes
 #include <SDL.h>
 #include <string>
+
 #include "SDL_Logger.h"
 #include "Sandbox.h"
-#include "IEventObserver.h"
-#include "PauseButton.h"
+
+//rendering
 #include "Camera.h"
 #include "ShrinkShader.h"
+
+#include "IEventObserver.h"
+
+//UI
+#include "PauseButton.h"
+#include "ResetButton.h"
 #include <string>
+#pragma endregion
 
 struct SimDisplaySettings {
 	std::string windowTitle;
@@ -25,26 +34,35 @@ public:
 	void Handle(SDL_Event& e);
 
 private:
+	//settings
 	bool m_quit = false;
 	SimDisplaySettings m_settings;
-
-	Shader* m_entityShader;
-	Camera m_cam;
-
-	Sandbox& m_sandbox;
-
-	SDL_Window* m_window;
-	SDL_Surface* m_screenSurface;
-	SDL_Renderer* m_renderer;
-
-	PauseButton* m_pauseButton;
-
-	SDL_Logger m_logger;
-	
 	float m_gridWidthToPixels = 1.0f;
 	const int m_defaultWidthToPixels = 40;
 	const int m_minGridPixelSize = 10;
 
+	//game-specific
+	Sandbox& m_sandbox;
+
+	//Custom rendering
+	Camera m_cam;
+	Shader* m_entityShader;
+
+	//SDL rendering
+	SDL_Window* m_window;
+	SDL_Surface* m_screenSurface;
+	SDL_Renderer* m_renderer;
+
+	//UI
+	Button* m_pauseButton;
+	Button* m_resetButton;
+	//PauseButton* m_pauseButton;
+	//ResetButton* m_resetButton;
+
+	//Tools
+	SDL_Logger m_logger;
+	
+	//functions
 	void SubscribeToInput();
 	void UnsubscribeToInput();
 	void SetColor(SDL_Color);

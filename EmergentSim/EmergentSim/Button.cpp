@@ -1,6 +1,8 @@
 #include "Button.h"
 
-Button::Button(SDL_Rect bounds, SDL_Color backColor) : m_buttonPressed(false), m_buttonBounds(bounds), m_backColor(backColor)
+Button::Button(SDL_Renderer* renderer, SDL_Rect bounds, SDL_Color backColor) :
+	m_renderer(renderer), m_buttonPressed(false),
+	m_buttonBounds(bounds), m_backColor(backColor)
 {
 	InputManager::GetInstance().SubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	InputManager::GetInstance().SubscribeEvent(InputEvent::BUTTON_UP, this);
@@ -17,16 +19,19 @@ void Button::SetBackColor(SDL_Color color)
 	m_backColor = color;
 }
 
-void Button::Render(SDL_Renderer* renderer)
+void Button::Render()
 {
-	SDL_SetRenderDrawColor(renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
-	SDL_RenderFillRect(renderer, &m_buttonBounds);
+	if (m_renderer == nullptr)
+		return;
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 20);
-	SDL_RenderDrawLine(renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y);
-	SDL_RenderDrawLine(renderer, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
-	SDL_RenderDrawLine(renderer, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
-	SDL_RenderDrawLine(renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h);
+	SDL_SetRenderDrawColor(m_renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
+	SDL_RenderFillRect(m_renderer, &m_buttonBounds);
+
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 20);
+	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y);
+	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
+	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h, m_buttonBounds.x + m_buttonBounds.w, m_buttonBounds.y + m_buttonBounds.h);
+	SDL_RenderDrawLine(m_renderer, m_buttonBounds.x, m_buttonBounds.y, m_buttonBounds.x, m_buttonBounds.y + m_buttonBounds.h);
 }
 
 void Button::HandleButtonDown(SDL_MouseButtonEvent& e)

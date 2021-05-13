@@ -3,8 +3,8 @@
 #include <iostream>
 #include "GameController.h"
 
-PauseButton::PauseButton(SDL_Rect bounds, SDL_Color playColor, SDL_Color pauseColor) :
-	Button::Button(bounds, playColor), m_playColor(playColor), m_pauseColor(pauseColor)
+PauseButton::PauseButton(SDL_Renderer* renderer, SDL_Rect bounds, SDL_Color playColor, SDL_Color pauseColor) :
+	Button::Button(renderer, bounds, playColor), m_playColor(playColor), m_pauseColor(pauseColor)
 {}
 
 void PauseButton::OnButtonClicked()
