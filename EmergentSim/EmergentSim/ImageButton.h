@@ -3,24 +3,27 @@
 #include "Button.h"
 #include "SDL_image.h"
 
-class FileException
+namespace EmergentGraphics
 {
-public:
-    FileException(std::string message) : m_message(message) {}
-    inline std::string GetMessage() { return m_message; }
-private:
-    std::string m_message;
-};
+    class FileException
+    {
+    public:
+        FileException(std::string message) : m_message(message) {}
+        inline std::string GetMessage() { return m_message; }
+    private:
+        std::string m_message;
+    };
 
-class ImageButton :
-    public Button
-{
-public:
-    ImageButton(SDL_Renderer* renderer, std::string imageFileName, SDL_Rect bounds, SDL_Color backColor);
-    virtual ~ImageButton();
+    class ImageButton :
+        public Button
+    {
+    public:
+        ImageButton(SDL_Renderer* renderer, std::string imageFileName, SDL_Rect bounds, SDL_Color backColor);
+        virtual ~ImageButton();
 
-    virtual void Render();
-protected:
-    SDL_Texture* m_imageTexture;
-};
+        virtual void Render();
+    protected:
+        SDL_Texture* m_imageTexture;
+    };
 
+}

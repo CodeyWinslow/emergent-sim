@@ -4,6 +4,7 @@
 #include "SimDisplay.h"
 
 using namespace Agents;
+using namespace EmergentGraphics;
 
 class GameController
 {

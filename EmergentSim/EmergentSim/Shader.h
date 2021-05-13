@@ -1,8 +1,11 @@
 #pragma once
 #include "SDL.h"
 
-class Shader
+namespace EmergentGraphics
 {
-public:
-	virtual SDL_Rect Compute(SDL_Rect rect) = 0;
-};
+	class Shader
+	{
+	public:
+		virtual SDL_Rect Compute(SDL_Rect rect) = 0;
+	};
+}

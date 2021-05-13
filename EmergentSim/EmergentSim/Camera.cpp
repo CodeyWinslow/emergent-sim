@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "InputManager.h"
 
+using namespace EmergentGraphics;
+
 Camera::Camera(SDL_Renderer* renderer, int width, int height, int pixelsPerUnit, float minZoomMultiplier, float maxZoomMultiplier) :
 	m_renderer(renderer), m_width(width), m_height(height),
 	m_pixelsPerUnit(pixelsPerUnit), m_position(0, 0, Transform::Direction::UP),

@@ -2,6 +2,8 @@
 #include "SDL_Exception.h"
 #include "SDL_image.h"
 
+using namespace EmergentGraphics;
+
 SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 	m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr),
 	m_cam(nullptr, settings.windowWidth, settings.windowHeight)

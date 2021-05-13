@@ -1,4 +1,5 @@
 #include "SDL_Logger.h"
+using namespace EmergentGraphics;
 
 SDL_Logger::SDL_Logger() { }
 

@@ -1,6 +1,9 @@
 #pragma once
 #include "Transform.h"
 #include "IRenderable.h"
+
+using namespace EmergentGraphics;
+
 class Sprite;
 
 enum EntityType 

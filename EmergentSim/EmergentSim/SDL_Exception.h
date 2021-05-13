@@ -1,14 +1,17 @@
 #pragma once
 #include <string>
 
-class SDL_Exception
+namespace EmergentGraphics
 {
-public:
-	SDL_Exception(std::string message)
+	class SDL_Exception
 	{
-		m_message = message;
-	}
+	public:
+		SDL_Exception(std::string message)
+		{
+			m_message = message;
+		}
 
-private:
-	std::string m_message;
-};
+	private:
+		std::string m_message;
+	};
+}

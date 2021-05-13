@@ -1,5 +1,7 @@
 #include "Button.h"
 
+using namespace EmergentGraphics;
+
 Button::Button(SDL_Renderer* renderer, SDL_Rect bounds, SDL_Color backColor) :
 	m_renderer(renderer), m_buttonPressed(false),
 	m_buttonBounds(bounds), m_backColor(backColor)

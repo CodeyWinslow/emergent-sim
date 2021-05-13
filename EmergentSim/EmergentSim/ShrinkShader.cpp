@@ -1,5 +1,7 @@
 #include "ShrinkShader.h"
 
+using namespace EmergentGraphics;
+
 ShrinkShader::ShrinkShader(float scale) : m_scale(scale)
 {}
 

@@ -1,13 +1,17 @@
 #pragma once
 #include "Shader.h"
-class ShrinkShader :
-    public Shader
+
+namespace EmergentGraphics
 {
-public:
-    ShrinkShader(float scale);
-    SDL_Rect Compute(SDL_Rect rect);
+    class ShrinkShader :
+        public Shader
+    {
+    public:
+        ShrinkShader(float scale);
+        SDL_Rect Compute(SDL_Rect rect);
 
-private:
-    float m_scale;
-};
+    private:
+        float m_scale;
+    };
 
+}

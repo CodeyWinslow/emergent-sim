@@ -1,5 +1,7 @@
 #include "ImageButton.h"
 
+using namespace EmergentGraphics;
+
 ImageButton::ImageButton(SDL_Renderer* renderer, std::string imageFileName, SDL_Rect bounds, SDL_Color backColor) :
 	Button::Button(renderer, bounds, backColor)
 {

@@ -1,8 +1,11 @@
 #pragma once
 #include "Camera.h"
 
-class IRenderable
+namespace EmergentGraphics
 {
-public:
-	virtual void Draw(Camera* camera) = 0;
-};
+	class IRenderable
+	{
+	public:
+		virtual void Draw(Camera* camera) = 0;
+	};
+}
