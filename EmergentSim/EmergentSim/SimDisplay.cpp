@@ -6,20 +6,14 @@ SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 	m_sandbox(sandbox), m_window(nullptr), m_screenSurface(nullptr),
 	m_cam(nullptr, settings.windowWidth, settings.windowHeight)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-		const std::string msg = "Failed to initialize";
-		m_logger.SDL_LogError(std::cout, msg);
-		throw SDL_Exception(msg);
-	}
-
-	int initted = IMG_Init(IMG_INIT_PNG);
-	if (initted == 0)
-	{
+	if (SDL_Init(SDL_INIT_EVERYTHING) < 0 || IMG_Init(IMG_INIT_PNG) == 0) {
 		const std::string extras = std::string(SDL_GetError());
 		const std::string msg = "Failed to initialize: " + extras;
 		m_logger.SDL_LogError(std::cout, msg);
 		throw SDL_Exception(msg);
 	}
+
+	SDL_SetHint("SDL_HINT_RENDER_SCALE_QUALITY", "1");
 
 	m_settings = settings;
 	m_window = SDL_CreateWindow(settings.windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, settings.windowWidth, settings.windowHeight, SDL_WINDOW_SHOWN);
@@ -45,7 +39,7 @@ SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 		150,50
 		});
 
-	m_resetButton = new ResetButton(m_renderer, { settings.windowWidth - 60, 10, 50,50 });
+	m_resetButton = new ResetButton(m_renderer, { settings.windowWidth - 58, 10, 48, 48 });
 
 	SubscribeToInput();
 }

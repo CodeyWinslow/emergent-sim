@@ -6,6 +6,7 @@ ImageButton::ImageButton(SDL_Renderer* renderer, std::string imageFileName, SDL_
 	m_imageTexture = IMG_LoadTexture(m_renderer, imageFileName.c_str());
 	if (m_imageTexture == nullptr)
 		throw FileException("Failed to open file: " + imageFileName);
+	SDL_SetTextureBlendMode(m_imageTexture, SDL_BLENDMODE_BLEND);
 }
 
 ImageButton::~ImageButton()
