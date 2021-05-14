@@ -9,9 +9,9 @@ DefaultSimDisplay::DefaultSimDisplay(SDL_Renderer* renderer, SDL_Rect bounds) :
 {
 
 	AddComponent(new PauseButton(m_renderer,
-			{ bounds.w - 160,
-			bounds.h - 60,
-			150,50
+			{ bounds.w - 58,
+			bounds.h - 58,
+			48,48
 			}));
 
 	AddComponent(new ResetButton(m_renderer,

@@ -29,6 +29,7 @@ SimDisplay::SimDisplay(SimDisplaySettings settings, Sandbox& sandbox) :
 	}
 
 	m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
 	m_cam.SetRenderer(m_renderer);
 	m_entityShader = new ShrinkShader(0.8f);
 	m_cam.ApplyShader(m_entityShader);

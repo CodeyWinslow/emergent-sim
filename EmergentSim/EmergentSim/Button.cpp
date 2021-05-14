@@ -29,7 +29,7 @@ void Button::Render()
 	SDL_SetRenderDrawColor(m_renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
 	SDL_RenderFillRect(m_renderer, &m_bounds);
 
-	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 20);
+	SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 165);
 	SDL_RenderDrawLine(m_renderer, m_bounds.x, m_bounds.y, m_bounds.x + m_bounds.w, m_bounds.y);
 	SDL_RenderDrawLine(m_renderer, m_bounds.x + m_bounds.w, m_bounds.y, m_bounds.x + m_bounds.w, m_bounds.y + m_bounds.h);
 	SDL_RenderDrawLine(m_renderer, m_bounds.x, m_bounds.y + m_bounds.h, m_bounds.x + m_bounds.w, m_bounds.y + m_bounds.h);

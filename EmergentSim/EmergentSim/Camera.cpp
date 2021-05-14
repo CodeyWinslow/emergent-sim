@@ -171,8 +171,10 @@ void Camera::ScrollZoom(SDL_MouseWheelEvent& e)
 
 	SDL_GetMouseState(&m_lastMousePosition.x, &m_lastMousePosition.y);
 	Transform mouseWorldPos = CameraToWorld(SDL_Rect{ m_lastMousePosition.x, m_lastMousePosition.y });
-	mouseWorldPos.x += 1;
-	mouseWorldPos.y += 1;
+	SDL_Rect innerGridOffset = WorldToCamera(mouseWorldPos);
+	innerGridOffset = { m_lastMousePosition.x - innerGridOffset.x, m_lastMousePosition.y - innerGridOffset.y };
+	//mouseWorldPos.x += 1;
+	//mouseWorldPos.y += 1;
 	if (e.y > 0)
 	{
 		m_zoomMultiplier += m_zoomMultiplier * pixelDiff * scrollAmount;
@@ -190,6 +192,6 @@ void Camera::ScrollZoom(SDL_MouseWheelEvent& e)
 	SDL_Rect after = WorldToCamera(mouseWorldPos);
 	int offsetX = after.x - m_lastMousePosition.x;
 	int offsetY = after.y - m_lastMousePosition.y;
-	m_position.x += offsetX;
-	m_position.y += offsetY;
+	m_position.x += offsetX + innerGridOffset.x;
+	m_position.y += offsetY + innerGridOffset.y;
 }
