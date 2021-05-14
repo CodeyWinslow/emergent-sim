@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 
 // THIS CLASS IS A TRANSLATION TO C++11 FROM THE REFERENCE

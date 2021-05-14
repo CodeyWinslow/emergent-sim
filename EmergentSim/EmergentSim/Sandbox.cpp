@@ -4,14 +4,20 @@
 #include "Resource.h"
 #include "Perlin.h"
 
+#pragma warning(disable : 4244)
+
 #include<string>
 using std::string;
 
 Sandbox::Sandbox(int width, int height) : m_width(width), m_height(height), m_sandbox(width)
 {
-    for (vector<Entity*>& row : m_sandbox)
+    for (vector<EntityPtr>& row : m_sandbox)
     {
         row.resize(height);
+        for (EntityPtr& ptr : row)
+        {
+            ptr = EntityPtr{ nullptr };
+        }
     }
 
     srand((unsigned int)time(NULL));
@@ -26,7 +32,7 @@ void Sandbox::SetupSandbox()
     const float resourceBegin = MIN_RESOURCE_PERCENT;
     const float resourceLimit = MAX_RESOURCE_PERCENT;
 
-    PerlinNoise perlin(time(NULL));
+    PerlinNoise perlin((unsigned int)time(NULL));
     const float perlinFrequency = 10.0;
 
     for (int x = 0; x < m_width; ++x)
@@ -43,18 +49,18 @@ void Sandbox::SetupSandbox()
             {
                 Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
                 Transform transform(x, y, randomDir);
-                Wall* ent = new Wall(transform);
+                EntityPtr ent = EntityPtr(new Wall(transform));
                 if (!PlaceEntity(ent, x, y))
                     throw string("Failed to place entity. Not enough space");
             }
             else if (perlinVal >= resourceBegin && perlinVal <= resourceLimit)
             {
-                perlinVal = (rand() % 100) / 100.0;
+                perlinVal = (rand() % 100) / 100.0f;
                 if (perlinVal <= resourceLimit - resourceBegin)
                 {
                     Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
                     Transform transform(x, y, randomDir);
-                    Resource* ent = new Resource(transform);
+                    EntityPtr ent = EntityPtr(new Resource(transform));
                     if (!PlaceEntity(ent, x, y))
                         throw string("Failed to place entity. Not enough space");
                 }
@@ -107,7 +113,7 @@ void Sandbox::SetupSandbox()
     }*/
 }
 
-bool Sandbox::RandomlyPlaceEntity(Entity* ent)
+bool Sandbox::RandomlyPlaceEntity(EntityPtr ent)
 {
     if (m_entityCount == m_width * m_height)
         return false;
@@ -116,7 +122,7 @@ bool Sandbox::RandomlyPlaceEntity(Entity* ent)
     {
         int x = rand() % m_width;
         int y = rand() % m_height;
-        if (m_sandbox[x][y] == nullptr)
+        if (m_sandbox[x][y].get() == nullptr)
         {
             return PlaceEntity(ent, x, y);
         }
@@ -131,9 +137,9 @@ static T Clamp(T val, Q min, Z max)
     return val;
 }
 
-static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
+static bool HasLineOfSight(EntityPtr me, EntityPtr them, Sandbox* sandbox)
 {
-    if (me == them) return false;
+    if (me.get() == them.get()) return false;
 
     Transform my = me->GetTransform();
     Transform their = them->GetTransform();
@@ -147,9 +153,9 @@ static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
         int x = my.x;
         int y = my.y + yStep;
 
-        while (sandbox->GetEntity(x, y) && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
+        while (sandbox->GetEntity(x, y).get() && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
         {
-            if (sandbox->GetEntity(x, y) == them) return true;
+            if (sandbox->GetEntity(x, y).get() == them.get()) return true;
             y += yStep;
         }
     }
@@ -159,9 +165,9 @@ static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
         int x = my.x + xStep;
         int y = my.y;
 
-        while (sandbox->GetEntity(x, y) && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
+        while (sandbox->GetEntity(x, y).get() && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
         {
-            if (sandbox->GetEntity(x, y) == them) return true;
+            if (sandbox->GetEntity(x, y).get() == them.get()) return true;
             x += xStep;
         }
     }
@@ -175,9 +181,9 @@ static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
         x = Clamp(x, 0, sandbox->GetWidth() - 1);
         y = Clamp(y, 0, sandbox->GetHeight() - 1);
 
-        while (sandbox->GetEntity(x, y) && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
+        while (sandbox->GetEntity(x, y).get() && sandbox->GetEntity(x, y)->GetType() != EntityType::WALL)
         {
-            if (sandbox->GetEntity(x, y) == them) return true;
+            if (sandbox->GetEntity(x, y).get() == them.get()) return true;
             x += xStep;
             y += yStep;
 
@@ -195,9 +201,9 @@ static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
     return false;
 }
 
-vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
+vector<EntityPtr> Sandbox::GetEntitiesInView(EntityPtr ent, unsigned int distance)
 {
-    vector<Entity*> entities{};
+    vector<EntityPtr> entities{};
     int _distance = (int)distance;
 
     Transform transform = ent->GetTransform();
@@ -228,13 +234,15 @@ vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
     minY = Clamp(minY, 0, m_height-1);
     maxY = Clamp(maxY, 0, m_height-1);
 
-    Entity* entity{};
+    EntityPtr entity{ nullptr };
     for (int x{ minX }; x <= maxX; ++x)
     {
         for (int y{ minY }; y <= maxY; ++y)
         {
             entity = m_sandbox[x][y];
-            if (entity != nullptr && entity->GetType() != EntityType::WALL && HasLineOfSight(ent, entity, this))
+            if (entity.get() != nullptr 
+                && entity->GetType() != EntityType::WALL 
+                && HasLineOfSight(ent, entity, this))
                 entities.push_back(entity);
         }
     }
@@ -242,9 +250,9 @@ vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
     return entities;
 }
 
-bool Sandbox::PlaceEntity(Entity* ent, int x, int y)
+bool Sandbox::PlaceEntity(EntityPtr ent, int x, int y)
 {
-    if (m_sandbox[x][y] != nullptr)
+    if (m_sandbox[x][y].get() != nullptr)
         return false;
 
     ent->m_transform.x = x;
@@ -255,7 +263,7 @@ bool Sandbox::PlaceEntity(Entity* ent, int x, int y)
     return true;
 }
 
-bool Sandbox::MoveEntity(Entity* ent, Transform destination)
+bool Sandbox::MoveEntity(EntityPtr ent, Transform destination)
 {
     if (destination.x < 0 ||
         destination.x >= m_width ||
@@ -263,33 +271,33 @@ bool Sandbox::MoveEntity(Entity* ent, Transform destination)
         destination.y >= m_height)
         return false;
     
-    Entity* e = m_sandbox[destination.x][destination.y];
+    EntityPtr e = m_sandbox[destination.x][destination.y];
     // if there is something in that space already don't move it there
     if (e != nullptr && e != ent) return false;
 
-    m_sandbox[ent->m_transform.x][ent->m_transform.y] = nullptr;
+    m_sandbox[ent->m_transform.x][ent->m_transform.y] = EntityPtr{ nullptr };
     ent->m_transform = destination;
     m_sandbox[destination.x][destination.y] = ent;
 
     return true;
 }
 
-bool Sandbox::RemoveEntity(Entity* ent)
+bool Sandbox::RemoveEntity(EntityPtr ent)
 {
-    if (ent == nullptr) return false;
+    if (ent.get() == nullptr) return false;
 
     Transform transform = ent->GetTransform();
-    Entity* entity = At(transform);
-    m_sandbox[transform.x][transform.y] = nullptr;
+    EntityPtr entity = At(transform);
+    m_sandbox[transform.x][transform.y] = EntityPtr{ nullptr };
 
     return true;
 }
 
-Entity* Sandbox::At(Transform transform)
+EntityPtr Sandbox::At(Transform transform)
 {
     if (transform.x >= m_width || transform.x < 0
         || transform.y >= m_height || transform.y < 0) 
-        return nullptr;
+        return EntityPtr{ nullptr };
 
     return m_sandbox[transform.x][transform.y];
 }
@@ -298,12 +306,11 @@ Sandbox::~Sandbox()
 {
 	m_width = 0;
 	m_height = 0;
-    for (vector<Entity*>& row : m_sandbox)
+    for (vector<EntityPtr>& row : m_sandbox)
     {
-        for (Entity*& ent : row)
+        for (EntityPtr& ent : row)
         {
-            //delete ent;
-            ent = nullptr;
+            ent = EntityPtr{ nullptr };
         }
     }
 }

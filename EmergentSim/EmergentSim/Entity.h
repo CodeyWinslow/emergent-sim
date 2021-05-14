@@ -1,6 +1,8 @@
 #pragma once
+
 #include "Transform.h"
 #include "IRenderable.h"
+#include <memory>
 
 using namespace EmergentGraphics;
 
@@ -28,3 +30,5 @@ protected:
 private:
 	Sprite* m_sprite = nullptr;
 };
+
+using EntityPtr = std::shared_ptr<Entity>;

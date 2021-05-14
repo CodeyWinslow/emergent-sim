@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Action.h"
 
 namespace Agents
@@ -15,7 +16,7 @@ namespace Agents
 		//****************************************
 		// Move an entity forward
 		//****************************************
-		bool _Execute(Entity* entity) override;
+		bool _Execute(EntityPtr entity) override;
 	private:
 		int m_numCells{};
 	};

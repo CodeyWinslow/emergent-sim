@@ -8,6 +8,6 @@ namespace Agents
 	public:
 
 	private:
-		bool _Execute(Entity* entity) override;
+		bool _Execute(EntityPtr entity) override;
 	};
 }

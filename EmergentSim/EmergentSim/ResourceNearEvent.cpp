@@ -9,15 +9,15 @@ ResourceNearEvent::ResourceNearEvent() noexcept
 
 }
 
-vector<EventInfo> ResourceNearEvent::Poll(Entity* me, vector<Entity*> entities)
+vector<EventInfo> ResourceNearEvent::Poll(EntityPtr me, vector<EntityPtr> entities)
 {
 	vector<EventInfo> events{};
 
-	Entity* other{ nullptr };
+	EntityPtr other{ nullptr };
 	float dist = 10;
 	Transform myTransform = me->GetTransform();
 
-	for (Entity* entity : entities)
+	for (EntityPtr entity : entities)
 	{
 		if (entity->GetType() == EntityType::RESOURCE)
 		{
@@ -31,7 +31,7 @@ vector<EventInfo> ResourceNearEvent::Poll(Entity* me, vector<Entity*> entities)
 		}
 	}
 
-	if (other != nullptr)
+	if (other.get() != nullptr)
 	{
 		EventInfo e{ GetId(), other };
 		events.push_back(e);

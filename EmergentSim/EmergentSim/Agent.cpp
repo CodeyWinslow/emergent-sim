@@ -5,6 +5,8 @@
 #include "ResourceNearReaction.h"
 #include "Event.h"
 
+#pragma warning(disable : 4244)
+
 using namespace Agents;
 
 Agent::Agent(Transform transform, SDL_Color color) noexcept
@@ -64,23 +66,23 @@ ReactionPtr Agent::GetReaction(int eventId)
 	return m_reactions[eventId];
 }
 
-void Agent::ProcessEvents(vector<EventInfo> events)
+void Agent::ProcessEvents(AgentPtr me, vector<EventInfo> events)
 {
 	ReactionPtr reaction;
 	if (events.size() > 0)
 	{
 		for (EventInfo& event : events)
 		{
-			reaction = GetReaction(event.id);
-			if (reaction == nullptr)
+			reaction = me->GetReaction(event.id);
+			if (reaction.get() == nullptr)
 				continue;
 
-			reaction->React(this, event.entity);
+			reaction->React(me, event.entity);
 		}
 	}
 	else
 	{
 		// perform the idle action
-		m_idle->React(this, nullptr);
+		me->m_idle->React(me, EntityPtr{ nullptr });
 	}
 }

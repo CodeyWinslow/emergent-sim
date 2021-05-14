@@ -10,7 +10,7 @@ TouchingResourceEvent::TouchingResourceEvent() noexcept
 
 }
 
-vector<EventInfo> TouchingResourceEvent::Poll(Entity* me, vector<Entity*> entities)
+vector<EventInfo> TouchingResourceEvent::Poll(EntityPtr me, vector<EntityPtr> entities)
 {
 	vector<EventInfo> events{};
 
@@ -19,8 +19,8 @@ vector<EventInfo> TouchingResourceEvent::Poll(Entity* me, vector<Entity*> entiti
 	Transform transform = me->GetTransform();
 	transform.Forward(1);
 
-	Entity* entity = s->At(transform);
-	if (entity != nullptr && entity->GetType() == EntityType::RESOURCE)
+	EntityPtr entity = s->At(transform);
+	if (entity.get() != nullptr && entity->GetType() == EntityType::RESOURCE)
 	{
 		EventInfo info{ GetId(), entity };
 		events.push_back(info);

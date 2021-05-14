@@ -16,13 +16,13 @@ ResourceNearReaction::ResourceNearReaction() noexcept
 	};
 }
 
-void ResourceNearReaction::React(Entity* me, Entity* other)
+void ResourceNearReaction::React(EntityPtr me, EntityPtr other)
 {
 	Transform myTransform = me->GetTransform();
 	Transform theirTransform = other->GetTransform();
 
-	float xDist = abs(myTransform.x - theirTransform.x);
-	float yDist = abs(myTransform.y - theirTransform.y);
+	float xDist = (float)abs(myTransform.x - theirTransform.x);
+	float yDist = (float)abs(myTransform.y - theirTransform.y);
 
 	// possible states:
 	// xDist == 0

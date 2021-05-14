@@ -8,7 +8,7 @@ namespace Agents
 	{
 	public:
 		ResourceNearEvent() noexcept;
-		virtual vector<EventInfo> Poll(Entity* me, vector<Entity*> entities) override;
+		virtual vector<EventInfo> Poll(EntityPtr me, vector<EntityPtr> entities) override;
 	private:
 		
 	};

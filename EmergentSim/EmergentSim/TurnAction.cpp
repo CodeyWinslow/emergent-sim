@@ -3,7 +3,7 @@
 
 using namespace Agents;
 
-bool TurnAction::_Execute(Entity* entity)
+bool TurnAction::_Execute(EntityPtr entity)
 {
 	Sandbox* sandbox = GameController::GetInstance().GetSandbox();
 

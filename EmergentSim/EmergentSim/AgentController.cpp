@@ -17,22 +17,22 @@ AgentController::AgentController() noexcept
 
 void AgentController::UpdateAgents()
 {
-	vector<Entity*> view{};
+	vector<EntityPtr> view{};
 	Sandbox* s = GameController::GetInstance().GetSandbox();
 
-	for (AgentPtr& agent : m_agents)
+	for (EntityPtr& agent : m_agents)
 	{
 		vector<EventInfo> events{};
-		view = s->GetEntitiesInView(agent.get(), 5);
+		view = s->GetEntitiesInView(agent, 5);
 
 		// gather list of events for this agent
 		for (EventPtr e : m_events)
 		{
-			vector<EventInfo> temp = e->Poll(agent.get(), view);
+			vector<EventInfo> temp = e->Poll(agent, view);
 			for (EventInfo ei : temp)
 				events.push_back(ei);
 		}
 
-		agent->ProcessEvents(events);
+		Agent::ProcessEvents(std::static_pointer_cast<Agent>(agent), events);
 	}
 }

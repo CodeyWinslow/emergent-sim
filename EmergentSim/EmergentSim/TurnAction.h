@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Action.h"
 
 namespace Agents
@@ -15,7 +16,7 @@ namespace Agents
 		//****************************************
 		// Turn an entity a number of times
 		//****************************************
-		bool _Execute(Entity* entity) override;
+		bool _Execute(EntityPtr entity) override;
 	private:
 		int m_numTimes{};
 	};

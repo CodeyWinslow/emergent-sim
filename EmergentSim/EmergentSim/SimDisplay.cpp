@@ -123,7 +123,7 @@ void SimDisplay::DrawEntities()
 	{
 		for (int y = beginY; y < endY; ++y)
 		{
-			Entity* entity = m_sandbox.GetEntity(x, y);
+			EntityPtr entity = m_sandbox.GetEntity(x, y);
 			if (entity) entity->Draw(&m_cam);
 		}
 	}

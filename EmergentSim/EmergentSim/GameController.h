@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Sandbox.h"
 #include "AgentController.h"
 #include "SimDisplay.h"
@@ -37,7 +38,7 @@ private:
 	int m_agentDelay;
 	SimDisplay* m_display;
 
-	Entity* m_camTarget;
+	EntityPtr m_camTarget;
 
 	void InitializeAgents(int numberAgents);
 

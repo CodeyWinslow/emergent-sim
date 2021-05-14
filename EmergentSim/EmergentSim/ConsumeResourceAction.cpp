@@ -3,15 +3,15 @@
 
 using namespace Agents;
 
-bool ConsumeResourceAction::_Execute(Entity* entity)
+bool ConsumeResourceAction::_Execute(EntityPtr entity)
 {
 	Sandbox* s = GameController::GetInstance().GetSandbox();
 
 	Transform transform = entity->GetTransform();
 	transform.Forward(1);
 
-	Entity* other = s->At(transform);
-	if (other == nullptr) return false;
+	EntityPtr other = s->At(transform);
+	if (other.get() == nullptr) return false;
 
 	s->RemoveEntity(other);
 

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <memory>
 #include <vector>
 #include "EventInfo.h"
@@ -18,7 +19,7 @@ namespace Agents
 			return m_id;
 		}
 
-		virtual vector<EventInfo> Poll(Entity* me, vector<Entity*> entities) = 0;
+		virtual vector<EventInfo> Poll(EntityPtr me, vector<EntityPtr> entities) = 0;
 	protected:
 		unsigned int m_id;
 	};

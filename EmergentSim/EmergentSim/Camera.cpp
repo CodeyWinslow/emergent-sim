@@ -2,6 +2,8 @@
 #include "InputManager.h"
 #include "GameController.h"
 
+#pragma warning(disable : 4244)
+
 using namespace EmergentGraphics;
 
 Camera::Camera(SDL_Renderer* renderer, int width, int height, int pixelsPerUnit, float minZoomMultiplier, float maxZoomMultiplier) :

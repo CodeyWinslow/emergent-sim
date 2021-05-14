@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Reaction.h"
 
 namespace Agents
@@ -7,6 +8,7 @@ namespace Agents
 	{
 	public:
 		IdleReaction() noexcept;
+		void React(EntityPtr me, EntityPtr other) override;
 	private:
 
 	};

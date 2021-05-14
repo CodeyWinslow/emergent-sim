@@ -38,5 +38,5 @@ float Transform::Distance(Transform t)
 	double _y = y > t.y ? y - t.y : t.y - y;
 	_x *= _x;
 	_y *= _y;
-	return sqrt(_x + _y);
+	return (float)sqrt(_x + _y);
 }

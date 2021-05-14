@@ -31,7 +31,7 @@ void GameController::Start()
 	int willUpdate = m_agentDelay;
 	while (true)
 	{
-		if (m_camTarget != nullptr)
+		if (m_camTarget.get() != nullptr)
 			m_display->GetCamera()->Focus(m_camTarget->GetTransform());
 
 		if (!m_display->Update())
@@ -66,19 +66,19 @@ void GameController::Restart()
 	m_sandbox = Sandbox(sbWidth, sbHeight);
 	m_agentController = AgentController();
 	InitializeAgents(m_numAgents);
-	m_camTarget = nullptr;
+	m_camTarget = EntityPtr{ nullptr };
 }
 
 void GameController::Untarget()
 {
-	m_camTarget = nullptr;
+	m_camTarget = EntityPtr{ nullptr };
 }
 
 void GameController::InitializeAgents(int numberAgents)
 {
 	for (int ii = 0; ii < numberAgents; ++ii)
 	{
-		Agent* agent = m_agentController.CreateNewAgent();
+		EntityPtr agent{ m_agentController.CreateNewAgent() };
 		m_sandbox.RandomlyPlaceEntity(agent);
 	}
 }
@@ -96,7 +96,7 @@ void GameController::Handle(SDL_Event& e)
 			if (worldPos.x >= 0 && worldPos.x < m_sandbox.GetWidth()
 				&& worldPos.y >= 0 && worldPos.y < m_sandbox.GetHeight())
 			{
-				Entity* clicked = m_sandbox.GetEntity(worldPos.x, worldPos.y);
+				EntityPtr clicked = m_sandbox.GetEntity(worldPos.x, worldPos.y);
 				if (clicked != nullptr)
 					m_camTarget = clicked;
 			}

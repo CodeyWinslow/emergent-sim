@@ -1,4 +1,5 @@
 #pragma once
+
 #pragma region includes
 #include <SDL.h>
 #include <string>
@@ -23,9 +24,9 @@ namespace EmergentGraphics
 
 	struct SimDisplaySettings {
 		std::string windowTitle;
-		int windowWidth;
-		int windowHeight;
-		SDL_Color backgroundColor;
+		int windowWidth{};
+		int windowHeight{};
+		SDL_Color backgroundColor{};
 	};
 
 	class SimDisplay : public IEventObserver

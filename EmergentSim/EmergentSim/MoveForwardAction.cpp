@@ -3,7 +3,7 @@
 
 using namespace Agents;
 
-bool MoveForwardAction::_Execute(Entity* entity)
+bool MoveForwardAction::_Execute(EntityPtr entity)
 {
 	Sandbox* sandbox = GameController::GetInstance().GetSandbox();
 

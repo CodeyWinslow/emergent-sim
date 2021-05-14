@@ -16,17 +16,17 @@ namespace Agents
 		AgentController() noexcept;
 		void UpdateAgents();
 		template<typename AgentType = Agent>
-		Agent* CreateNewAgent();
+		EntityPtr CreateNewAgent();
 	private:
-		vector<AgentPtr> m_agents{};
+		vector<EntityPtr> m_agents{};
 		vector<EventPtr> m_events{};
 	};
 
 	template<typename AgentType>
-	inline Agent* AgentController::CreateNewAgent()
+	inline EntityPtr AgentController::CreateNewAgent()
 	{
-		Agent* agent = new AgentType();
-		m_agents.push_back(AgentPtr{ agent });
+		EntityPtr agent = EntityPtr{ new AgentType() };
+		m_agents.push_back(agent);
 		return agent;
 	}
 }
