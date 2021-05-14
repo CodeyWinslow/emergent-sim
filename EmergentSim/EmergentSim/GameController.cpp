@@ -1,17 +1,21 @@
 #include "GameController.h"
+#include "InputManager.h"
 
 GameController::GameController(int numberAgents, int agentDelay, int sandboxWidth, int sandboxHeight, SimDisplaySettings windowSettings) :
 	m_sandbox(sandboxWidth, sandboxHeight), m_agentController(),
-	m_playing(true), m_numAgents(numberAgents), m_agentDelay(agentDelay)
+	m_playing(true), m_numAgents(numberAgents), m_agentDelay(agentDelay),
+	m_camTarget(nullptr)
 {
 	m_instance = this;
 	InitializeAgents(numberAgents);
 
 	m_display = new SimDisplay(windowSettings, m_sandbox);
+	InputManager::GetInstance().SubscribeEvent(InputEvent::BUTTON_DOWN, this);
 }
 
 GameController::~GameController()
 {
+	InputManager::GetInstance().UnsubscribeEvent(InputEvent::BUTTON_DOWN, this);
 	delete m_display;
 }
 
@@ -27,6 +31,9 @@ void GameController::Start()
 	int willUpdate = m_agentDelay;
 	while (true)
 	{
+		if (m_camTarget != nullptr)
+			m_display->GetCamera()->Focus(m_camTarget->GetTransform());
+
 		if (!m_display->Update())
 			return;
 
@@ -59,6 +66,12 @@ void GameController::Restart()
 	m_sandbox = Sandbox(sbWidth, sbHeight);
 	m_agentController = AgentController();
 	InitializeAgents(m_numAgents);
+	m_camTarget = nullptr;
+}
+
+void GameController::Untarget()
+{
+	m_camTarget = nullptr;
 }
 
 void GameController::InitializeAgents(int numberAgents)
@@ -67,5 +80,27 @@ void GameController::InitializeAgents(int numberAgents)
 	{
 		Agent* agent = m_agentController.CreateNewAgent();
 		m_sandbox.RandomlyPlaceEntity(agent);
+	}
+}
+
+void GameController::Handle(SDL_Event& e)
+{
+	switch (e.type)
+	{
+	case SDL_MOUSEBUTTONDOWN:
+		if (e.button.button == SDL_BUTTON_LEFT)
+		{
+			SDL_Rect mousePos;
+			SDL_GetMouseState(&mousePos.x, &mousePos.y);
+			Transform worldPos = m_display->GetCamera()->CameraToWorld(mousePos);
+			if (worldPos.x >= 0 && worldPos.x < m_sandbox.GetWidth()
+				&& worldPos.y >= 0 && worldPos.y < m_sandbox.GetHeight())
+			{
+				Entity* clicked = m_sandbox.GetEntity(worldPos.x, worldPos.y);
+				if (clicked != nullptr)
+					m_camTarget = clicked;
+			}
+		}
+		break;
 	}
 }

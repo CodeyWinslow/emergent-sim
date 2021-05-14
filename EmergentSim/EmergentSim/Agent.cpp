@@ -18,6 +18,44 @@ Agent::Agent(Transform transform, SDL_Color color) noexcept
 	};
 }
 
+void Agents::Agent::Draw(Camera* cam)
+{
+	Entity::Draw(cam);
+
+	SDL_Rect face = cam->WorldToCamera(m_transform);
+	SDL_Rect original = face;
+	switch (m_transform.direction)
+	{
+	case Transform::Direction::UP:
+		face.w *= 0.8f;
+		face.h *= 0.2f;
+		face.x += (original.w - face.w) / 2;
+		face.y += face.h;
+		break;
+	case Transform::Direction::DOWN:
+		face.w *= 0.8f;
+		face.h *= 0.2f;
+		face.x += (original.w - face.w) / 2;
+		face.y += original.h - (2 * face.h);
+		break;
+	case Transform::Direction::LEFT:
+		face.w *= 0.2f;
+		face.h *= 0.8f;
+		face.x += face.w;
+		face.y += (original.h - face.h) / 2;
+		break;
+	case Transform::Direction::RIGHT:
+		face.w *= 0.2f;
+		face.h *= 0.8f;
+		face.x += original.w - (2 * face.w);
+		face.y += (original.h - face.h) / 2;
+		break;
+	}
+
+	SDL_Color col = { 0,0,0,50 };
+	cam->Draw(face, col);
+}
+
 ReactionPtr Agent::GetReaction(int eventId)
 {
 	if (eventId >= m_reactions.size())

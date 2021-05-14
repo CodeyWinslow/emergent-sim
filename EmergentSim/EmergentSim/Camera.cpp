@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "InputManager.h"
+#include "GameController.h"
 
 using namespace EmergentGraphics;
 
@@ -119,6 +120,16 @@ Transform Camera::GetMaxBounds()
 	return max;
 }
 
+void Camera::Focus(Transform worldTransform)
+{
+	SDL_Rect screenPos = WorldToCamera(worldTransform);
+	//offset by half screen
+	screenPos.x -= m_width / 2;
+	screenPos.y -= m_height / 2;
+	m_position.x += screenPos.x;
+	m_position.y += screenPos.y;
+}
+
 bool Camera::IsCullable(SDL_Rect obj)
 {
 	if (obj.x + obj.w < 0)
@@ -162,6 +173,8 @@ void Camera::MouseMoved(SDL_MouseMotionEvent& e)
 
 	m_lastMousePosition.x = e.x;
 	m_lastMousePosition.y = e.y;
+
+	GameController::GetInstance().Untarget();
 }
 
 void Camera::ScrollZoom(SDL_MouseWheelEvent& e)
@@ -173,8 +186,6 @@ void Camera::ScrollZoom(SDL_MouseWheelEvent& e)
 	Transform mouseWorldPos = CameraToWorld(SDL_Rect{ m_lastMousePosition.x, m_lastMousePosition.y });
 	SDL_Rect innerGridOffset = WorldToCamera(mouseWorldPos);
 	innerGridOffset = { m_lastMousePosition.x - innerGridOffset.x, m_lastMousePosition.y - innerGridOffset.y };
-	//mouseWorldPos.x += 1;
-	//mouseWorldPos.y += 1;
 	if (e.y > 0)
 	{
 		m_zoomMultiplier += m_zoomMultiplier * pixelDiff * scrollAmount;

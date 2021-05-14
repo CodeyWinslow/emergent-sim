@@ -35,6 +35,7 @@ namespace EmergentGraphics
 		~SimDisplay();
 		bool Update();
 		void Handle(SDL_Event& e);
+		Camera* GetCamera();
 
 	private:
 		//settings

@@ -10,7 +10,7 @@ namespace EmergentGraphics
 	class Camera : public IEventObserver
 	{
 	public:
-		Camera(SDL_Renderer* renderer, int width, int height, int pixelsPerUnit = 20, float minZoomMultiplier = 0.05f, float maxZoomMultiplier = 8.0f);
+		Camera(SDL_Renderer* renderer, int width, int height, int pixelsPerUnit = 20, float minZoomMultiplier = 0.1f, float maxZoomMultiplier = 4.0f);
 		~Camera();
 
 		void Draw(Transform obj, SDL_Color color, int width = 1, int height = 1);
@@ -23,6 +23,7 @@ namespace EmergentGraphics
 		void RemoveShader(Shader* shader);
 		Transform GetMinBounds();
 		Transform GetMaxBounds();
+		void Focus(Transform worldTransform);
 
 	private:
 		SDL_Renderer* m_renderer;

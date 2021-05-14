@@ -87,6 +87,11 @@ void SimDisplay::Handle(SDL_Event& e)
 	}
 }
 
+Camera* SimDisplay::GetCamera()
+{
+	return &m_cam;
+}
+
 void SimDisplay::SubscribeToInput()
 {
 	InputManager::GetInstance().SubscribeEvent(InputEvent::QUIT, this);

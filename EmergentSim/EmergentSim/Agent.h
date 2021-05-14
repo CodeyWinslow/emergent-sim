@@ -22,6 +22,8 @@ namespace Agents
 		{
 			return EntityType::AGENT;
 		}
+
+		virtual void Draw(Camera* cam) override;
 	protected:
 		ReactionPtr GetReaction(int eventId);
 

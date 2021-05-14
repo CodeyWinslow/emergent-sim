@@ -6,7 +6,7 @@
 using namespace Agents;
 using namespace EmergentGraphics;
 
-class GameController
+class GameController : public IEventObserver
 {
 public:
 	GameController(int numberAgents, int agentDelay, int sandboxWidth, int sandboxHeight, SimDisplaySettings windowSettings);
@@ -18,6 +18,11 @@ public:
 	void Pause();
 	void Resume();
 	void Restart();
+
+	// Inherited via IEventObserver
+	virtual void Handle(SDL_Event& e) override;
+
+	void Untarget();
 
 	inline Sandbox* GetSandbox() { return &m_sandbox; }
 
@@ -32,5 +37,8 @@ private:
 	int m_agentDelay;
 	SimDisplay* m_display;
 
+	Entity* m_camTarget;
+
 	void InitializeAgents(int numberAgents);
+
 };
