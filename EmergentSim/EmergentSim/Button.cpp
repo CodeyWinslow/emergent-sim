@@ -21,7 +21,7 @@ void Button::SetBackColor(SDL_Color color)
 	m_backColor = color;
 }
 
-void Button::Render()
+void Button::Render() const
 {
 	if (m_renderer == nullptr)
 		return;

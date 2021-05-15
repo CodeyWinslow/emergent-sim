@@ -69,48 +69,6 @@ void Sandbox::SetupSandbox()
     }
 
     return;
-
-    /*float max_wall_percent = MAX_WALL_PERCENT;
-    float min_wall_percent = MIN_WALL_PERCENT;
-    float totalPercent = MAX_RESOURCE_PERCENT + MAX_WALL_PERCENT;
-    if (totalPercent > 1)
-    {
-        max_wall_percent = MAX_WALL_PERCENT / totalPercent;
-        min_wall_percent = MIN_WALL_PERCENT / totalPercent;
-    }
-
-    int cells = m_width * m_height;
-    int max_walls = (int)(cells * max_wall_percent);
-    int min_walls = (int)(cells * min_wall_percent);
-    int num_walls = (rand() % max_walls) + min_walls;
-    int num_resources = rand() % (cells - num_walls);
-
-    for (int i = 0; i < num_walls; ++i)
-    {
-        int randomX = rand() % m_height;
-        int randomY = rand() % m_width;
-        if (Perlin::compute(randomX, randomY) < 0.5f)
-        {
-            Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
-            Transform transform(randomX, randomY, randomDir);
-            Wall* ent = new Wall(transform);
-            if (!RandomlyPlaceEntity(ent))
-                throw string("Failed to place entity. Not enough space");
-        }
-        else
-            --i;
-    }
-
-    for (int i = 0; i < num_resources; ++i)
-    {
-        int randomX = rand() % m_height;
-        int randomY = rand() % m_width;
-        Transform::Direction randomDir = (Transform::Direction)(rand() % 4);
-        Transform transform(randomX, randomY, randomDir);
-        Resource* ent = new Resource(transform);
-        if (!RandomlyPlaceEntity(ent))
-            throw string("Failed to place entity. Not enough space");
-    }*/
 }
 
 bool Sandbox::RandomlyPlaceEntity(EntityPtr ent)
@@ -137,7 +95,7 @@ static T Clamp(T val, Q min, Z max)
     return val;
 }
 
-static bool HasLineOfSight(EntityPtr me, EntityPtr them, Sandbox* sandbox)
+static bool HasLineOfSight(const EntityPtr me, const EntityPtr them, const Sandbox* sandbox)
 {
     if (me.get() == them.get()) return false;
 
@@ -201,7 +159,7 @@ static bool HasLineOfSight(EntityPtr me, EntityPtr them, Sandbox* sandbox)
     return false;
 }
 
-vector<EntityPtr> Sandbox::GetEntitiesInView(EntityPtr ent, unsigned int distance)
+vector<EntityPtr> Sandbox::GetEntitiesInView(const EntityPtr ent, unsigned int distance) const
 {
     vector<EntityPtr> entities{};
     int _distance = (int)distance;
@@ -282,18 +240,18 @@ bool Sandbox::MoveEntity(EntityPtr ent, Transform destination)
     return true;
 }
 
-bool Sandbox::RemoveEntity(EntityPtr ent)
+bool Sandbox::RemoveEntity(const EntityPtr ent)
 {
     if (ent.get() == nullptr) return false;
 
     Transform transform = ent->GetTransform();
-    EntityPtr entity = At(transform);
+    const EntityPtr entity = At(transform);
     m_sandbox[transform.x][transform.y] = EntityPtr{ nullptr };
 
     return true;
 }
 
-EntityPtr Sandbox::At(Transform transform)
+const EntityPtr Sandbox::At(Transform transform) const
 {
     if (transform.x >= m_width || transform.x < 0
         || transform.y >= m_height || transform.y < 0) 

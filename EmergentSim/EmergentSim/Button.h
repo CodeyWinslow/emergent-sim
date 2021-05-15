@@ -13,7 +13,7 @@ namespace EmergentGraphics
 
 		void SetBackColor(SDL_Color color);
 
-		virtual void Render();
+		virtual void Render() const;
 
 		void HandleButtonDown(SDL_MouseButtonEvent& e);
 		void HandleButtonUp(SDL_MouseButtonEvent& e);

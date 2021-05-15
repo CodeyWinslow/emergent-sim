@@ -2,7 +2,7 @@
 
 using namespace Agents;
 
-bool Behavior::_Execute(EntityPtr me, EntityPtr other)
+bool Behavior::_Execute(EntityPtr me, const EntityPtr other)
 {
 	for (ActionPtr& action : m_actions)
 		if (!action->Execute(me)) return false;

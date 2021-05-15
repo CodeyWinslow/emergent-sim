@@ -7,6 +7,6 @@ namespace EmergentGraphics
 	class IRenderable
 	{
 	public:
-		virtual void Draw(Camera* camera) = 0;
+		virtual void Draw(Camera* camera) const = 0;
 	};
 }

@@ -19,10 +19,11 @@ class Entity : public IRenderable
 {
 public:
 	Entity(Transform transform, SDL_Color color) : m_transform(transform), m_color(color) {};
-	inline virtual EntityType GetType() = 0;
+	inline virtual const EntityType GetType() const = 0;
 	inline virtual Transform GetTransform() { return m_transform; }
+	inline virtual const Transform GetTransform() const { return m_transform; }
 
-	inline virtual void Draw(Camera* camera) { camera->Draw(m_transform, m_color); }
+	inline virtual void Draw(Camera* camera) const { camera->Draw(m_transform, m_color); }
 
 	Transform m_transform;
 protected:

@@ -90,6 +90,9 @@ void GameController::Handle(SDL_Event& e)
 	case SDL_MOUSEBUTTONDOWN:
 		if (e.button.button == SDL_BUTTON_LEFT)
 		{
+			if (m_display->GetUI().IsHovering())
+				return;
+
 			SDL_Rect mousePos;
 			SDL_GetMouseState(&mousePos.x, &mousePos.y);
 			Transform worldPos = m_display->GetCamera()->CameraToWorld(mousePos);

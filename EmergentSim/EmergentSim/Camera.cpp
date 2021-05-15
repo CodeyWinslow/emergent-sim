@@ -68,7 +68,7 @@ void Camera::Handle(SDL_Event& e)
 	}
 }
 
-SDL_Rect Camera::WorldToCamera(Transform worldTransform, int width, int height)
+SDL_Rect Camera::WorldToCamera(Transform worldTransform, int width, int height) const
 {
 	SDL_Rect rend = {};
 	rend.h = height * m_pixelsPerUnit *m_zoomMultiplier;
@@ -80,7 +80,7 @@ SDL_Rect Camera::WorldToCamera(Transform worldTransform, int width, int height)
 	return rend;
 }
 
-Transform Camera::CameraToWorld(SDL_Rect pixelPos)
+Transform Camera::CameraToWorld(SDL_Rect pixelPos) const
 {
 	Transform pos(0,0,Transform::Direction::UP);
 	pos.x = (pixelPos.x + m_position.x) / (m_pixelsPerUnit * m_zoomMultiplier);
@@ -106,7 +106,7 @@ void Camera::RemoveShader(Shader* shader)
 	}
 }
 
-Transform Camera::GetMinBounds()
+Transform Camera::GetMinBounds() const
 {
 	Transform min = CameraToWorld({ 0,0 });
 	min.x--;
@@ -114,7 +114,7 @@ Transform Camera::GetMinBounds()
 	return min;
 }
 
-Transform Camera::GetMaxBounds()
+Transform Camera::GetMaxBounds() const
 {
 	Transform max = CameraToWorld({ m_width, m_height });
 	max.x++;
@@ -122,7 +122,7 @@ Transform Camera::GetMaxBounds()
 	return max;
 }
 
-void Camera::Focus(Transform worldTransform)
+void Camera::Focus(const Transform worldTransform)
 {
 	SDL_Rect screenPos = WorldToCamera(worldTransform);
 	//offset by half screen
@@ -132,7 +132,7 @@ void Camera::Focus(Transform worldTransform)
 	m_position.y += screenPos.y;
 }
 
-bool Camera::IsCullable(SDL_Rect obj)
+bool Camera::IsCullable(SDL_Rect obj) const
 {
 	if (obj.x + obj.w < 0)
 		return true;

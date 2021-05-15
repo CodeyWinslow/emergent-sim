@@ -17,7 +17,7 @@ ImageButton::~ImageButton()
  		SDL_DestroyTexture(m_imageTexture);
 }
 
-void ImageButton::Render()
+void ImageButton::Render() const
 {
 	if (m_renderer == nullptr)
 		return;

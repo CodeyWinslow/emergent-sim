@@ -7,3 +7,10 @@ UIComponent::UIComponent(SDL_Renderer* renderer, SDL_Rect bounds) :
 {}
 
 UIComponent::~UIComponent() {}
+
+bool EmergentGraphics::UIComponent::IsHovering() const
+{
+	SDL_Point mousePosition;
+	SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
+	return SDL_PointInRect(&mousePosition, &m_bounds);
+}

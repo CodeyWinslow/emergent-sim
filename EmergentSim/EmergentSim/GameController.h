@@ -41,5 +41,4 @@ private:
 	EntityPtr m_camTarget;
 
 	void InitializeAgents(int numberAgents);
-
 };

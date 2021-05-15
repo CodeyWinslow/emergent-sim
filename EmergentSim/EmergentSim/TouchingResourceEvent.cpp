@@ -19,7 +19,7 @@ vector<EventInfo> TouchingResourceEvent::Poll(EntityPtr me, vector<EntityPtr> en
 	Transform transform = me->GetTransform();
 	transform.Forward(1);
 
-	EntityPtr entity = s->At(transform);
+	const EntityPtr entity = s->At(transform);
 	if (entity.get() != nullptr && entity->GetType() == EntityType::RESOURCE)
 	{
 		EventInfo info{ GetId(), entity };

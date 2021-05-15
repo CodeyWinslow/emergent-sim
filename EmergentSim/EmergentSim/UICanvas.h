@@ -12,7 +12,9 @@ namespace EmergentGraphics
 		UICanvas(SDL_Renderer* renderer, SDL_Rect bounds);
 		virtual ~UICanvas();
 
-		virtual void Render();
+		virtual bool IsHovering() const override;
+
+		virtual void Render() const;
 
 	protected:
 		void AddComponent(UIComponent* component);

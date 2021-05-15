@@ -22,7 +22,7 @@ namespace EmergentGraphics
         ImageButton(SDL_Renderer* renderer, std::string imageFileName, SDL_Rect bounds, SDL_Color backColor);
         virtual ~ImageButton();
 
-        virtual void Render();
+        virtual void Render() const;
     protected:
         SDL_Texture* m_imageTexture;
     };

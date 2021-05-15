@@ -9,10 +9,10 @@ namespace Agents
 {
 	struct EventInfo final
 	{
-		inline EventInfo(unsigned int id, EntityPtr entity)
+		inline EventInfo(unsigned int id, const EntityPtr entity)
 			: id(id), entity(entity) {}
 
 		unsigned int id;
-		EntityPtr entity;
+		const EntityPtr entity;
 	};
 }
