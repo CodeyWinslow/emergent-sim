@@ -15,16 +15,16 @@ class Sandbox
 public:
 	Sandbox(int width, int height);
 	~Sandbox();
-	inline int GetWidth() { return m_width; }
-	int GetHeight() { return m_height; }
-	inline Entity* GetEntity(int x, int y) { return m_sandbox[x][y]; }
+	inline int GetWidth() const { return m_width; }
+	inline int GetHeight() const { return m_height; }
+	inline const Entity* GetEntity(int x, int y) const { return m_sandbox[x][y]; }
 
 	bool RandomlyPlaceEntity(Entity* ent);
 	bool PlaceEntity(Entity* ent, int x, int y);
 	bool MoveEntity(Entity* ent, Transform destination);
-	bool RemoveEntity(Entity* ent);
-	Entity* At(Transform transform);
-	vector<Entity*> GetEntitiesInView(Entity* ent, unsigned int distance);
+	bool RemoveEntity(const Entity* ent);
+	const Entity* At(Transform transform) const;
+	vector<Entity*> GetEntitiesInView(const Entity* ent, unsigned int distance) const;
 private:
 	void SetupSandbox();
 

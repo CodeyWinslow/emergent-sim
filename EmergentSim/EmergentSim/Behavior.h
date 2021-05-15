@@ -17,7 +17,7 @@ namespace Agents
 		// IOC to execute behavior with guarantee
 		// of nullptr safety
 		//****************************************
-		inline bool Execute(Entity* me, Entity* other)
+		inline bool Execute(Entity* me, const Entity* other)
 		{
 			runtime_assert(me != nullptr);
 			return _Execute(me, other);
@@ -27,7 +27,7 @@ namespace Agents
 		// me is guaranteed not to be nullptr,
 		// other may be nullptr
 		//****************************************
-		virtual bool _Execute(Entity* me, Entity* other);
+		virtual bool _Execute(Entity* me, const Entity* other);
 
 		vector<ActionPtr> m_actions{};
 	};

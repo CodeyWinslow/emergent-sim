@@ -19,7 +19,7 @@ namespace Agents
 		//**********************************************
 		// Selects a random behavior from m_behaviors
 		//**********************************************
-		virtual void React(Entity* me, Entity* other);
+		virtual void React(Entity* me, const Entity* other);
 	protected:
 		vector<Behavior> m_behaviors{};
 	};

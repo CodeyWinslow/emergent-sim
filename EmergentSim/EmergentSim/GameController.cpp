@@ -90,13 +90,16 @@ void GameController::Handle(SDL_Event& e)
 	case SDL_MOUSEBUTTONDOWN:
 		if (e.button.button == SDL_BUTTON_LEFT)
 		{
+			if (m_display->GetUI().IsHovering())
+				return;
+
 			SDL_Rect mousePos;
 			SDL_GetMouseState(&mousePos.x, &mousePos.y);
 			Transform worldPos = m_display->GetCamera()->CameraToWorld(mousePos);
 			if (worldPos.x >= 0 && worldPos.x < m_sandbox.GetWidth()
 				&& worldPos.y >= 0 && worldPos.y < m_sandbox.GetHeight())
 			{
-				Entity* clicked = m_sandbox.GetEntity(worldPos.x, worldPos.y);
+				const Entity* clicked = m_sandbox.GetEntity(worldPos.x, worldPos.y);
 				if (clicked != nullptr)
 					m_camTarget = clicked;
 			}

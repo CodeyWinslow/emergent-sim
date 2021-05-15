@@ -36,6 +36,9 @@ namespace EmergentGraphics
 		bool Update();
 		void Handle(SDL_Event& e);
 		Camera* GetCamera();
+		const Camera* GetCamera() const;
+
+		UIComponent& const GetUI() const;
 
 	private:
 		//settings

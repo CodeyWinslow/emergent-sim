@@ -131,7 +131,7 @@ static T Clamp(T val, Q min, Z max)
     return val;
 }
 
-static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
+static bool HasLineOfSight(const Entity* me, const Entity* them, const Sandbox* sandbox)
 {
     if (me == them) return false;
 
@@ -195,7 +195,7 @@ static bool HasLineOfSight(Entity* me, Entity* them, Sandbox* sandbox)
     return false;
 }
 
-vector<Entity*> Sandbox::GetEntitiesInView(Entity* ent, unsigned int distance)
+vector<Entity*> Sandbox::GetEntitiesInView(const Entity* ent, unsigned int distance) const
 {
     vector<Entity*> entities{};
     int _distance = (int)distance;
@@ -274,18 +274,18 @@ bool Sandbox::MoveEntity(Entity* ent, Transform destination)
     return true;
 }
 
-bool Sandbox::RemoveEntity(Entity* ent)
+bool Sandbox::RemoveEntity(const Entity* ent)
 {
     if (ent == nullptr) return false;
 
     Transform transform = ent->GetTransform();
-    Entity* entity = At(transform);
+    const Entity* entity = At(transform);
     m_sandbox[transform.x][transform.y] = nullptr;
 
     return true;
 }
 
-Entity* Sandbox::At(Transform transform)
+const Entity* Sandbox::At(Transform transform) const
 {
     if (transform.x >= m_width || transform.x < 0
         || transform.y >= m_height || transform.y < 0) 

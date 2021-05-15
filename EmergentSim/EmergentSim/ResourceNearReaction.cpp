@@ -16,7 +16,7 @@ ResourceNearReaction::ResourceNearReaction() noexcept
 	};
 }
 
-void ResourceNearReaction::React(Entity* me, Entity* other)
+void ResourceNearReaction::React(Entity* me, const Entity* other)
 {
 	Transform myTransform = me->GetTransform();
 	Transform theirTransform = other->GetTransform();

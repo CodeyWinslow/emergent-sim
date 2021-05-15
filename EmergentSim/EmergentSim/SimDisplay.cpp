@@ -92,6 +92,16 @@ Camera* SimDisplay::GetCamera()
 	return &m_cam;
 }
 
+const Camera* SimDisplay::GetCamera() const
+{
+	return &m_cam;
+}
+
+UIComponent& const EmergentGraphics::SimDisplay::GetUI() const
+{
+	return *(m_ui);
+}
+
 void SimDisplay::SubscribeToInput()
 {
 	InputManager::GetInstance().SubscribeEvent(InputEvent::QUIT, this);
@@ -123,7 +133,7 @@ void SimDisplay::DrawEntities()
 	{
 		for (int y = beginY; y < endY; ++y)
 		{
-			Entity* entity = m_sandbox.GetEntity(x, y);
+			const Entity* entity = m_sandbox.GetEntity(x, y);
 			if (entity) entity->Draw(&m_cam);
 		}
 	}

@@ -15,7 +15,18 @@ UICanvas::~UICanvas()
 	m_uiComponents = vector<UIComponent*>();
 }
 
-void UICanvas::Render()
+bool EmergentGraphics::UICanvas::IsHovering() const
+{
+	for (const UIComponent* comp : m_uiComponents)
+	{
+		if (comp->IsHovering())
+			return true;
+	}
+
+	return false;
+}
+
+void UICanvas::Render() const
 {
 	for (UIComponent* component : m_uiComponents)
 	{

@@ -18,7 +18,7 @@ Agent::Agent(Transform transform, SDL_Color color) noexcept
 	};
 }
 
-void Agents::Agent::Draw(Camera* cam)
+void Agents::Agent::Draw(Camera* cam) const
 {
 	Entity::Draw(cam);
 

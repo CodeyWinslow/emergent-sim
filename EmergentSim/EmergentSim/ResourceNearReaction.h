@@ -12,7 +12,7 @@ namespace Agents
 		//****************************************
 		// Move toward the food
 		//****************************************
-		void React(Entity* me, Entity* other) override;
+		void React(Entity* me, const Entity* other) override;
 	private:
 
 	};

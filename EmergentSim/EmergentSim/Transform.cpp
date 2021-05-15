@@ -32,7 +32,7 @@ void Transform::Turn(int numTimes)
 	direction = static_cast<Direction>(dir % 4);
 }
 
-float Transform::Distance(Transform t)
+float Transform::Distance(Transform t) const
 {
 	double _x = x > t.x ? x - t.x : t.x - x;
 	double _y = y > t.y ? y - t.y : t.y - y;

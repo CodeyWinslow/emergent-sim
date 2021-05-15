@@ -37,8 +37,7 @@ private:
 	int m_agentDelay;
 	SimDisplay* m_display;
 
-	Entity* m_camTarget;
+	const Entity* m_camTarget;
 
 	void InitializeAgents(int numberAgents);
-
 };

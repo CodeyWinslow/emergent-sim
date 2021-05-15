@@ -18,12 +18,12 @@ namespace Agents
 		Agent(Transform transform = Transform{ 0, 0, Transform::Direction::DOWN }, SDL_Color color = { 214, 115, 13, 255 }) noexcept;
 		virtual void ProcessEvents(vector<EventInfo> events);
 
-		inline virtual EntityType GetType()
+		inline virtual const EntityType GetType() const
 		{
 			return EntityType::AGENT;
 		}
 
-		virtual void Draw(Camera* cam) override;
+		virtual void Draw(Camera* cam) const override;
 	protected:
 		ReactionPtr GetReaction(int eventId);
 

@@ -16,14 +16,14 @@ namespace EmergentGraphics
 		void Draw(Transform obj, SDL_Color color, int width = 1, int height = 1);
 		void Draw(SDL_Rect obj, SDL_Color color);
 		void Handle(SDL_Event& e);
-		SDL_Rect WorldToCamera(Transform worldTransform, int width = 1, int height = 1);
-		Transform CameraToWorld(SDL_Rect worldTransform);
+		SDL_Rect WorldToCamera(Transform worldTransform, int width = 1, int height = 1) const;
+		Transform CameraToWorld(SDL_Rect worldTransform) const;
 		inline void SetRenderer(SDL_Renderer* renderer) { m_renderer = renderer; }
 		void ApplyShader(Shader* shader);
 		void RemoveShader(Shader* shader);
-		Transform GetMinBounds();
-		Transform GetMaxBounds();
-		void Focus(Transform worldTransform);
+		Transform GetMinBounds() const;
+		Transform GetMaxBounds() const;
+		void Focus(const Transform worldTransform);
 
 	private:
 		SDL_Renderer* m_renderer;
@@ -38,7 +38,7 @@ namespace EmergentGraphics
 		bool m_mousePressed = false;
 		std::vector<Shader*> m_shaders;
 
-		bool IsCullable(SDL_Rect obj);
+		bool IsCullable(SDL_Rect obj) const;
 		void MiddleButtonDown();
 		void MiddleButtonUp();
 		void MouseMoved(SDL_MouseMotionEvent& e);

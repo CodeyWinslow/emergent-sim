@@ -6,7 +6,7 @@
 
 using namespace Agents;
 
-void Reaction::React(Entity* me, Entity* other)
+void Reaction::React(Entity* me, const Entity* other)
 {
 	if (m_behaviors.empty()) return;
 

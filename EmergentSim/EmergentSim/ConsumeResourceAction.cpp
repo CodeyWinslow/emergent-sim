@@ -10,7 +10,7 @@ bool ConsumeResourceAction::_Execute(Entity* entity)
 	Transform transform = entity->GetTransform();
 	transform.Forward(1);
 
-	Entity* other = s->At(transform);
+	const Entity* other = s->At(transform);
 	if (other == nullptr) return false;
 
 	s->RemoveEntity(other);
