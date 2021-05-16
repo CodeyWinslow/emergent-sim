@@ -173,6 +173,7 @@
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IdleReaction.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PanelButton.cpp" />
     <ClCompile Include="PauseButton.cpp" />
     <ClCompile Include="MoveForwardAction.cpp" />
     <ClCompile Include="Perlin.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="ShrinkShader.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
+    <ClCompile Include="ToolsPanel.cpp" />
     <ClCompile Include="TouchingResourceEvent.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TurnAction.cpp" />
@@ -211,6 +213,7 @@
     <ClInclude Include="ImageButton.h" />
     <ClInclude Include="IRenderable.h" />
     <ClInclude Include="MoveForwardAction.h" />
+    <ClInclude Include="PanelButton.h" />
     <ClInclude Include="Perlin.h" />
     <ClInclude Include="Reaction.h" />
     <ClInclude Include="IEventObserver.h" />
@@ -228,6 +231,7 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShrinkShader.h" />
     <ClInclude Include="SimDisplay.h" />
+    <ClInclude Include="ToolsPanel.h" />
     <ClInclude Include="TouchingResourceEvent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TurnAction.h" />
