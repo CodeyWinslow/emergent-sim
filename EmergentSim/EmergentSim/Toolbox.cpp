@@ -25,21 +25,21 @@ void Toolbox::UseTool(Tool tool, Sandbox* sandbox, int x, int y)
 void Toolbox::PlaceWall(Sandbox* sandbox, int x, int y)
 {
 	Transform trans(0,0,Transform::Direction::UP);
-	Wall* wall = new Wall(trans);
+	EntityPtr wall{ new Wall(trans) };
 	sandbox->PlaceEntity(wall, x, y);
 }
 
 void Toolbox::PlaceAgent(Sandbox* sandbox, int x, int y)
 {
 	Transform trans(0, 0, Transform::Direction::UP);
-	Agents::Agent* agent= new Agents::Agent(trans);
+	EntityPtr agent{ new Agents::Agent(trans) };
 	sandbox->PlaceEntity(agent, x, y);
 }
 
 void Toolbox::PlaceResource(Sandbox* sandbox, int x, int y)
 {
 	Transform trans(0, 0, Transform::Direction::UP);
-	Resource* resource = new Resource(trans);
+	EntityPtr resource { new Resource(trans) };
 	sandbox->PlaceEntity(resource, x, y);
 }
 
