@@ -3,6 +3,7 @@
 #include "Sandbox.h"
 #include "AgentController.h"
 #include "SimDisplay.h"
+#include "Toolbox.h"
 
 using namespace Agents;
 using namespace EmergentGraphics;
@@ -19,26 +20,28 @@ public:
 	void Pause();
 	void Resume();
 	void Restart();
-
-	// Inherited via IEventObserver
-	virtual void Handle(SDL_Event& e) override;
-
 	void Untarget();
+	inline bool IsPlaying() { return m_playing; }
+	inline Tool GetCurrentTool() { return m_currentTool; }
+	inline void SetCurrentTool(Tool tool) { m_currentTool = tool; }
 
 	inline Sandbox* GetSandbox() { return &m_sandbox; }
 
-	inline bool IsPlaying() { return m_playing; }
+	virtual void Handle(SDL_Event& e) override;
 
 private:
 	static GameController* m_instance;
+
 	bool m_playing;
-	Sandbox m_sandbox;
-	AgentController m_agentController;
 	int m_numAgents;
 	int m_agentDelay;
-	SimDisplay* m_display;
 
 	EntityPtr m_camTarget;
+	Tool m_currentTool = Tool::NONE;
+
+	Sandbox m_sandbox;
+	AgentController m_agentController;
+	SimDisplay* m_display;
 
 	void InitializeAgents(int numberAgents);
 };

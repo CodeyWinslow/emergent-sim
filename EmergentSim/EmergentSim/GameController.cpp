@@ -96,12 +96,18 @@ void GameController::Handle(SDL_Event& e)
 			SDL_Rect mousePos;
 			SDL_GetMouseState(&mousePos.x, &mousePos.y);
 			Transform worldPos = m_display->GetCamera()->CameraToWorld(mousePos);
+
 			if (worldPos.x >= 0 && worldPos.x < m_sandbox.GetWidth()
 				&& worldPos.y >= 0 && worldPos.y < m_sandbox.GetHeight())
 			{
-				EntityPtr clicked = m_sandbox.GetEntity(worldPos.x, worldPos.y);
-				if (clicked != nullptr)
-					m_camTarget = clicked;
+				if (m_currentTool == Tool::NONE)
+				{
+					EntityPtr clicked = m_sandbox.GetEntity(worldPos.x, worldPos.y);
+					if (clicked != nullptr)
+						m_camTarget = clicked;
+				}
+				else
+					Toolbox::UseTool(m_currentTool, &m_sandbox, worldPos.x, worldPos.y);
 			}
 		}
 		break;

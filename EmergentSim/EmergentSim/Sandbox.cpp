@@ -245,8 +245,8 @@ bool Sandbox::RemoveEntity(const EntityPtr ent)
     if (ent.get() == nullptr) return false;
 
     Transform transform = ent->GetTransform();
-    const EntityPtr entity = At(transform);
-    m_sandbox[transform.x][transform.y] = EntityPtr{ nullptr };
+    //const Entity* entity = At(transform);
+    m_sandbox[transform.x][transform.y] = nullptr;
 
     return true;
 }

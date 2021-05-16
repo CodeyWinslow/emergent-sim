@@ -166,6 +166,7 @@
     <ClCompile Include="ConsumeResourceReaction.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DefaultSimDisplay.cpp" />
+    <ClCompile Include="DestroyToolButton.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -186,6 +187,8 @@
     <ClCompile Include="SDL_Logger.cpp" />
     <ClCompile Include="ShrinkShader.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
+    <ClCompile Include="ToggleButton.cpp" />
+    <ClCompile Include="Toolbox.cpp" />
     <ClCompile Include="ToolsPanel.cpp" />
     <ClCompile Include="UIComponentFloodPanel.cpp" />
     <ClCompile Include="UIComponentPanel.cpp" />
@@ -205,6 +208,7 @@
     <ClInclude Include="ConsumeResourceReaction.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="DefaultSimDisplay.h" />
+    <ClInclude Include="DestroyToolButton.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Action.h" />
     <ClInclude Include="Event.h" />
@@ -233,6 +237,8 @@
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShrinkShader.h" />
     <ClInclude Include="SimDisplay.h" />
+    <ClInclude Include="ToggleButton.h" />
+    <ClInclude Include="Toolbox.h" />
     <ClInclude Include="ToolsPanel.h" />
     <ClInclude Include="UIComponentFloodPanel.h" />
     <ClInclude Include="UIComponentPanel.h" />
