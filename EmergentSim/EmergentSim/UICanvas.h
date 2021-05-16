@@ -18,7 +18,6 @@ namespace EmergentGraphics
 
 	protected:
 		void AddComponent(UIComponent* component);
-	private:
 		vector<UIComponent*> m_uiComponents;
 	};
 }

@@ -4,8 +4,6 @@
 
 namespace EmergentGraphics
 {
-    class ToolsPanel;
-
     class PanelButton :
         public Button
     {

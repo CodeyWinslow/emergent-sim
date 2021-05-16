@@ -10,6 +10,9 @@ UIComponent::~UIComponent() {}
 
 bool EmergentGraphics::UIComponent::IsHovering() const
 {
+	if (!m_enabled)
+		return false;
+
 	SDL_Point mousePosition;
 	SDL_GetMouseState(&mousePosition.x, &mousePosition.y);
 	return SDL_PointInRect(&mousePosition, &m_bounds);

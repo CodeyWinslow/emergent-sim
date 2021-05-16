@@ -18,5 +18,7 @@ DefaultSimDisplay::DefaultSimDisplay(SDL_Renderer* renderer, SDL_Rect bounds) :
 	AddComponent(new ResetButton(m_renderer,
 			{ bounds.w- 58, 10, 48, 48 }));
 
-	AddComponent(new ToolsPanel(m_renderer, { 10,10,200, bounds.h - 100 }, { 10,10,0,0 }));
+	//AddComponent(new UIComponentPanel(m_renderer, { 10,10,200, bounds.h - 100 }));
+	//AddComponent(new UIComponentFloodPanel(m_renderer, { 10,10 }, { 40,20 }, {5,0}, { 214, 161, 107, 220 }));
+	AddComponent(new ToolsPanel(m_renderer));
 }

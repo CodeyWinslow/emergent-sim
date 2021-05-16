@@ -23,7 +23,7 @@ void Button::SetBackColor(SDL_Color color)
 
 void Button::Render() const
 {
-	if (m_renderer == nullptr)
+	if (m_renderer == nullptr || !m_enabled)
 		return;
 
 	SDL_SetRenderDrawColor(m_renderer, m_backColor.r, m_backColor.g, m_backColor.b, m_backColor.a);
@@ -60,7 +60,8 @@ void Button::HandleButtonUp(SDL_MouseButtonEvent& e)
 			if (m_buttonPressed)
 			{
 				m_buttonPressed = false;
-				OnButtonClicked();
+				if (m_enabled)
+					OnButtonClicked();
 			}
 		}
 		else

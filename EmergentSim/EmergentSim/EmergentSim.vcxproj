@@ -187,6 +187,8 @@
     <ClCompile Include="ShrinkShader.cpp" />
     <ClCompile Include="SimDisplay.cpp" />
     <ClCompile Include="ToolsPanel.cpp" />
+    <ClCompile Include="UIComponentFloodPanel.cpp" />
+    <ClCompile Include="UIComponentPanel.cpp" />
     <ClCompile Include="TouchingResourceEvent.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="TurnAction.cpp" />
@@ -232,6 +234,8 @@
     <ClInclude Include="ShrinkShader.h" />
     <ClInclude Include="SimDisplay.h" />
     <ClInclude Include="ToolsPanel.h" />
+    <ClInclude Include="UIComponentFloodPanel.h" />
+    <ClInclude Include="UIComponentPanel.h" />
     <ClInclude Include="TouchingResourceEvent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="TurnAction.h" />
