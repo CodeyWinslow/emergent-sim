@@ -32,6 +32,7 @@ void EmergentGraphics::UIComponentFloodPanel::ResizePanelAroundComponents()
 
 	m_closeButton->SetBounds({ m_bounds.x + m_bounds.w + m_buttonMargin.x,
 							m_bounds.y + m_buttonMargin.y, 20, 20 });
+	m_closeButtonImage->SetBounds(m_closeButton->GetBounds());
 }
 
 void EmergentGraphics::UIComponentFloodPanel::PanelButtonClicked()

@@ -1,6 +1,7 @@
 #pragma once
 #include "UICanvas.h"
 #include "Button.h"
+#include "ButtonImage.h"
 
 namespace EmergentGraphics
 {
@@ -17,6 +18,9 @@ namespace EmergentGraphics
         virtual bool IsHovering() const override;
 
     protected:
+        const std::string m_openButtonFilePath = "res/img/plus.png";
+        const std::string m_closeButtonFilePath = "res/img/minus.png";
+
         bool m_opened = true;
 
         SDL_Point m_padding;
@@ -27,6 +31,8 @@ namespace EmergentGraphics
         //SDL_Rect m_closedBounds;
         Button* m_openButton;
         Button* m_closeButton;
+        ButtonImage* m_openButtonImage;
+        ButtonImage* m_closeButtonImage;
 
         virtual void PanelButtonClicked();
     };

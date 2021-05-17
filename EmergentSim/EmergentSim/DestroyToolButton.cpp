@@ -1,8 +1,21 @@
 #include "DestroyToolButton.h"
 
 EmergentGraphics::DestroyToolButton::DestroyToolButton(SDL_Renderer* renderer, SDL_Rect bounds, SDL_Color offColor, SDL_Color onColor) :
-	ToggleButton::ToggleButton(renderer, bounds, offColor, onColor), m_gameInstance(GameController::GetInstance())
+	ToggleButton::ToggleButton(renderer, bounds, offColor, onColor), m_gameInstance(GameController::GetInstance()),
+	m_image(renderer, m_imageFilePath, bounds)
 {}
+
+void EmergentGraphics::DestroyToolButton::Render() const
+{
+	ToggleButton::Render();
+	m_image.Render();
+}
+
+void EmergentGraphics::DestroyToolButton::SetBounds(SDL_Rect bounds)
+{
+	ToggleButton::SetBounds(bounds);
+	m_image.SetBounds(bounds);
+}
 
 void EmergentGraphics::DestroyToolButton::SyncState()
 {

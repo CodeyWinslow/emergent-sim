@@ -10,13 +10,16 @@ EmergentGraphics::UIComponentPanel::UIComponentPanel(SDL_Renderer* renderer, SDL
 
 	SDL_Rect closeButtonBounds = {m_bounds.x + m_bounds.w + m_buttonMargin.x,
 									m_bounds.y + m_buttonMargin.y,
-									20, 20};
+									24, 24};
 	SDL_Rect openButtonBounds = { m_bounds.x + 10,
 									m_bounds.y,
-									20, 20 };
+									24, 24 };
 	m_openButton = new PanelButton(renderer, openButtonBounds, { 28,212,98,165 }, onClick);
 	m_closeButton = new PanelButton(renderer, closeButtonBounds, { 250,87,117,165 }, onClick);
+	m_openButtonImage = new ButtonImage(m_renderer, m_openButtonFilePath, openButtonBounds);
+	m_closeButtonImage = new ButtonImage(m_renderer, m_closeButtonFilePath, closeButtonBounds);
 	m_openButton->SetActive(false);
+	m_openButtonImage->SetActive(false);
 	//create things inside
 }
 
@@ -24,6 +27,8 @@ EmergentGraphics::UIComponentPanel::~UIComponentPanel()
 {
 	delete m_openButton;
 	delete m_closeButton;
+	delete m_openButtonImage;
+	delete m_closeButtonImage;
 }
 
 
@@ -40,6 +45,8 @@ void EmergentGraphics::UIComponentPanel::Render() const
 
 	m_closeButton->Render();
 	m_openButton->Render();
+	m_closeButtonImage->Render();
+	m_openButtonImage->Render();
 }
 
 bool EmergentGraphics::UIComponentPanel::IsHovering() const
@@ -65,7 +72,9 @@ void EmergentGraphics::UIComponentPanel::PanelButtonClicked()
 			comp->SetActive(true);
 		}
 		m_openButton->SetActive(false);
+		m_openButtonImage->SetActive(false);
 		m_closeButton->SetActive(true);
+		m_closeButtonImage->SetActive(true);
 	}
 	else
 	{
@@ -74,6 +83,8 @@ void EmergentGraphics::UIComponentPanel::PanelButtonClicked()
 			comp->SetActive(false);
 		}
 		m_openButton->SetActive(true);
+		m_openButtonImage->SetActive(true);
 		m_closeButton->SetActive(false);
+		m_closeButtonImage->SetActive(false);
 	}
 }

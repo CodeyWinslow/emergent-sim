@@ -11,8 +11,8 @@ namespace EmergentGraphics
 		virtual ~UIComponent();
 
 		inline void SetActive(bool enabled) { m_enabled = enabled; }
-		inline SDL_Rect GetBounds() const { return m_bounds; }
-		inline void SetBounds(SDL_Rect bounds) { m_bounds = bounds; }
+		inline virtual SDL_Rect GetBounds() const { return m_bounds; }
+		inline virtual void SetBounds(SDL_Rect bounds) { m_bounds = bounds; }
 
 		virtual bool IsHovering() const;
 

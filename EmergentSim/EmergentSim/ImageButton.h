@@ -2,19 +2,11 @@
 
 #include <string>
 #include "Button.h"
+#include "ButtonImage.h"
 #include "SDL_image.h"
 
 namespace EmergentGraphics
 {
-    class FileException
-    {
-    public:
-        FileException(std::string message) : m_message(message) {}
-        inline std::string GetMessage() { return m_message; }
-    private:
-        std::string m_message;
-    };
-
     class ImageButton :
         public Button
     {
