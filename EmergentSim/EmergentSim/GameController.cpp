@@ -1,5 +1,6 @@
 #include "GameController.h"
 #include "InputManager.h"
+#include "EntityGC.h"
 
 GameController::GameController(int numberAgents, int agentDelay, int sandboxWidth, int sandboxHeight, SimDisplaySettings windowSettings) :
 	m_sandbox(sandboxWidth, sandboxHeight), m_agentController(),
@@ -61,6 +62,7 @@ void GameController::Resume()
 
 void GameController::Restart()
 {
+	EntityGC::GetInstance().Clear();
 	int sbWidth = m_sandbox.GetWidth();
 	int sbHeight = m_sandbox.GetHeight();
 	m_sandbox = Sandbox(sbWidth, sbHeight);

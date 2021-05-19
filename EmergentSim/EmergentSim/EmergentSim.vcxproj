@@ -145,6 +145,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>26812;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -168,6 +169,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DefaultSimDisplay.cpp" />
     <ClCompile Include="DestroyToolButton.cpp" />
+    <ClCompile Include="EntityGC.cpp" />
     <ClCompile Include="EventInfo.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="GameController.cpp" />
@@ -217,6 +219,7 @@
     <ClInclude Include="EventCodes.h" />
     <ClInclude Include="EventInfo.h" />
     <ClInclude Include="GameController.h" />
+    <ClInclude Include="EntityGC.h" />
     <ClInclude Include="IdleReaction.h" />
     <ClInclude Include="ImageButton.h" />
     <ClInclude Include="IRenderable.h" />
